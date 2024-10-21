@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Generator</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Open+Sans&display=swap"
+        rel="stylesheet">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Color Palette Generator</h1>
+    </header>
+
+    <main>
+        <section class="color-input-section">
+            <!-- Eye Dropper Icon -->
+            <button id="eyedropperBtn" class="eyedropper-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-eyedropper"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.853a.5.5 0 1 0 .708.707L1.707 15H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708zM2 12.707l7-7L10.293 7l-7 7H2z">
+                    </path>
+                </svg>
+            </button>
+            
+            <!-- Color Picker Input -->
+            <input type="color" id="colorPicker" value="#4f4f4f">
+        
+            <!-- Text Input for HEX/RGB -->
+            <input type="text" id="colorValue" placeholder="Paste Hex or RGB value" value="#4f4f4f">
+        
+        
+            <!-- Toggle Switch and Generate Button (Unchanged) -->
+            <div class="toggle-switch">
+                <label class="switch">
+                    <input type="checkbox" id="colorFormatToggle">
+                    <span class="slider-switch"></span>
+                </label>
+                <span id="toggleLabel">HEX</span>
+            </div>
+            <button id="generateBtn">Generate Palette</button>
+        </section>
+
+
+        <section class="palette-tabs">
+            <ul>
+                <li class="tab active" data-palette="monochromatic">Monochromatic</li>
+                <li class="tab" data-palette="analogous">Analogous</li>
+                <li class="tab" data-palette="complementary">Complementary</li>
+                <li class="tab" data-palette="splitComplementary">Split Complementary</li>
+                <li class="tab" data-palette="triadic">Triadic</li>
+                <li class="tab" data-palette="tetradic">Tetradic</li>
+            </ul>
+        </section>
+
+        <section class="palette-display">
+            <!-- Color palettes will be displayed here -->
+        </section>
+    </main>
+
+    <footer>
+        <button id="downloadBtn">Download as JPEG</button>
+    </footer>
+
+    <!-- Include html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- External JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>
