@@ -1,4 +1,5 @@
 // DOM Elements
+const colorIcon = document.querySelector('.color-picker');
 const colorPicker = document.getElementById('colorPicker');
 const colorValue = document.getElementById('colorValue');
 const generateBtn = document.getElementById('generateBtn');
@@ -10,23 +11,55 @@ const downloadBtn = document.getElementById('downloadBtn');
 const eyedropperBtn = document.getElementById('eyedropperBtn');
 
 let lockedColors = {};
-let currentPaletteType = 'monochromatic';
+let currentPaletteType = 'monochromatic'; // Default palette type
 let currentColors = [];
 
-// Event Listeners
-generateBtn.addEventListener('click', generatePalettes);
-tabs.forEach(tab => tab.addEventListener('click', switchTab));
-colorFormatToggle.addEventListener('change', toggleColorFormat);
-downloadBtn.addEventListener('click', downloadPaletteImage);
+// Set initial color in the picker and input
+colorValue.value = colorPicker.value;
 
-// Update color picker and input fields when a color is selected
+// Event Listeners
+
+// Click on the color icon triggers the color picker dropdown
 colorPicker.addEventListener('input', function () {
     const selectedColor = colorPicker.value;
-    colorValue.value = selectedColor; // Update the text input
-    generatePalettes(); // Regenerate the palette with the new color
+    colorValue.value = selectedColor; // Update text input
+    generatePalettes(); // Regenerate the palettes based on the new color
 });
 
-// Check if EyeDropper API is supported
+// Sync text input color with color picker (when user types in HEX or RGB manually)
+colorValue.addEventListener('input', function () {
+    const inputColor = colorValue.value.trim();
+    if (isValidHex(inputColor)) {
+        colorPicker.value = inputColor.startsWith('#') ? inputColor : '#' + inputColor; // Update the color picker
+        generatePalettes(); // Regenerate the palettes based on the new input color
+    } else if (isValidRgb(inputColor)) {
+        const hexColor = rgbToHex(inputColor);
+        colorPicker.value = hexColor;
+        generatePalettes();
+    }
+});
+
+// Toggle between HEX and RGB formats
+colorFormatToggle.addEventListener('change', function () {
+    const format = colorFormatToggle.checked ? 'RGB' : 'HEX';
+    toggleLabel.innerText = format;
+    updateColorCodes(format);
+});
+
+// Generate palettes when the Generate button is clicked
+generateBtn.addEventListener('click', generatePalettes);
+
+// Tab switching functionality
+tabs.forEach(tab => {
+    tab.addEventListener('click', function () {
+        tabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        currentPaletteType = this.dataset.palette;
+        generatePalettes();
+    });
+});
+
+// EyeDropper API implementation
 if ('EyeDropper' in window) {
     // EyeDropper button click event
     eyedropperBtn.addEventListener('click', async () => {
@@ -51,106 +84,62 @@ if ('EyeDropper' in window) {
     eyedropperBtn.title = "Your browser does not support the EyeDropper API.";
 }
 
-// Update color in the text input and the icon when color is selected from picker
-colorPicker.addEventListener('input', function () {
-    const selectedColor = colorPicker.value;
-    colorValue.value = selectedColor; // Update text input
-    generatePalettes(); // Regenerate the palettes based on the new color
-});
-
-// Sync text input color with color picker (when user types in HEX or RGB manually)
-colorValue.addEventListener('input', function () {
-    const inputColor = colorValue.value;
-    if (isValidHex(inputColor) || isValidRgb(inputColor)) {
-        colorPicker.value = inputColor.startsWith('#') ? inputColor : rgbToHex(inputColor); // Update the hidden color picker
-        generatePalettes(); // Regenerate the palettes based on the new input color
-    }
-});
-
-// Toggle between HEX and RGB formats
-colorFormatToggle.addEventListener('change', function () {
-    const format = colorFormatToggle.checked ? 'RGB' : 'HEX';
-    toggleLabel.innerText = format;
-
-    if (format === 'RGB') {
-        colorValue.value = hexToRgb(colorPicker.value);
-    } else {
-        colorValue.value = colorPicker.value;
-    }
-});
-
-// Function to generate random HEX color
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-
-// Switch between different palette types
-function switchTab(e) {
-    tabs.forEach(tab => tab.classList.remove('active'));
-    e.target.classList.add('active');
-    currentPaletteType = e.target.dataset.palette;
-    generatePalettes();
-}
+// Download palette as JPEG
+downloadBtn.addEventListener('click', downloadPaletteImage);
 
 // Generate palettes based on the selected palette type
 function generatePalettes() {
     const baseColor = colorPicker.value; // Use the current value of the color picker
     let paletteColors = [];
 
+    // Initialize the paletteColors array
     for (let i = 0; i < 8; i++) {
+        paletteColors[i] = '';
+    }
+
+    // Generate colors based on the selected palette type
+    switch (currentPaletteType) {
+        case 'monochromatic':
+            paletteColors = generateMonochromatic(baseColor);
+            break;
+        case 'analogous':
+            paletteColors = generateAnalogous(baseColor);
+            break;
+        case 'complementary':
+            paletteColors = generateComplementary(baseColor);
+            break;
+        case 'splitComplementary':
+            paletteColors = generateSplitComplementary(baseColor);
+            break;
+        case 'triadic':
+            paletteColors = generateTriadic(baseColor);
+            break;
+        case 'tetradic':
+            paletteColors = generateTetradic(baseColor);
+            break;
+        case 'square':
+            paletteColors = generateSquare(baseColor);
+            break;
+        case 'powerpointTheme': // PowerPoint Monochromatic Theme
+            paletteColors = generatePowerPointTheme(); // Generate monochromatic theme for PowerPoint Accents 1-6
+            break;
+        default:
+            paletteColors = generateMonochromatic(baseColor);
+    }
+
+    // Apply locked colors
+    for (let i = 0; i < paletteColors.length; i++) {
         if (lockedColors[i]) {
-            paletteColors[i] = lockedColors[i];
-        } else {
-            switch (currentPaletteType) {
-                case 'monochromatic':
-                    paletteColors = generateMonochromatic(baseColor);
-                    break;
-                case 'analogous':
-                    paletteColors = generateAnalogous(baseColor);
-                    break;
-                case 'complementary':
-                    paletteColors = generateComplementary(baseColor);
-                    break;
-                case 'splitComplementary':
-                    paletteColors = generateSplitComplementary(baseColor);
-                    break;
-                case 'triadic':
-                    paletteColors = generateTriadic(baseColor);
-                    break;
-                case 'tetradic':
-                    paletteColors = generateTetradic(baseColor);
-                    break;
-                default:
-                    paletteColors = generateMonochromatic(baseColor);
-            }
+            paletteColors[i] = lockedColors[i]; // Use locked color
         }
     }
 
     currentColors = paletteColors;
-    displayPalette(paletteColors);
-}
-
-
-// Parse color input from the user
-function parseColorInput() {
-    let colorInput = colorValue.value.trim() || colorPicker.value;
-    if (isValidHex(colorInput)) {
-        return colorInput.startsWith('#') ? colorInput : '#' + colorInput;
-    } else if (isValidRgb(colorInput)) {
-        return rgbToHex(colorInput);
-    } else {
-        return null;
-    }
+    displayPalette(paletteColors); // Display the generated colors
 }
 
 // Display the palette on the page
 function displayPalette(colors) {
-    const paletteDisplay = document.querySelector('.palette-display');
     paletteDisplay.innerHTML = '';
     colors.forEach((color, index) => {
         const swatch = document.createElement('div');
@@ -162,41 +151,22 @@ function displayPalette(colors) {
         // Color Code Display
         const colorCode = document.createElement('div');
         colorCode.classList.add('color-code');
-        colorCode.innerText = color; // Display HEX value for now
+        const format = colorFormatToggle.checked ? 'RGB' : 'HEX';
+        colorCode.innerText = format === 'RGB' ? hexToRgbString(color) : color.toUpperCase();
         swatch.appendChild(colorCode);
+
+        // Copy Color on Click
+        swatch.addEventListener('click', copyColor);
 
         paletteDisplay.appendChild(swatch);
     });
 }
 
-// Initialize Monochromatic palette on page load
-window.addEventListener('load', () => {
-    colorValue.value = colorPicker.value; // Sync the text input with the color picker value
-    generatePalettes(); // Generate the default Monochromatic palette on load
-});
-
-
-// Toggle color format between HEX and RGB
-function toggleColorFormat() {
-    const format = colorFormatToggle.checked ? 'RGB' : 'HEX';
-    toggleLabel.innerText = format;
-    updateColorCodes(format);
-}
-
-// Update the color codes displayed on the swatches
-function updateColorCodes(format) {
-    const colorCodes = document.querySelectorAll('.color-code');
-    colorCodes.forEach((code, index) => {
-        let color = code.parentElement.dataset.color;
-        code.innerText = format === 'RGB' ? hexToRgb(color) : color;
-    });
-}
-
-// Copy color value to clipboard and display a message in the center of the screen
+// Copy color value to clipboard and display a message
 function copyColor(e) {
     const color = e.currentTarget.dataset.color;
     const format = colorFormatToggle.checked ? 'RGB' : 'HEX';
-    const colorText = format === 'RGB' ? hexToRgb(color) : color;
+    const colorText = format === 'RGB' ? hexToRgbString(color) : color.toUpperCase();
 
     // Copy to clipboard
     navigator.clipboard.writeText(colorText).then(() => {
@@ -211,18 +181,13 @@ function showCopyMessage(message) {
     const messageElement = document.createElement('div');
     messageElement.innerText = message;
     messageElement.style.position = 'fixed';
-    messageElement.style.display = 'flex';
     messageElement.style.top = '50%';
     messageElement.style.left = '50%';
     messageElement.style.transform = 'translate(-50%, -50%)';
     messageElement.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-    messageElement.style.width = '200px';
-    messageElement.style.height = '150px';
     messageElement.style.color = 'white';
-    messageElement.style.flexDirection = 'column';
-    messageElement.style.justifyContent = 'center';
-    messageElement.style.padding = '20px 20px';
-    messageElement.style.borderRadius = '12px';
+    messageElement.style.padding = '10px 20px';
+    messageElement.style.borderRadius = '5px';
     messageElement.style.zIndex = '1000';
     messageElement.style.fontSize = '1.5em';
     messageElement.style.textAlign = 'center';
@@ -245,26 +210,25 @@ function toggleLock(index, color) {
         // Lock the color
         lockedColors[index] = color;
     }
-    // Update the palette display to reflect locked/unlocked state
-    generatePalettes();
+    generatePalettes(); // Regenerate the palette to update locks
+}
+
+// Update color codes displayed on the swatches
+function updateColorCodes(format) {
+    const colorCodes = document.querySelectorAll('.color-code');
+    colorCodes.forEach((code) => {
+        let color = code.parentElement.dataset.color;
+        code.innerText = format === 'RGB' ? hexToRgbString(color) : color.toUpperCase();
+    });
 }
 
 // Download the palette as a JPEG image
 function downloadPaletteImage() {
-    // Step 1: Hide the lock buttons
-    const lockButtons = document.querySelectorAll('.lock-btn');
-    lockButtons.forEach(btn => {
-        btn.style.display = 'none';
-    });
 
-    // Step 2: Capture the palette display using html2canvas
+    // Use html2canvas to capture the palette display
     html2canvas(paletteDisplay).then(canvas => {
-        // Step 3: Restore the lock buttons after capturing the image
-        lockButtons.forEach(btn => {
-            btn.style.display = 'block';
-        });
 
-        // Step 4: Create a link to download the image as a JPEG
+        // Create a link to download the image as a JPEG
         const link = document.createElement('a');
         link.download = 'palette.jpg';
         link.href = canvas.toDataURL('image/jpeg', 0.8); // Set JPEG quality
@@ -272,12 +236,11 @@ function downloadPaletteImage() {
     });
 }
 
-
 // Utility Functions
 
 // Check if a string is a valid HEX color
 function isValidHex(hex) {
-    return /^#?([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(hex);
+    return /^#?[A-Fa-f0-9]{6}$/.test(hex);
 }
 
 // Check if a string is a valid RGB color
@@ -296,56 +259,70 @@ function rgbToHex(rgb) {
                 return hex.length === 1 ? '0' + hex : hex;
             })
             .join('')
-    );
+    ).toUpperCase();
 }
 
 // Convert HEX color to RGB string
-function hexToRgb(hex) {
-    let c = hex.substring(1);
-    if (c.length === 3) {
-        c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
-    }
-    const rgbValues = [
-        parseInt(c.substring(0, 2), 16),
-        parseInt(c.substring(2, 4), 16),
-        parseInt(c.substring(4, 6), 16),
-    ];
+function hexToRgbString(hex) {
+    const rgbValues = hexToRgbArray(hex);
     return `rgb(${rgbValues.join(', ')})`;
 }
 
-// Adjust the brightness of a HEX color
-function adjustBrightness(hex, percent) {
-    let c = hex.substring(1);
+// Convert HEX to RGB array
+function hexToRgbArray(hex) {
+    let c = hex.startsWith('#') ? hex.substring(1) : hex;
     if (c.length === 3) {
-        c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+        c = c.split('').map(char => char + char).join('');
     }
     const num = parseInt(c, 16);
-    let r = (num >> 16) + percent;
-    let g = ((num >> 8) & 0x00ff) + percent;
-    let b = (num & 0x0000ff) + percent;
-
-    r = Math.max(Math.min(255, r), 0);
-    g = Math.max(Math.min(255, g), 0);
-    b = Math.max(Math.min(255, b), 0);
-
-    return (
-        '#' +
-        ((1 << 24) + (r << 16) + (g << 8) + b)
-            .toString(16)
-            .slice(1)
-            .toUpperCase()
-    );
+    return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
 }
 
-// Invert a HEX color to get its complement
-function invertColor(hex) {
-    let c = hex.substring(1);
-    if (c.length === 3) {
-        c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+// Adjust the brightness of a HEX color (Refined for valid adjustments)
+function adjustBrightness(hex, percent) {
+    let rgb = hexToRgbArray(hex);
+    rgb = rgb.map(value => {
+        const newValue = Math.min(Math.max(value + percent, 0), 255); // Keep values between 0 and 255
+        return newValue;
+    });
+    return rgbToHex(`rgb(${rgb.join(', ')})`);
+}
+
+// Calculate luminance of a color
+function calculateLuminance(color) {
+    const rgb = hexToRgbArray(color).map(value => {
+        const normalized = value / 255;
+        return normalized <= 0.03928
+            ? normalized / 12.92
+            : Math.pow((normalized + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+}
+
+// Calculate contrast ratio between two colors
+function calculateContrast(color1, color2) {
+    const luminance1 = calculateLuminance(color1);
+    const luminance2 = calculateLuminance(color2);
+    const brightest = Math.max(luminance1, luminance2);
+    const darkest = Math.min(luminance1, luminance2);
+    return (brightest + 0.05) / (darkest + 0.05);
+}
+
+// Check if the color is accessible based on contrast ratio
+function isAccessible(color) {
+    const backgroundColor = "#ffffff"; // Assuming white background
+    const contrast = calculateContrast(color, backgroundColor);
+    return contrast >= 4.5; // Accessibility standard (4.5:1 contrast ratio)
+}
+
+// Random color generator for random palettes
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
     }
-    const num = parseInt(c, 16);
-    const complement = (0xFFFFFF ^ num).toString(16).padStart(6, '0');
-    return '#' + complement.toUpperCase();
+    return color;
 }
 
 // Color Palette Generation Functions
@@ -354,10 +331,10 @@ function invertColor(hex) {
 function generateMonochromatic(hex) {
     let colors = [];
     for (let i = -4; i <= 3; i++) {
-        let adjustedColor = adjustBrightness(hex, i * 20);
+        let adjustedColor = adjustBrightness(hex, i * 25);
         colors.push(adjustedColor);
     }
-    return colors;
+    return colors.slice(0, 8);
 }
 
 // Generate Analogous Palette
@@ -367,109 +344,135 @@ function generateAnalogous(hex) {
 
     // Generate 3 main analogous colors (base + 2 colors adjacent, 30 degrees apart)
     for (let i = -1; i <= 1; i++) {
-        let newHue = (hsl.h + i * 30) % 360; // 30-degree spacing for analogous colors
-        if (newHue < 0) newHue += 360;
+        let newHue = (hsl.h + i * 30 + 360) % 360;
         colors.push(hslToHex({ h: newHue, s: hsl.s, l: hsl.l }));
     }
 
-    // Add monochromatic shades for each of the analogous colors
-    colors = colors.concat(generateMonochromatic(colors[0]).slice(1, 3)); // 2 shades for base color
-    colors = colors.concat(generateMonochromatic(colors[1]).slice(1, 3)); // 2 shades for first analogous color
-    colors = colors.concat(generateMonochromatic(colors[2]).slice(1, 2)); // 1 shade for second analogous color
+    // Add monochromatic variations
+    colors = colors.concat(generateMonochromatic(colors[0]).slice(1, 3)); // 2 shades of base color
+    colors = colors.concat(generateMonochromatic(colors[1]).slice(1, 3)); // 2 shades of first analogous color
+    colors.push(generateMonochromatic(colors[2])[1]); // 1 shade of second analogous color
 
-    return colors.slice(0, 8); // Return exactly 8 colors
+    return colors.slice(0, 8);
 }
-
 
 // Generate Complementary Palette
 function generateComplementary(hex) {
     const hsl = hexToHsl(hex);
-
-    // Calculate complementary color (180 degrees on the color wheel)
     let complementHue = (hsl.h + 180) % 360;
+    let complementColor = hslToHex({ h: complementHue, s: hsl.s, l: hsl.l });
 
-    // Initialize the palette with the base color and its complementary color
-    let colors = [hex, hslToHex({ h: complementHue, s: hsl.s, l: hsl.l })];
+    let colors = [hex, complementColor];
 
-    // Add monochromatic shades of the base color (2 additional shades)
-    colors = colors.concat(generateMonochromatic(hex).slice(1, 3)); // Skipping the first shade (already included)
+    // Add monochromatic shades
+    colors = colors.concat(generateMonochromatic(hex).slice(1, 3)); // Shades of base color
+    colors = colors.concat(generateMonochromatic(complementColor).slice(1, 4)); // Shades of complement
 
-    // Add monochromatic shades of the complementary color (3 additional shades)
-    colors = colors.concat(generateMonochromatic(hslToHex({ h: complementHue, s: hsl.s, l: hsl.l })).slice(1, 4)); // Skipping first shade
-
-    return colors.slice(0, 8); // Return exactly 8 colors
+    return colors.slice(0, 8);
 }
-
 
 // Generate Split Complementary Palette
 function generateSplitComplementary(hex) {
-    let colors = [];
     const hsl = hexToHsl(hex);
 
-    // Calculate two split complementary hues (±30° from complement)
-    let hue1 = (hsl.h + 150) % 360; // First split complement
-    let hue2 = (hsl.h + 210) % 360; // Second split complement
+    let hue1 = (hsl.h + 150) % 360;
+    let hue2 = (hsl.h + 210) % 360;
 
-    // Add base color
-    colors.push(hex);
+    let color1 = hslToHex({ h: hue1, s: hsl.s, l: hsl.l });
+    let color2 = hslToHex({ h: hue2, s: hsl.s, l: hsl.l });
 
-    // Add the two split complementary colors
-    colors.push(hslToHex({ h: hue1, s: hsl.s, l: hsl.l }));
-    colors.push(hslToHex({ h: hue2, s: hsl.s, l: hsl.l }));
+    let colors = [hex, color1, color2];
 
-    // Add monochromatic variations of the base and split complement colors
-    colors = colors.concat(generateMonochromatic(hex).slice(1, 3)); // Two shades of base color
-    colors = colors.concat(generateMonochromatic(hslToHex({ h: hue1, s: hsl.s, l: hsl.l })).slice(1, 3)); // Two shades of first split complement
-    colors = colors.concat(generateMonochromatic(hslToHex({ h: hue2, s: hsl.s, l: hsl.l })).slice(1, 3)); // Two shades of second split complement
+    // Add monochromatic shades
+    colors = colors.concat(generateMonochromatic(hex).slice(1, 3)); // Shades of base color
+    colors = colors.concat(generateMonochromatic(color1).slice(1, 3)); // Shades of color1
+    colors.push(generateMonochromatic(color2)[1]); // Shade of color2
 
-    return colors.slice(0, 8); // Return exactly 8 colors
+    return colors.slice(0, 8);
 }
 
 // Generate Triadic Palette
 function generateTriadic(hex) {
-    let colors = [];
     const hsl = hexToHsl(hex);
 
-    // Generate 3 main triadic colors (120-degree spacing between each)
+    let colors = [];
     for (let i = 0; i < 3; i++) {
-        let newHue = (hsl.h + i * 120) % 360; // 120-degree spacing for triadic colors
+        let newHue = (hsl.h + i * 120) % 360;
         colors.push(hslToHex({ h: newHue, s: hsl.s, l: hsl.l }));
     }
 
-    // Add monochromatic shades for each of the triadic colors
-    colors = colors.concat(generateMonochromatic(colors[0]).slice(1, 3)); // 2 shades for base color
-    colors = colors.concat(generateMonochromatic(colors[1]).slice(1, 3)); // 2 shades for second triadic color
-    colors = colors.concat(generateMonochromatic(colors[2]).slice(1, 2)); // 1 shade for third triadic color
+    // Add monochromatic shades
+    colors = colors.concat(generateMonochromatic(colors[0]).slice(1, 3)); // Shades of base color
+    colors = colors.concat(generateMonochromatic(colors[1]).slice(1, 3)); // Shades of second triadic color
+    colors.push(generateMonochromatic(colors[2])[1]); // Shade of third triadic color
 
-    return colors.slice(0, 3); // Return exactly 8 colors
+    return colors.slice(0, 8);
 }
-
 
 // Generate Tetradic Palette
 function generateTetradic(hex) {
-    let colors = [];
     const hsl = hexToHsl(hex);
 
-    // Generate 4 main tetradic colors (90-degree spacing between each)
+    let colors = [];
     for (let i = 0; i < 4; i++) {
-        let newHue = (hsl.h + i * 90) % 360; // 90-degree spacing for tetradic colors
+        let newHue = (hsl.h + i * 90) % 360;
         colors.push(hslToHex({ h: newHue, s: hsl.s, l: hsl.l }));
     }
 
-    // Add monochromatic shades for each of the tetradic colors
-    colors = colors.concat(generateMonochromatic(colors[0]).slice(1, 3)); // 2 shades for base color
-    colors = colors.concat(generateMonochromatic(colors[1]).slice(1, 3)); // 2 shades for second tetradic color
-    colors = colors.concat(generateMonochromatic(colors[2]).slice(1, 2)); // 1 shade for third tetradic color
+    // Add monochromatic shades
+    colors = colors.concat(generateMonochromatic(colors[0]).slice(1, 3)); // Shades of base color
+    colors = colors.concat(generateMonochromatic(colors[1]).slice(1, 3)); // Shades of second tetradic color
+    colors.push(generateMonochromatic(colors[2])[1]); // Shade of third tetradic color
 
-    return colors.slice(0, 4); // Return exactly 8 colors
+    return colors.slice(0, 8);
 }
 
+// Generate Square Palette
+function generateSquare(hex) {
+    const hsl = hexToHsl(hex);
+
+    let colors = [];
+    for (let i = 0; i < 4; i++) {
+        let newHue = (hsl.h + i * 90) % 360;
+        colors.push(hslToHex({ h: newHue, s: hsl.s, l: hsl.l }));
+    }
+
+    return colors.slice(0, 8);
+}
+
+// Generate PowerPoint Theme (Monochromatic Accessible Colors - 6 Colors Only)
+function generatePowerPointTheme() {
+    let baseColor = colorPicker.value; // Use the current color from the picker as the base color
+    let colors = [];
+    const maxIterations = 10; // Limit the number of attempts to find an accessible color
+
+    // Generate 6 accessible monochromatic shades of the base color
+    let adjustmentValues = [-100, -66, -33, 0, 33, 66]; // Different brightness adjustments
+
+    for (let i = 0; i < 6; i++) {
+        let monochromaticColor;
+        let iterations = 0;
+        do {
+            monochromaticColor = adjustBrightness(baseColor, adjustmentValues[i]);
+            iterations++;
+        } while (!isAccessible(monochromaticColor) && iterations < maxIterations); // Ensure the color is accessible
+
+        //if (!isAccessible(monochromaticColor)) {
+            // Fallback to the original base color if no accessible color is found
+        //    monochromaticColor = baseColor;
+       // }
+
+        colors.push(monochromaticColor);
+    }
+
+    return colors; // Return exactly 6 colors
+}
 
 // Color Conversion Functions
 
 // Convert HEX to HSL
 function hexToHsl(hex) {
-    let { r, g, b } = hexToRgbObj(hex);
+    let { r, g, b } = hexToRgbObject(hex);
     r /= 255;
     g /= 255;
     b /= 255;
@@ -531,10 +534,10 @@ function hslToHex(hsl) {
 }
 
 // Convert HEX to RGB object
-function hexToRgbObj(hex) {
-    let c = hex.substring(1);
+function hexToRgbObject(hex) {
+    let c = hex.startsWith('#') ? hex.substring(1) : hex;
     if (c.length === 3) {
-        c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+        c = c.split('').map(char => char + char).join('');
     }
     const num = parseInt(c, 16);
     return {
@@ -543,3 +546,8 @@ function hexToRgbObj(hex) {
         b: num & 255,
     };
 }
+
+// Initialize the default palette on page load
+window.addEventListener('load', () => {
+    generatePalettes(); // Generate the default Monochromatic palette on load
+});
