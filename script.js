@@ -201,17 +201,6 @@ function showCopyMessage(message) {
     }, 2000);
 }
 
-// Toggle lock on a color swatch
-function toggleLock(index, color) {
-    if (lockedColors[index]) {
-        // If already locked, unlock it
-        delete lockedColors[index];
-    } else {
-        // Lock the color
-        lockedColors[index] = color;
-    }
-    generatePalettes(); // Regenerate the palette to update locks
-}
 
 // Update color codes displayed on the swatches
 function updateColorCodes(format) {
@@ -224,9 +213,18 @@ function updateColorCodes(format) {
 
 // Download the palette as a JPEG image
 function downloadPaletteImage() {
+    // Temporarily remove drop shadows
+    const colorSwatches = document.querySelectorAll('.color-swatch');
+    colorSwatches.forEach(swatch => {
+        swatch.style.boxShadow = 'none'; // Remove drop shadow
+    });
 
     // Use html2canvas to capture the palette display
     html2canvas(paletteDisplay).then(canvas => {
+        // Restore the drop shadows after capturing the image
+        colorSwatches.forEach(swatch => {
+            swatch.style.boxShadow = ''; // Reset the box shadow to its original state
+        });
 
         // Create a link to download the image as a JPEG
         const link = document.createElement('a');
