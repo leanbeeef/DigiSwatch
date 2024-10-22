@@ -14,29 +14,49 @@
 
 <body>
     <header>
-        <h1>Color Palette Generator</h1>
+        
+        <nav>
+            <div class="navi">
+                <a style="text-decoration: underline;" href="index.html">Home</a>
+                <a href="extras.html">Extras</a>
+            </div>
+            <h1>Color Palette Generator</h1>
+            <div class="export-options">
+                <label for="export-format">Export as:</label>
+                <select id="export-format">
+                    <option value="" disabled selected>Select format</option>
+                    <option value="jpeg">JPEG</option>
+                    <option value="png">PNG</option>
+                    <option value="css">CSS</option>
+                    <option value="json">JSON</option>
+                    <option value="ase">Adobe Swatch (ASE)</option>
+                    <option value="txt">Text (HEX Codes)</option>
+                </select>
+                <button id="export-button">Export Palette</button>
+            </div>
+        </nav>
+        
     </header>
 
     <main>
         <section class="color-input-section">
             <!-- Eye Dropper Icon -->
             <button id="eyedropperBtn" class="eyedropper-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-eyedropper"
-                    viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-eyedropper" viewBox="0 0 16 16">
                     <path
                         d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.853a.5.5 0 1 0 .708.707L1.707 15H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708zM2 12.707l7-7L10.293 7l-7 7H2z">
                     </path>
                 </svg>
             </button>
-            
+
             <!-- Color Picker Input -->
             <input type="color" id="colorPicker" value="#4f4f4f">
-        
+
             <!-- Text Input for HEX/RGB -->
             <input type="text" id="colorValue" placeholder="Paste Hex or RGB value" value="#4f4f4f">
-        
-        
-            <!-- Toggle Switch and Generate Button (Unchanged) -->
+
+            <!-- Toggle Switch and Generate Button -->
             <div class="toggle-switch">
                 <label class="switch">
                     <input type="checkbox" id="colorFormatToggle">
@@ -47,27 +67,62 @@
             <button id="generateBtn">Generate Palette</button>
         </section>
 
+        <div class="palette-block">
+            <section class="palette-tabs">
+                <ul>
+                    <li class="tab active" data-palette="monochromatic">Monochromatic</li>
+                    <li class="tab" data-palette="analogous">Analogous</li>
+                    <li class="tab" data-palette="complementary">Complementary</li>
+                    <li class="tab" data-palette="splitComplementary">Split Complementary</li>
+                    <li class="tab" data-palette="triadic">Triadic</li>
+                    <li class="tab" data-palette="tetradic">Tetradic</li>
+                    <li class="tab" data-palette="powerpointTheme">PowerPoint Theme</li>
+                </ul>
+            </section>
 
-        <section class="palette-tabs">
-            <ul>
-                <li class="tab active" data-palette="monochromatic">Monochromatic</li>
-                <li class="tab" data-palette="analogous">Analogous</li>
-                <li class="tab" data-palette="complementary">Complementary</li>
-                <li class="tab" data-palette="splitComplementary">Split Complementary</li>
-                <li class="tab" data-palette="triadic">Triadic</li>
-                <li class="tab" data-palette="tetradic">Tetradic</li>
-                <li class="tab" data-palette="powerpointTheme">PowerPoint Theme</li>
-            </ul>
+            <!-- Harmony Description -->
+            <section class="harmony-description">
+                <p id="harmony-text">Select a palette to see its description.</p>
+            </section>
+
+            <section class="palette-display">
+                <!-- Color palettes will be displayed here -->
+            </section>
+        </div>
+        
+
+        <!-- Color Harmony Visualizer -->
+        <section class="color-harmony-visualizer">
+            <h3>Color Harmony Visualizer</h3>
+            <!-- Dropdown for Pattern Selection -->
+            <div class="pattern-selection">
+                <label for="pattern-selector">Select Pattern:</label>
+                <select id="pattern-selector">
+                    <option value="jigsaw">Jigsaw</option>
+                    <option value="topography">Topography</option>
+                    <option value="overcast">Overcast</option>
+                    <option value="plus">Plus</option>
+                    <option value="bubbles">Bubbles</option>
+                </select>
+            </div>
+            <div class="harmony-preview">
+                <button class="harmony-button">Button Example</button>
+                <div class="harmony-text">
+                    <p>Text Example</p>
+                </div>
+                <div class="harmony-text2">
+                    <p>Text Example</p>
+                </div>
+                <div id="harmony-svg">
+                    <!-- SVG will be dynamically inserted here -->
+                </div>
+            </div>
+
+            
+            
         </section>
 
-        <section class="palette-display">
-            <!-- Color palettes will be displayed here -->
-        </section>
     </main>
-
-    <footer>
-        <button id="downloadBtn">Download as JPEG</button>
-    </footer>
 
     <!-- Include html2canvas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
