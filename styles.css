@@ -232,3 +232,7 @@ input:checked + .slider-switch:before {
 .eyedropper-btn:hover {
     background-color: #f0f0f0;
 }
+
+#toggleLabel {
+    line-height: 2;
+}
