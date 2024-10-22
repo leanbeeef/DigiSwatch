@@ -236,3 +236,10 @@ input:checked + .slider-switch:before {
 #toggleLabel {
     line-height: 2;
 }
+
+.toggle-switch {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    align-content: center;
+}
