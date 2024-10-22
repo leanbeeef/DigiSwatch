@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extras - Color Palette Generator</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Open+Sans&display=swap"
+        rel="stylesheet">
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <div class="navi">
+                <a href="index.html">Home</a>
+                <a style="text-decoration: underline;" href="extras.html">Extras</a>
+            </div>
+            <h1>Color Palette Generator</h1>
+            <div class="export-options">
+                <label for="export-format">Export as:</label>
+                <select id="export-format">
+                    <option value="" disabled selected>Select format</option>
+                    <option value="jpeg">JPEG</option>
+                    <option value="png">PNG</option>
+                    <option value="css">CSS</option>
+                    <option value="json">JSON</option>
+                    <option value="ase">Adobe Swatch (ASE)</option>
+                    <option value="txt">Text (HEX Codes)</option>
+                </select>
+                <button id="export-button">Export Palette</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Popular Palettes Dropdown -->
+        <section class="popular-palettes">
+            <h3>Popular Palettes</h3>
+            <div class="palette-selectors">
+                <select id="popular-palettes-selector">
+                    <option value="">Select a Popular Palette</option>
+                </select>
+                <button id="random-palette-btn">Generate Random Palette</button>
+            </div>
+            <section class="palette-display">
+                <!-- Color palettes will be displayed here -->
+            </section>
+        </section>
+
+
+        <!-- Accessibility Checker -->
+        <section class="accessibility-checker">
+            <h3>Accessibility Checker</h3>
+        
+            <div class="checker-inputs">
+                <input type="color" id="checker-bg-color" value="#ffffff">
+                <label for="checker-bg-color">Background Color</label>
+        
+                <input type="color" id="checker-text-color" value="#000000">
+                <label for="checker-text-color">Text Color</label>
+            </div>
+        
+            <!-- Live Preview -->
+            <div class="accessibility-preview">
+                <div class="accessibility-text-box">
+                    <p>Sample Text</p>
+                </div>
+            </div>
+        
+            <p id="accessibility-result"></p>
+        </section>
+
+    </main>
+
+    <!-- Include html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- External JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>
