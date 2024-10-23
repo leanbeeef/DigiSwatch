@@ -536,48 +536,93 @@ function exportAsASE() {
 
 // Helper function to generate ASE format data
 function generateASE() {
-    const aseData = [];
-    currentColors.forEach(color => {
-        const rgb = hexToRgbArray(color);
-        aseData.push({
-            name: color,
-            model: 'RGB',
-            color: [rgb[0] / 255, rgb[1] / 255, rgb[2] / 255],
-            type: 'global',
-        });
+    let aseData = [];
+    
+    // ASE Header: 4 bytes for the signature "ASEF", followed by version 1.0
+    const header = [
+        0x41, 0x53, 0x45, 0x46,  // 'ASEF' signature
+        0x00, 0x01, 0x00, 0x00   // Version 1.0
+    ];
+    
+    // Number of swatches (2 bytes, big-endian)
+    const numColors = currentColors.length;
+    const numSwatches = [ (numColors >> 8) & 0xFF, numColors & 0xFF ];
+
+    // Construct the full ASE file data
+    aseData = new Uint8Array([...header, ...numSwatches]);
+
+    currentColors.forEach((color) => {
+        const rgb = hexToRgbArray(color).map(v => v / 255);  // Normalize RGB between 0.0 and 1.0
+        const colorName = color.toUpperCase(); // Use the HEX code as the color name
+        const colorData = generateASEColorBlock(colorName, rgb);
+        aseData = concatTypedArrays(aseData, colorData);
     });
-    return convertASE(aseData);
+
+    return aseData;
 }
 
-// Convert to ASE file format (using Adobe's swatch structure)
-function convertASE(colors) {
-    let ase = [];
-    ase.push('ASEF');
-    ase.push(1); // Version
-    ase.push(colors.length); // Number of swatches
+// Helper function to generate a color block in ASE format
+function generateASEColorBlock(name, rgb) {
+    const nameBytes = encodeUTF16String(name);
+    const nameLength = nameBytes.length / 2;  // UTF-16 uses 2 bytes per character
 
-    colors.forEach(color => {
-        let nameLength = color.name.length + 1; // Include null terminator
-        let blockLength = 16 + nameLength * 2;
+    const blockLength = 20 + nameBytes.length; // Block length (16 bytes for color + name)
+    const block = new Uint8Array(4 + 2 + nameBytes.length + 4 + 3 * 4 + 2); // Block data structure
 
-        ase.push(0xC001); // Color entry
-        ase.push(blockLength); // Block length
+    let pos = 0;
+    
+    // Block type (color entry: 0x0001)
+    block[pos++] = 0xC0;
+    block[pos++] = 0x01;
 
-        // Color name
-        ase.push(nameLength);
-        for (let i = 0; i < nameLength; i++) {
-            ase.push(color.name.charCodeAt(i));
-        }
+    // Block length
+    block[pos++] = (blockLength >> 8) & 0xFF;
+    block[pos++] = blockLength & 0xFF;
 
-        // Color model (RGB)
-        ase.push('RGB');
-        ase.push(...color.color);
+    // Color name length (UTF-16 units)
+    block[pos++] = (nameLength >> 8) & 0xFF;
+    block[pos++] = nameLength & 0xFF;
 
-        // Color type (global)
-        ase.push(color.type === 'global' ? 1 : 0);
-    });
+    // Color name (UTF-16)
+    block.set(nameBytes, pos);
+    pos += nameBytes.length;
 
-    return new Uint8Array(ase);
+    // Color model ("RGB ")
+    block[pos++] = 0x52; // 'R'
+    block[pos++] = 0x47; // 'G'
+    block[pos++] = 0x42; // 'B'
+    block[pos++] = 0x20; // ' '
+
+    // Color values (3 x 4 bytes for RGB, float32)
+    const dataView = new DataView(block.buffer);
+    dataView.setFloat32(pos, rgb[0], false);  // Red
+    dataView.setFloat32(pos + 4, rgb[1], false);  // Green
+    dataView.setFloat32(pos + 8, rgb[2], false);  // Blue
+    pos += 12;
+
+    // Color type (Global color: 0x0000)
+    block[pos++] = 0x00;
+    block[pos++] = 0x00;
+
+    return block;
+}
+
+// Helper function to encode a string in UTF-16 (big-endian)
+function encodeUTF16String(str) {
+    const utf16 = [];
+    for (let i = 0; i < str.length; i++) {
+        utf16.push(0x00, str.charCodeAt(i));  // Big-endian UTF-16
+    }
+    utf16.push(0x00, 0x00); // Null terminator
+    return new Uint8Array(utf16);
+}
+
+// Helper function to concatenate Uint8Arrays
+function concatTypedArrays(a, b) {
+    const c = new Uint8Array(a.length + b.length);
+    c.set(a, 0);
+    c.set(b, a.length);
+    return c;
 }
 
 // Helper function to download a file
