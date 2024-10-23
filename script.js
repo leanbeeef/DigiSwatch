@@ -204,6 +204,40 @@ function applySelectedPalette() {
     }
 }
 
+// Export options in the header
+const exportButton = document.getElementById('export-button');
+const exportFormatSelect = document.getElementById('export-format');
+
+// Ensure these elements exist before adding event listeners
+if (exportButton && exportFormatSelect) {
+    exportButton.addEventListener('click', function() {
+        const selectedFormat = exportFormatSelect.value;
+
+        switch(selectedFormat) {
+            case 'jpeg':
+                downloadPaletteImage('jpeg');
+                break;
+            case 'png':
+                downloadPaletteImage('png');
+                break;
+            case 'css':
+                exportAsCSS();
+                break;
+            case 'json':
+                exportAsJSON();
+                break;
+            case 'ase':
+                exportAsASE();
+                break;
+            case 'txt':
+                exportAsText();
+                break;
+            default:
+                alert("Please select a valid export format.");
+        }
+    });
+}
+
 // Event listener for palette selection
 document.getElementById('popular-palettes-selector').addEventListener('change', applySelectedPalette);
 
@@ -444,39 +478,6 @@ if (checkerBgColor && checkerTextColor) {
     checkerTextColor.addEventListener('input', checkContrast);
 }
 
-// Export options in the header
-const exportButton = document.getElementById('export-button');
-const exportFormatSelect = document.getElementById('export-format');
-
-// Ensure these elements exist before adding event listeners
-if (exportButton && exportFormatSelect) {
-    exportButton.addEventListener('click', function() {
-        const selectedFormat = exportFormatSelect.value;
-
-        switch(selectedFormat) {
-            case 'jpeg':
-                downloadPaletteImage('jpeg');
-                break;
-            case 'png':
-                downloadPaletteImage('png');
-                break;
-            case 'css':
-                exportAsCSS();
-                break;
-            case 'json':
-                exportAsJSON();
-                break;
-            case 'ase':
-                exportAsASE();
-                break;
-            case 'txt':
-                exportAsText();
-                break;
-            default:
-                alert("Please select a valid export format.");
-        }
-    });
-}
 
 // Export palette as JPEG or PNG using html2canvas
 function downloadPaletteImage(format) {
