@@ -11,15 +11,15 @@ body {
     padding-bottom: 100px;
     scroll-behavior: smooth;
     overflow-y: auto;
+    width: 100%;    
 }
 
 body::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 header {
     width: 100%;
-    /*background-color: #333;*/
     color: white;
     text-align: center;
     display: flex;
@@ -38,7 +38,7 @@ nav {
     background: #333;
     padding: 20px 100px 20px 100px;
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
     justify-content: space-between;
 }
 
@@ -73,7 +73,6 @@ main {
 }
 
 /* Section headings */
-
 h3 {
     font-size: 1.8em;
     font-weight: 700;
@@ -84,10 +83,7 @@ section {
     margin-bottom: 30px;
 }
 
-
-
 /* Style the color picker input to look like a button/icon */
-
 .color-input-section {
     display: flex;
     justify-content: center;
@@ -98,6 +94,7 @@ section {
     border-radius: 12px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
+    flex-wrap: wrap; /* Ensure elements wrap on smaller screens */
 }
 
 #colorPicker {
@@ -115,8 +112,6 @@ section {
     background-color: white;
     padding: 3px;
 }
-
-
 
 /* Change the hover effect */
 #colorPicker:hover {
@@ -244,9 +239,9 @@ input:checked + .slider-switch:before {
     height: 200px;
     position: relative;
     cursor: pointer;
-    margin-right: -20px; /* Overlap the next swatch */
-    box-shadow: -10px 0 15px rgba(0, 0, 0, 0.2); /* Left side shadow */
-    z-index: 1; /* Ensure the stacking works properly */
+    margin-right: -20px;
+    box-shadow: -10px 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 1;
     transition: all 0.3s ease-in-out;
 }
 
@@ -262,13 +257,13 @@ input:checked + .slider-switch:before {
 
 /* No left margin (no overlap) for the last swatch */
 .color-swatch:last-child {
-    margin-right: 0; /* No overlap for the last swatch */
+    margin-right: 0;
 }
 
 /* Hover effect to lift each swatch slightly */
 .color-swatch:hover {
     transform: translateY(-5px);
-    box-shadow: -15px 0 25px rgba(0, 0, 0, 0.3); /* More intense left shadow on hover */
+    box-shadow: -15px 0 25px rgba(0, 0, 0, 0.3);
 }
 
 .color-code {
@@ -333,6 +328,7 @@ input:checked + .slider-switch:before {
     justify-content: center;
     align-items: center;
     gap: 20px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
 .harmony-button {
@@ -357,6 +353,7 @@ input:checked + .slider-switch:before {
 .pattern-selection {
     margin-top: 20px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .pattern-selection select {
@@ -415,7 +412,7 @@ label {
     width: 100%;
     max-width: 400px;
     padding: 20px;
-    background-color: #ffffff; /* Default background color */
+    background-color: #ffffff;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -424,7 +421,7 @@ label {
 .accessibility-text-box p {
     font-size: 1.5em;
     font-weight: bold;
-    color: #000000; /* Default text color */
+    color: #000000;
 }
 
 /* Popular Palettes Dropdown */
@@ -443,7 +440,7 @@ label {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    gap: 15px;  
+    gap: 15px;
 }
 
 .popular-palettes select {
@@ -470,13 +467,13 @@ label {
     background-color: #444;
 }
 
-
 /* Export Options in Header */
 .export-options {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 0px 25px;
+    flex-wrap: wrap;
 }
 
 .export-options label {
@@ -518,4 +515,114 @@ label {
     font-size: 16px;
     font-style: italic;
     margin: 50px auto;
+}
+
+/* Responsive Design: Media Queries */
+
+/* For large screens and laptops */
+@media only screen and (max-width: 1200px) {
+    nav {
+        padding: 15px 50px;
+    }
+
+    #colorValue {
+        width: 180px;
+    }
+
+    #generateBtn {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+
+    .palette-tabs ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+}
+
+/* For tablets and medium screens */
+@media only screen and (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navi {
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    .export-options {
+        flex-direction: column;
+        align-items: center;
+        padding: 0px;
+        margin-top: 10px;
+    }
+
+    
+
+    .palette-display {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .color-swatch {
+        margin: 0;
+    }
+
+    #colorValue {
+        width: 150px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+}
+
+/* For mobile screens */
+@media only screen and (max-width: 480px) {
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    nav {
+        padding: 10px 20px;
+    }
+
+    .palette-tabs li {
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .palette-display {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .color-swatch {
+        height: 150px;
+        margin: 0;
+    }
+
+    #generateBtn {
+        font-size: 1em;
+        padding: 8px 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .checker-inputs {
+        flex-direction: column;
+    }
+
+    #colorValue {
+        width: 100%;
+        font-size: 1em;
+    }
 }
