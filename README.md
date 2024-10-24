@@ -12,9 +12,9 @@ The **Color Palette Generator** is a web tool that allows users to generate vari
 - **Export Options**: Export your palette as:
   - JPEG
   - PNG
+  - SVG
   - CSS
   - JSON
-  - Adobe Swatch Exchange (ASE)
   - Plain Text (HEX codes)
 - **Accessibility Checker**: Check the contrast ratio between background and text colors for web accessibility.
 - **Random Palette Generator**: Generate random palettes for quick inspiration.
