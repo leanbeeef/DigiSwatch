@@ -1,47 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <!-- Meta Tags and Title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Palette Generator</title>
+    <title data-translate="title">Color Palette Generator</title>
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Open+Sans&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
+
     <!-- External CSS -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Include Vibrant.js for Feature 5 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/node-vibrant/1.2.0/vibrant.min.js"></script>
+
+    <!-- Include color-blind library for Feature 4 -->
+    <script src="https://cdn.jsdelivr.net/npm/color-blind@1.0.0/color-blind.min.js"></script>
+
+    <!-- Include html2canvas for exporting images -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Include EyeDropper Polyfill for unsupported browsers -->
+    <!-- Optional: If you want to support browsers that don't have the EyeDropper API -->
+    <script src="https://unpkg.com/eyedropper-polyfill/dist/eyedropper.min.js"></script>
 </head>
+<body id="body" class="theme-default">
 
-<body>
     <header>
-
         <nav>
             <div class="navi">
-                <a style="text-decoration: underline;" href="index.html">Home</a>
-                <a href="extras.html">Extras</a>
+                <a href="index.html" data-translate="home">Home</a>
+                <a href="extras.html" data-translate="extras">Extras</a>
             </div>
-            <h1>Color Palette Generator</h1>
-            <div class="export-options">
-                <label for="export-format">Export as:</label>
-                <select id="export-format">
-                    <option value="" disabled selected>Select format</option>
-                    <option value="jpeg">JPEG</option>
-                    <option value="png">PNG</option>
-                    <option value="svg">SVG</option>
-                    <option value="css">CSS</option>
-                    <option value="json">JSON</option>
-                    <option value="txt">Text (HEX Codes)</option>
+            <h1 data-translate="title">Color Palette Generator</h1>
+            <div class="header-options">
+                <!-- Language Selector for Feature 13 -->
+                <select id="language-selector">
+                    <option value="en" data-translate="english">English</option>
+                    <option value="es" data-translate="spanish">Español</option>
+                    <!-- Add more languages here -->
                 </select>
-                <button id="export-button">Export Palette</button>
+
+                <!-- Theme Selector for Features 16 & 17 -->
+                <select id="theme-selector">
+                    <option value="theme-default" data-translate="default_theme">Default</option>
+                    <option value="theme-light" data-translate="light_theme">Light</option>
+                    <option value="theme-dark" data-translate="dark_theme">Dark</option>
+                </select>
+
+                <!-- Export Options -->
+                <div class="export-options">
+                    <label for="export-format" data-translate="export_as">Export as:</label>
+                    <select id="export-format">
+                        <option value="" disabled selected data-translate="select_format">Select format</option>
+                        <option value="jpeg">JPEG</option>
+                        <option value="png">PNG</option>
+                        <option value="css">CSS</option>
+                        <option value="json">JSON</option>
+                        <option value="txt">Text (HEX Codes)</option>
+                        <option value="svg">SVG</option>
+                    </select>
+                    <button id="export-button" data-translate="export_palette">Export Palette</button>
+                </div>
             </div>
         </nav>
-
     </header>
 
     <main>
+        <!-- Color Input Section -->
         <section class="color-input-section">
             <!-- Eye Dropper Icon -->
-            <button id="eyedropperBtn" class="eyedropper-btn">
+            <button id="eyedropperBtn" class="eyedropper-btn" title="Use EyeDropper Tool">
+                <!-- SVG Icon -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                     class="bi bi-eyedropper" viewBox="0 0 16 16">
                     <path
@@ -56,6 +87,10 @@
             <!-- Text Input for HEX/RGB -->
             <input type="text" id="colorValue" placeholder="Paste Hex or RGB value" value="#4f4f4f">
 
+            <!-- Image Upload for Feature 5 -->
+            <label for="image-upload" class="image-upload-label" data-translate="upload_image">Upload Image</label>
+            <input type="file" id="image-upload" accept="image/*">
+
             <!-- Toggle Switch and Generate Button -->
             <div class="toggle-switch">
                 <label class="switch">
@@ -66,49 +101,61 @@
             </div>
         </section>
 
+        <!-- Color Blindness Simulator for Feature 4 -->
+        <section class="color-blindness-simulator">
+            <label for="color-blindness-selector" data-translate="simulate_color_blindness">Simulate Color Blindness:</label>
+            <select id="color-blindness-selector">
+                <option value="" data-translate="none">None</option>
+                <option value="protanopia">Protanopia</option>
+                <option value="deuteranopia">Deuteranopia</option>
+                <option value="tritanopia">Tritanopia</option>
+                <option value="achromatopsia">Achromatopsia</option>
+            </select>
+        </section>
+
+        <!-- Palette Block -->
         <div class="palette-block">
+            <!-- Palette Tabs -->
             <section class="palette-tabs">
                 <ul class="tabs-list">
-                    <li class="tab active" data-palette="monochromatic">Monochromatic</li>
-                    <li class="tab" data-palette="analogous">Analogous</li>
-                    <li class="tab" data-palette="complementary">Complementary</li>
-                    <li class="tab" data-palette="splitComplementary">Split Complementary</li>
-                    <li class="tab" data-palette="triadic">Triadic</li>
-                    <li class="tab" data-palette="tetradic">Tetradic</li>
-                    <li class="tab" data-palette="powerpointTheme">PowerPoint Theme</li>
+                    <li class="tab active" data-palette="monochromatic" data-translate="monochromatic">Monochromatic</li>
+                    <li class="tab" data-palette="analogous" data-translate="analogous">Analogous</li>
+                    <li class="tab" data-palette="complementary" data-translate="complementary">Complementary</li>
+                    <li class="tab" data-palette="splitComplementary" data-translate="split_complementary">Split Complementary</li>
+                    <li class="tab" data-palette="triadic" data-translate="triadic">Triadic</li>
+                    <li class="tab" data-palette="tetradic" data-translate="tetradic">Tetradic</li>
+                    <li class="tab" data-palette="powerpointTheme" data-translate="powerpoint_theme">PowerPoint Theme</li>
                 </ul>
 
-                <!-- Dropdown for mobile view (hidden on larger screens) -->
+                <!-- Dropdown for mobile view -->
                 <select id="palette-dropdown" class="palette-dropdown">
-                    <option value="monochromatic" selected>Monochromatic</option>
-                    <option value="analogous">Analogous</option>
-                    <option value="complementary">Complementary</option>
-                    <option value="splitComplementary">Split Complementary</option>
-                    <option value="triadic">Triadic</option>
-                    <option value="tetradic">Tetradic</option>
-                    <option value="powerpointTheme">PowerPoint Theme</option>
+                    <option value="monochromatic" selected data-translate="monochromatic">Monochromatic</option>
+                    <option value="analogous" data-translate="analogous">Analogous</option>
+                    <option value="complementary" data-translate="complementary">Complementary</option>
+                    <option value="splitComplementary" data-translate="split_complementary">Split Complementary</option>
+                    <option value="triadic" data-translate="triadic">Triadic</option>
+                    <option value="tetradic" data-translate="tetradic">Tetradic</option>
+                    <option value="powerpointTheme" data-translate="powerpoint_theme">PowerPoint Theme</option>
                 </select>
             </section>
 
-
-
             <!-- Harmony Description -->
             <section class="harmony-description">
-                <p id="harmony-text">Select a palette to see its description.</p>
+                <p id="harmony-text" data-translate="select_palette_description">Select a palette to see its description.</p>
             </section>
 
+            <!-- Palette Display -->
             <section class="palette-display">
                 <!-- Color palettes will be displayed here -->
             </section>
         </div>
 
-
         <!-- Color Harmony Visualizer -->
         <section class="color-harmony-visualizer">
-            <h3>Color Harmony Visualizer</h3>
-            <!-- Dropdown for Pattern Selection -->
+            <h3 data-translate="color_harmony_visualizer">Color Harmony Visualizer</h3>
+            <!-- Pattern Selection -->
             <div class="pattern-selection">
-                <label for="pattern-selector">Select Pattern:</label>
+                <label for="pattern-selector" data-translate="select_pattern">Select Pattern:</label>
                 <select id="pattern-selector">
                     <option value="jigsaw">Jigsaw</option>
                     <option value="topography">Topography</option>
@@ -118,29 +165,51 @@
                 </select>
             </div>
             <div class="harmony-preview">
-                <button class="harmony-button">Button Example</button>
+                <button class="harmony-button" data-translate="button_example">Button Example</button>
                 <div class="harmony-text">
-                    <p>Text Example</p>
+                    <p data-translate="text_example">Text Example</p>
                 </div>
                 <div class="harmony-text2">
-                    <p>Text Example</p>
+                    <p data-translate="text_example">Text Example</p>
                 </div>
                 <div id="harmony-svg">
                     <!-- SVG will be dynamically inserted here -->
                 </div>
             </div>
+        </section>
 
-
-
+        <!-- Palette Analytics for Feature 9 -->
+        <section class="palette-analytics">
+            <h3 data-translate="most_used_colors">Most Used Colors</h3>
+            <div id="most-used-colors">
+                <!-- Most used colors will be displayed here -->
+            </div>
         </section>
 
     </main>
 
-    <!-- Include html2canvas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Color Adjustment Modal for Feature 6 -->
+    <div id="color-adjustment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 data-translate="adjust_color">Adjust Color</h2>
+            <div class="color-preview" id="color-preview"></div>
+            <div class="sliders">
+                <label data-translate="hue">Hue:
+                    <input type="range" id="hue-slider" min="0" max="360">
+                </label>
+                <label data-translate="saturation">Saturation:
+                    <input type="range" id="saturation-slider" min="0" max="100">
+                </label>
+                <label data-translate="lightness">Lightness:
+                    <input type="range" id="lightness-slider" min="0" max="100">
+                </label>
+            </div>
+            <button id="apply-adjustments" data-translate="apply">Apply</button>
+        </div>
+    </div>
 
     <!-- External JS -->
     <script src="script.js"></script>
 </body>
-
 </html>
