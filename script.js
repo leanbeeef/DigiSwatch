@@ -29,6 +29,29 @@ window.addEventListener('load', () => {
     generatePalettes(); // Generate Monochromatic palette on load
 });
 
+// Function to switch palettes based on dropdown selection
+const paletteDropdown = document.getElementById('palette-dropdown');
+paletteDropdown.addEventListener('change', function () {
+    const selectedPalette = this.value;
+
+    // Find the corresponding tab and simulate click
+    document.querySelectorAll('.tab').forEach(tab => {
+        if (tab.dataset.palette === selectedPalette) {
+            tab.click(); // Simulate the click to trigger the palette generation
+        }
+    });
+});
+
+// Handle tab click (this function might already exist in your code)
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', function () {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        currentPaletteType = this.dataset.palette;
+        generatePalettes(); // Trigger the palette generation function
+    });
+});
+
 
 // Ensure the script only runs when these elements are present (on index.html)
 if (colorPicker) {
