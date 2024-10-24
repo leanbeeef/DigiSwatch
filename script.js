@@ -24,10 +24,25 @@ const harmonyTextElement = document.getElementById('harmony-text');
 const svgContainer = document.getElementById('harmony-svg');
 const exportButton = document.getElementById('export-button');
 const exportFormatSelect = document.getElementById('export-format');
+const imageUpload = document.getElementById('image-upload'); // For Feature 5
+const colorBlindnessSelector = document.getElementById('color-blindness-selector'); // For Feature 4
+const languageSelector = document.getElementById('language-selector'); // For Feature 13
+const themeSelector = document.getElementById('theme-selector'); // For Features 16 & 17
+const applySuggestedColorButton = document.getElementById('apply-suggested-color'); // For Feature 8
+const bodyElement = document.getElementById('body'); // For theme application
+
+// For Color Adjustment Modal (Feature 6)
+const colorAdjustmentModal = document.getElementById('color-adjustment-modal');
+const hueSlider = document.getElementById('hue-slider');
+const saturationSlider = document.getElementById('saturation-slider');
+const lightnessSlider = document.getElementById('lightness-slider');
+const applyAdjustmentsButton = document.getElementById('apply-adjustments');
 
 // State Variables
 let currentPaletteType = 'monochromatic'; // Default palette type
 let currentColors = [];
+let simulatedColors = []; // For Color Blindness Simulation
+let adjustingColorIndex = null; // For Color Adjustment
 
 // Harmony Descriptions
 const harmonyDescriptions = {
@@ -38,6 +53,53 @@ const harmonyDescriptions = {
     triadic: "A triadic color scheme uses three evenly spaced colors on the color wheel, offering a balanced and vibrant palette.",
     tetradic: "Tetradic palettes use two complementary pairs, resulting in a rich and varied look.",
     powerpointTheme: "The PowerPoint Theme gives you your accent colors from Accent 1 - Accent 6.",
+};
+
+// Translations for Feature 13
+const translations = {
+    en: {
+        title: "Color Palette Generator",
+        home: "Home",
+        extras: "Extras",
+        export_as: "Export as:",
+        select_format: "Select format",
+        export_palette: "Export Palette",
+        simulate_color_blindness: "Simulate Color Blindness:",
+        none: "None",
+        monochromatic: "Monochromatic",
+        analogous: "Analogous",
+        complementary: "Complementary",
+        split_complementary: "Split Complementary",
+        triadic: "Triadic",
+        tetradic: "Tetradic",
+        powerpoint_theme: "PowerPoint Theme",
+        select_palette_description: "Select a palette to see its description.",
+        color_harmony_visualizer: "Color Harmony Visualizer",
+        select_pattern: "Select Pattern:",
+        button_example: "Button Example",
+        text_example: "Text Example",
+        popular_palettes: "Popular Palettes",
+        select_popular_palette: "Select a Popular Palette",
+        generate_random_palette: "Generate Random Palette",
+        accessibility_checker: "Accessibility Checker",
+        background_color: "Background Color",
+        text_color: "Text Color",
+        sample_text: "Sample Text",
+        apply_suggested_color: "Apply Suggested Color",
+        most_used_colors: "Most Used Colors",
+        adjust_color: "Adjust Color",
+        hue: "Hue",
+        saturation: "Saturation",
+        lightness: "Lightness",
+        apply: "Apply",
+        upload_image: "Upload Image",
+        english: "English",
+        spanish: "Español",
+        default_theme: "Default",
+        light_theme: "Light",
+        dark_theme: "Dark",
+    },
+    // Add more languages here
 };
 
 // Predefined Popular Color Palettes
@@ -130,10 +192,58 @@ const popularPalettes = [
 
 // Automatically trigger Monochromatic Palette on page load
 window.addEventListener('load', () => {
-    currentPaletteType = 'monochromatic'; // Set default to Monochromatic
-    generatePalettes(); // Generate Monochromatic palette on load
-    populatePopularPalettes(); // Populate popular palettes dropdown
+    // Set theme from local storage
+    const savedTheme = localStorage.getItem('selectedTheme') || 'theme-default';
+    bodyElement.className = savedTheme;
+    if (themeSelector) {
+        themeSelector.value = savedTheme;
+    }
+
+    // Set language from local storage
+    const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    if (languageSelector) {
+        languageSelector.value = savedLanguage;
+        translatePage(savedLanguage);
+    }
+
+    // Initialize features based on page content
+    if (paletteDisplay && colorPicker) {
+        currentPaletteType = 'monochromatic'; // Set default to Monochromatic
+        generatePalettes(); // Generate Monochromatic palette on load
+    }
+
+    if (popularPalettesSelector) {
+        populatePopularPalettes(); // Populate popular palettes dropdown
+    }
+
+    displayPaletteAnalytics(); // Display palette analytics
 });
+
+// Theme Selector Change Event (Features 16 & 17)
+if (themeSelector) {
+    themeSelector.addEventListener('change', () => {
+        const selectedTheme = themeSelector.value;
+        bodyElement.className = selectedTheme;
+        localStorage.setItem('selectedTheme', selectedTheme);
+    });
+}
+
+// Language Selector Change Event (Feature 13)
+if (languageSelector) {
+    languageSelector.addEventListener('change', () => {
+        const selectedLanguage = languageSelector.value;
+        translatePage(selectedLanguage);
+        localStorage.setItem('selectedLanguage', selectedLanguage);
+    });
+}
+
+// Function to translate page elements
+function translatePage(language) {
+    document.querySelectorAll('[data-translate]').forEach((element) => {
+        const key = element.getAttribute('data-translate');
+        element.innerText = translations[language][key] || element.innerText;
+    });
+}
 
 // Palette dropdown change event (for mobile view)
 if (paletteDropdown) {
@@ -150,17 +260,19 @@ if (paletteDropdown) {
 }
 
 // Tab switching functionality
-tabs.forEach((tab) => {
-    tab.addEventListener('click', function () {
-        tabs.forEach((t) => t.classList.remove('active'));
-        this.classList.add('active');
-        currentPaletteType = this.dataset.palette;
-        generatePalettes();
+if (tabs && tabs.length > 0) {
+    tabs.forEach((tab) => {
+        tab.addEventListener('click', function () {
+            tabs.forEach((t) => t.classList.remove('active'));
+            this.classList.add('active');
+            currentPaletteType = this.dataset.palette;
+            generatePalettes();
+        });
     });
-});
+}
 
 // Handle color picker input
-if (colorPicker) {
+if (colorPicker && colorValue) {
     // Set initial color in the picker and input
     colorValue.value = colorPicker.value;
 
@@ -184,14 +296,16 @@ if (colorPicker) {
     });
 
     // Toggle between HEX and RGB formats
-    colorFormatToggle.addEventListener('change', function () {
-        const format = colorFormatToggle.checked ? 'RGB' : 'HEX';
-        toggleLabel.innerText = format;
-        updateColorCodes(format);
-    });
+    if (colorFormatToggle && toggleLabel) {
+        colorFormatToggle.addEventListener('change', function () {
+            const format = colorFormatToggle.checked ? 'RGB' : 'HEX';
+            toggleLabel.innerText = format;
+            updateColorCodes(format);
+        });
+    }
 
     // EyeDropper API implementation
-    if ('EyeDropper' in window) {
+    if (eyedropperBtn && 'EyeDropper' in window) {
         // EyeDropper button click event
         eyedropperBtn.addEventListener('click', async () => {
             try {
@@ -209,7 +323,7 @@ if (colorPicker) {
                 console.error(e);
             }
         });
-    } else {
+    } else if (eyedropperBtn) {
         // If EyeDropper API is not supported, disable the button and show a message
         eyedropperBtn.disabled = true;
         eyedropperBtn.title = "Your browser does not support the EyeDropper API.";
@@ -231,7 +345,11 @@ if (randomPaletteBtn) {
             currentColors.push(getRandomColor());
         }
         displayPalette(currentColors);
-        updateHarmonyVisualizer(currentColors);
+        if (updateHarmonyVisualizer) {
+            updateHarmonyVisualizer(currentColors);
+        }
+        trackPaletteUsage(currentColors); // Track usage for analytics
+        displayPaletteAnalytics(); // Update analytics
     });
 }
 
@@ -259,9 +377,6 @@ if (exportButton && exportFormatSelect) {
             case 'png':
                 downloadPaletteImage('png');
                 break;
-            case 'svg': // Add this case
-                exportAsSVG();
-                break;
             case 'css':
                 exportAsCSS();
                 break;
@@ -271,8 +386,62 @@ if (exportButton && exportFormatSelect) {
             case 'txt':
                 exportAsText();
                 break;
+            case 'svg':
+                exportAsSVG();
+                break;
             default:
                 alert('Please select a valid export format.');
+        }
+    });
+}
+
+// Image Upload Event Listener (Feature 5)
+if (imageUpload) {
+    imageUpload.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.crossOrigin = 'Anonymous'; // To avoid CORS issues
+                img.src = e.target.result;
+                img.onload = function () {
+                    const vibrant = new Vibrant(img);
+                    vibrant.getPalette().then(function (palette) {
+                        // Extract colors
+                        const paletteColors = Object.values(palette)
+                            .filter((swatch) => swatch)
+                            .map((swatch) => swatch.getHex());
+                        currentColors = paletteColors.slice(0, 8);
+                        displayPalette(currentColors);
+                        if (updateHarmonyVisualizer) {
+                            updateHarmonyVisualizer(currentColors);
+                        }
+                        trackPaletteUsage(currentColors); // Track usage for analytics
+                        displayPaletteAnalytics(); // Update analytics
+                    });
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+// Color Blindness Simulation (Feature 4)
+if (colorBlindnessSelector) {
+    colorBlindnessSelector.addEventListener('change', () => {
+        applyColorBlindnessSimulation(colorBlindnessSelector.value);
+    });
+}
+
+// Apply Suggested Color Button (Feature 8)
+if (applySuggestedColorButton) {
+    applySuggestedColorButton.addEventListener('click', () => {
+        const suggestedColorElement = document.querySelector('#accessibility-result span');
+        if (suggestedColorElement) {
+            const suggestedColor = suggestedColorElement.innerText;
+            checkerTextColor.value = suggestedColor;
+            checkContrast();
         }
     });
 }
@@ -283,7 +452,9 @@ if (exportButton && exportFormatSelect) {
 
 // Generate palettes based on the selected palette type
 function generatePalettes() {
-    const baseColor = colorPicker ? colorPicker.value : '#4f4f4f'; // Use color picker or fallback color
+    if (!paletteDisplay || !colorPicker) return;
+
+    const baseColor = colorPicker.value; // Use color picker or fallback color
     let paletteColors = [];
 
     // Initialize the paletteColors array
@@ -319,13 +490,22 @@ function generatePalettes() {
     }
 
     currentColors = paletteColors;
-    displayPalette(paletteColors); // Display the generated colors
-    updateHarmonyVisualizer(paletteColors); // Update the harmony visualizer
-    updateHarmonyDescription(); // Update the harmony description
+    simulatedColors = [...currentColors]; // Reset simulated colors
+    displayPalette(currentColors); // Display the generated colors
+    if (updateHarmonyVisualizer) {
+        updateHarmonyVisualizer(currentColors); // Update the harmony visualizer
+    }
+    if (updateHarmonyDescription) {
+        updateHarmonyDescription(); // Update the harmony description
+    }
+    trackPaletteUsage(currentColors); // Track usage for analytics
+    displayPaletteAnalytics(); // Update analytics
 }
 
 // Display the palette on the page
 function displayPalette(colors) {
+    if (!paletteDisplay) return;
+
     paletteDisplay.innerHTML = '';
     colors.forEach((color, index) => {
         const swatch = document.createElement('div');
@@ -343,6 +523,11 @@ function displayPalette(colors) {
 
         // Copy Color on Click
         swatch.addEventListener('click', copyColor);
+
+        // Open adjustment modal on double-click (Feature 6)
+        swatch.addEventListener('dblclick', () => {
+            openColorAdjustmentModal(color, index);
+        });
 
         paletteDisplay.appendChild(swatch);
     });
@@ -363,58 +548,62 @@ function copyColor(e) {
 
 // Function to update the harmony description
 function updateHarmonyDescription() {
-    if (harmonyTextElement) {
-        harmonyTextElement.innerText = harmonyDescriptions[currentPaletteType] || 'Select a palette to see its description.';
-    }
+    if (!harmonyTextElement) return;
+
+    harmonyTextElement.innerText = harmonyDescriptions[currentPaletteType] || 'Select a palette to see its description.';
 }
 
 // Update Harmony Visualizer with the highest contrast colors and hover effect
 function updateHarmonyVisualizer(colors) {
-    if (harmonyButton && harmonyText && harmonyText2) {
-        // Initialize variables to track the highest contrast
-        let maxContrast = 0;
-        let color1 = colors[0]; // Default to first color
-        let color2 = colors[1]; // Default to second color
+    if (!harmonyButton || !harmonyText || !harmonyText2) return;
 
-        // Loop through all pairs of colors to find the highest contrast pair
-        for (let i = 0; i < colors.length; i++) {
-            for (let j = i + 1; j < colors.length; j++) {
-                const contrast = calculateContrast(colors[i], colors[j]);
-                if (contrast > maxContrast) {
-                    maxContrast = contrast;
-                    color1 = colors[i];
-                    color2 = colors[j];
-                }
+    // Initialize variables to track the highest contrast
+    let maxContrast = 0;
+    let color1 = colors[0]; // Default to first color
+    let color2 = colors[1]; // Default to second color
+
+    // Loop through all pairs of colors to find the highest contrast pair
+    for (let i = 0; i < colors.length; i++) {
+        for (let j = i + 1; j < colors.length; j++) {
+            const contrast = calculateContrast(colors[i], colors[j]);
+            if (contrast > maxContrast) {
+                maxContrast = contrast;
+                color1 = colors[i];
+                color2 = colors[j];
             }
         }
+    }
 
-        // Apply the highest contrast colors to the visualizer
+    // Apply the highest contrast colors to the visualizer
+    harmonyButton.style.backgroundColor = color1;
+    harmonyButton.style.color = color2;
+    harmonyText.parentElement.style.backgroundColor = color1;
+    harmonyText.style.color = color2;
+    harmonyText2.parentElement.style.backgroundColor = color2;
+    harmonyText2.style.color = color1;
+
+    // Add hover effect to reverse the colors
+    harmonyButton.addEventListener('mouseenter', () => {
+        harmonyButton.style.backgroundColor = color2;
+        harmonyButton.style.color = color1;
+    });
+
+    // Reset the colors when hover ends
+    harmonyButton.addEventListener('mouseleave', () => {
         harmonyButton.style.backgroundColor = color1;
         harmonyButton.style.color = color2;
-        harmonyText.parentElement.style.backgroundColor = color1;
-        harmonyText.style.color = color2;
-        harmonyText2.parentElement.style.backgroundColor = color2;
-        harmonyText2.style.color = color1;
+    });
 
-        // Add hover effect to reverse the colors
-        harmonyButton.addEventListener('mouseenter', () => {
-            harmonyButton.style.backgroundColor = color2;
-            harmonyButton.style.color = color1;
-        });
-
-        // Reset the colors when hover ends
-        harmonyButton.addEventListener('mouseleave', () => {
-            harmonyButton.style.backgroundColor = color1;
-            harmonyButton.style.color = color2;
-        });
-
-        // Apply the default pattern on load or change
+    // Apply the default pattern on load or change
+    if (patternSelector && svgContainer) {
         applyPatternToSVG(patternSelector.value, colors);
     }
 }
 
 // Function to apply the selected pattern to the SVG container using all colors and contrast check
 function applyPatternToSVG(patternName, colors) {
+    if (!svgContainer) return;
+
     // Sort colors by contrast to maximize visual distinction
     const sortedColors = sortColorsByContrast(colors);
 
@@ -469,13 +658,15 @@ function applyPatternToSVG(patternName, colors) {
     svgContainer.innerHTML = patternSVG;
 }
 
-// Accessibility checker function
+// Accessibility checker function with suggestions (Feature 8)
 function checkContrast() {
+    if (!checkerBgColor || !checkerTextColor || !accessibilityResult) return;
+
     const bgColor = checkerBgColor.value;
     const textColor = checkerTextColor.value;
 
     const contrastRatio = calculateContrast(bgColor, textColor);
-    const resultElement = document.getElementById('accessibility-result');
+    const resultElement = accessibilityResult;
     const textBox = document.querySelector('.accessibility-text-box p');
 
     // Update the preview box background color and text color
@@ -487,30 +678,143 @@ function checkContrast() {
         resultElement.innerText = `Contrast Ratio: ${contrastRatio.toFixed(2)} (Passes AA Standard)`;
         resultElement.style.color = 'green';
     } else {
-        resultElement.innerText = `Contrast Ratio: ${contrastRatio.toFixed(2)} (Fails AA Standard)`;
+        const suggestedColor = suggestAccessibleColor(bgColor, textColor);
+        resultElement.innerHTML = `Contrast Ratio: ${contrastRatio.toFixed(2)} (Fails AA Standard)<br>
+        Suggested Text Color: <span style="color:${suggestedColor}">${suggestedColor}</span>`;
         resultElement.style.color = 'red';
     }
 }
 
+// Function to suggest an accessible color (Feature 8)
+function suggestAccessibleColor(bgColor, textColor) {
+    let suggestedColor = textColor;
+    let contrast = calculateContrast(bgColor, suggestedColor);
+
+    while (contrast < 4.5) {
+        // Adjust lightness
+        let hsl = hexToHsl(suggestedColor);
+        hsl.l = hsl.l > 0.5 ? hsl.l - 0.05 : hsl.l + 0.05;
+        suggestedColor = hslToHex(hsl);
+        contrast = calculateContrast(bgColor, suggestedColor);
+
+        // Break if lightness reaches limits
+        if (hsl.l <= 0 || hsl.l >= 1) {
+            break;
+        }
+    }
+
+    return suggestedColor;
+}
+
 // Apply the selected popular palette
 function applySelectedPalette() {
+    if (!popularPalettesSelector) return;
+
     const selectedPaletteName = popularPalettesSelector.value;
     const selectedPalette = popularPalettes.find((palette) => palette.name === selectedPaletteName);
 
     if (selectedPalette) {
         currentColors = selectedPalette.colors;
+        simulatedColors = [...currentColors]; // Reset simulated colors
         displayPalette(currentColors);
-        updateHarmonyVisualizer(currentColors); // Update harmony visualizer with the selected palette
+        if (updateHarmonyVisualizer) {
+            updateHarmonyVisualizer(currentColors); // Update harmony visualizer with the selected palette
+        }
+        trackPaletteUsage(currentColors); // Track usage for analytics
+        displayPaletteAnalytics(); // Update analytics
     }
 }
 
 // Populate the popular palettes dropdown
 function populatePopularPalettes() {
+    if (!popularPalettesSelector) return;
+
     popularPalettes.forEach((palette) => {
         const option = document.createElement('option');
         option.value = palette.name;
         option.innerText = palette.name;
         popularPalettesSelector.appendChild(option);
+    });
+}
+
+// Function to apply color blindness simulation (Feature 4)
+function applyColorBlindnessSimulation(type) {
+    if (!currentColors || currentColors.length === 0) return;
+
+    if (type) {
+        simulatedColors = currentColors.map((color) => {
+            return colorBlind[type](color);
+        });
+    } else {
+        simulatedColors = [...currentColors];
+    }
+    displayPalette(simulatedColors);
+    if (updateHarmonyVisualizer) {
+        updateHarmonyVisualizer(simulatedColors);
+    }
+}
+
+// Function to open color adjustment modal (Feature 6)
+function openColorAdjustmentModal(color, index) {
+    if (!colorAdjustmentModal || !hueSlider || !saturationSlider || !lightnessSlider) return;
+
+    adjustingColorIndex = index;
+    colorAdjustmentModal.style.display = 'block';
+
+    const hsl = hexToHsl(color);
+    hueSlider.value = hsl.h;
+    saturationSlider.value = hsl.s * 100;
+    lightnessSlider.value = hsl.l * 100;
+    updateColorPreview(color);
+}
+
+// Function to update color preview in modal
+function updateColorPreview(color) {
+    const preview = document.getElementById('color-preview');
+    if (preview) {
+        preview.style.backgroundColor = color;
+    }
+}
+
+// Update preview when sliders change (Feature 6)
+if (hueSlider && saturationSlider && lightnessSlider) {
+    [hueSlider, saturationSlider, lightnessSlider].forEach((slider) => {
+        slider.addEventListener('input', () => {
+            const h = parseFloat(hueSlider.value);
+            const s = parseFloat(saturationSlider.value) / 100;
+            const l = parseFloat(lightnessSlider.value) / 100;
+            const newColor = hslToHex({ h, s, l });
+            updateColorPreview(newColor);
+        });
+    });
+}
+
+// Apply adjustments (Feature 6)
+if (applyAdjustmentsButton) {
+    applyAdjustmentsButton.addEventListener('click', () => {
+        if (adjustingColorIndex === null) return;
+
+        const h = parseFloat(hueSlider.value);
+        const s = parseFloat(saturationSlider.value) / 100;
+        const l = parseFloat(lightnessSlider.value) / 100;
+        const newColor = hslToHex({ h, s, l });
+        currentColors[adjustingColorIndex] = newColor;
+        simulatedColors[adjustingColorIndex] = newColor;
+        displayPalette(simulatedColors);
+        if (updateHarmonyVisualizer) {
+            updateHarmonyVisualizer(simulatedColors);
+        }
+        colorAdjustmentModal.style.display = 'none';
+        trackPaletteUsage(currentColors); // Update analytics
+        displayPaletteAnalytics(); // Update analytics
+    });
+}
+
+// Close color adjustment modal
+const closeButton = document.querySelector('.close-button');
+if (closeButton && colorAdjustmentModal) {
+    closeButton.addEventListener('click', () => {
+        colorAdjustmentModal.style.display = 'none';
     });
 }
 
@@ -546,6 +850,8 @@ function showCopyMessage(message) {
 
 // Update color codes displayed on the swatches
 function updateColorCodes(format) {
+    if (!paletteDisplay) return;
+
     const colorCodes = document.querySelectorAll('.color-code');
     colorCodes.forEach((code) => {
         let color = code.parentElement.dataset.color;
@@ -555,6 +861,8 @@ function updateColorCodes(format) {
 
 // Export palette as JPEG or PNG using html2canvas
 function downloadPaletteImage(format) {
+    if (!paletteDisplay) return;
+
     // Temporarily remove drop shadows for cleaner export
     const colorSwatches = document.querySelectorAll('.color-swatch');
     colorSwatches.forEach((swatch) => {
@@ -578,6 +886,8 @@ function downloadPaletteImage(format) {
 
 // Export palette as SVG
 function exportAsSVG() {
+    if (!currentColors || currentColors.length === 0) return;
+
     // Define the size of each swatch
     const swatchSize = 100; // Adjust the size as needed
     const totalSwatches = currentColors.length;
@@ -608,6 +918,8 @@ function exportAsSVG() {
 
 // Export palette as CSS
 function exportAsCSS() {
+    if (!currentColors || currentColors.length === 0) return;
+
     let css = ':root {\n';
     currentColors.forEach((color, index) => {
         css += `  --color-${index + 1}: ${color};\n`;
@@ -618,12 +930,16 @@ function exportAsCSS() {
 
 // Export palette as JSON
 function exportAsJSON() {
+    if (!currentColors || currentColors.length === 0) return;
+
     const json = JSON.stringify({ colors: currentColors }, null, 2);
     downloadFile(json, 'palette.json', 'application/json');
 }
 
 // Export palette as plain text (HEX codes)
 function exportAsText() {
+    if (!currentColors || currentColors.length === 0) return;
+
     const text = currentColors.join('\n');
     downloadFile(text, 'palette.txt', 'text/plain');
 }
@@ -635,6 +951,39 @@ function downloadFile(content, filename, type) {
     link.href = URL.createObjectURL(blob);
     link.download = filename;
     link.click();
+}
+
+// Function to track palette usage for analytics (Feature 9)
+function trackPaletteUsage(palette) {
+    if (!palette || palette.length === 0) return;
+
+    let usageData = JSON.parse(localStorage.getItem('paletteUsage')) || {};
+    palette.forEach((color) => {
+        usageData[color] = (usageData[color] || 0) + 1;
+    });
+    localStorage.setItem('paletteUsage', JSON.stringify(usageData));
+}
+
+// Function to display palette analytics (Feature 9)
+function displayPaletteAnalytics() {
+    const usageData = JSON.parse(localStorage.getItem('paletteUsage')) || {};
+    const mostUsedColorsDiv = document.getElementById('most-used-colors');
+    if (mostUsedColorsDiv) {
+        mostUsedColorsDiv.innerHTML = '';
+
+        // Get top 5 colors
+        const topColors = Object.entries(usageData)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5);
+
+        topColors.forEach(([color, count]) => {
+            const colorDiv = document.createElement('div');
+            colorDiv.classList.add('analytics-color-swatch');
+            colorDiv.style.backgroundColor = color;
+            colorDiv.title = `${color} used ${count} times`;
+            mostUsedColorsDiv.appendChild(colorDiv);
+        });
+    }
 }
 
 // *********************************
