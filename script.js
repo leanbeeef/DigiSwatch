@@ -153,7 +153,7 @@ if (randomPaletteBtn) {
     // Random Palette Generator
     randomPaletteBtn.addEventListener('click', function () {
         currentColors = [];
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 8; i++) {
             currentColors.push(getRandomColor());
         }
         displayPalette(currentColors);
@@ -946,4 +946,3 @@ function hexToRgbObject(hex) {
         b: num & 255,
     };
 }
-
