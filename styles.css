@@ -563,7 +563,9 @@ label {
         margin-top: 10px;
     }
 
-    
+    #eyedropperBtn {
+        display: none;
+    }
 
     .palette-display {
         flex-direction: column;
