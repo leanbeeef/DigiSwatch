@@ -14,7 +14,7 @@
 
 <body>
     <header>
-        
+
         <nav>
             <div class="navi">
                 <a style="text-decoration: underline;" href="index.html">Home</a>
@@ -34,7 +34,7 @@
                 <button id="export-button">Export Palette</button>
             </div>
         </nav>
-        
+
     </header>
 
     <main>
@@ -68,7 +68,7 @@
 
         <div class="palette-block">
             <section class="palette-tabs">
-                <ul>
+                <ul class="tabs-list">
                     <li class="tab active" data-palette="monochromatic">Monochromatic</li>
                     <li class="tab" data-palette="analogous">Analogous</li>
                     <li class="tab" data-palette="complementary">Complementary</li>
@@ -77,7 +77,20 @@
                     <li class="tab" data-palette="tetradic">Tetradic</li>
                     <li class="tab" data-palette="powerpointTheme">PowerPoint Theme</li>
                 </ul>
+
+                <!-- Dropdown for mobile view (hidden on larger screens) -->
+                <select id="palette-dropdown" class="palette-dropdown">
+                    <option value="monochromatic" selected>Monochromatic</option>
+                    <option value="analogous">Analogous</option>
+                    <option value="complementary">Complementary</option>
+                    <option value="splitComplementary">Split Complementary</option>
+                    <option value="triadic">Triadic</option>
+                    <option value="tetradic">Tetradic</option>
+                    <option value="powerpointTheme">PowerPoint Theme</option>
+                </select>
             </section>
+
+
 
             <!-- Harmony Description -->
             <section class="harmony-description">
@@ -88,7 +101,7 @@
                 <!-- Color palettes will be displayed here -->
             </section>
         </div>
-        
+
 
         <!-- Color Harmony Visualizer -->
         <section class="color-harmony-visualizer">
@@ -117,8 +130,8 @@
                 </div>
             </div>
 
-            
-            
+
+
         </section>
 
     </main>
