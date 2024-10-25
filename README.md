@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **Color Palette Generator** is a web tool that allows users to generate various color palettes, visualize them with different patterns, and export them in multiple formats such as JPEG, PNG, CSS, JSON, Adobe Swatch Exchange (ASE), and plain text. It includes features for accessibility checking, popular palette suggestions, and random palette generation.
+The **Color Palette Generator** is a web tool that allows users to generate various color palettes, visualize them with different patterns, and export them in multiple formats such as JPEG, PNG, CSS, JSON, SVG, and plain text. It includes features for accessibility checking, popular palette suggestions, and random palette generation.
 
 
 ## Features
