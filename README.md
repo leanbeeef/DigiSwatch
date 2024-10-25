@@ -23,5 +23,5 @@ The **Color Palette Generator** is a web tool that allows users to generate vari
 
 ## Live Demo
 
-You can access the live version of the Color Palette Generator [here](https://leanbeeef.github.io/Color-Palette-Generator/).
+You can access the live version of the Color Palette Generator [here]([https://leanbeeef.github.io/Color-Palette-Generator/pages/index.html]).
 
