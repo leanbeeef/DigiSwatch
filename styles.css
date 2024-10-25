@@ -1,429 +1,609 @@
 /* *********************************
-   General Styles and Theme Variables
-   ********************************* */
+   CSS Variables
+********************************* */
 
-/* Default Theme Variables */
 :root {
-    --background-color: #f5f5f5;
-    --text-color: #333;
-    --primary-color: #333;
-    --secondary-color: #007bff;
-    --header-background: #333;
-    --header-text-color: #fff;
-    --swatch-shadow: rgba(0, 0, 0, 0.2);
-    --modal-background: rgba(0, 0, 0, 0.5);
-    --modal-content-background: #fff;
-    --button-background: #007bff;
-    --button-text-color: #fff;
-    --input-background: #fff;
-    --input-text-color: #333;
-    --link-color: #007bff;
-}
+    /* Default Theme */
+    --main-bg-color: #f0f4f0; /* Light greenish background */
+    --main-text-color: #2e2e2e; /* Dark grey text */
+    --accent-color: #4caf50; /* Green accent */
+    --accent-hover-color: #388e3c; /* Darker green on hover */
 
-/* Light Theme Variables */
-.theme-light {
-    --background-color: #ffffff;
-    --text-color: #000000;
-    --primary-color: #000000;
-    --secondary-color: #6200ee;
-    --header-background: #ffffff;
-    --header-text-color: #000000;
-    --swatch-shadow: rgba(0, 0, 0, 0.2);
-    --modal-background: rgba(0, 0, 0, 0.5);
-    --modal-content-background: #ffffff;
-    --button-background: #6200ee;
+    /* Secondary Colors */
+    --secondary-text-color: #2f362f; /* Dark greenish grey */
+    --harmony-description-text-color: #6f7d6f; /* Medium greenish grey */
+    --input-border-color: #b2bfb2; /* Light grey-green */
+    --input-bg-color: #ffffff; /* White input background */
+    --input-text-color: #2e2e2e; /* Dark text color */
+    --input-placeholder-color: #8fa08f; /* Grey-green placeholder text */
+
+    /* Header and Navigation */
+    --header-bg-color: #aff0b9; /* Very light green */
+    --link-hover-bg-color: #c4e6c9; /* Light green on hover */
+
+    /* Sidebar */
+    --sidebar-bg-color: #91dd9c; /* Matching header background */
+    --sidebar-text-color: var(--main-text-color);
+
+    /* Buttons */
+    --button-bg-color: #388e3c; /* Darker green */
     --button-text-color: #ffffff;
-    --input-background: #f2f2f2;
-    --input-text-color: #000000;
-    --link-color: #6200ee;
+    --button-hover-bg-color: #2e7d32; /* Even darker green on hover */
+
+    /* Palette Swatches */
+    --palette-swatch-bg-color: #c8d8c8; /* Light grey-green */
+    --palette-swatch-shadow-color: rgba(0, 0, 0, 0.1);
+    --color-code-bg-color: rgba(255, 255, 255, 0.7);
+    --color-code-text-color: var(--main-text-color);
+
+    /* Tabs */
+    --palette-tab-bg-color: #d8e8d8; /* Light grey-green */
+    --palette-tab-active-bg-color: #c0d0c0; /* Medium grey-green */
+    --palette-tab-hover-bg-color: #c8d8c8; /* Slightly darker on hover */
+
+    /* Modals */
+    --modal-bg-color: rgba(0, 0, 0, 0.5);
+    --modal-content-bg-color: #ffffff; /* White modal background */
+    --modal-content-text-color: var(--main-text-color);
+    --modal-close-button-color: var(--main-text-color);
+
+    /* Themes */
+    /* Light Theme */
+    --theme-light-bg-color: #ffffff; /* White */
+    --theme-light-text-color: #1a1a1a; /* Almost black */
+    --theme-light-palette-tab-bg-color: #e0f0e0; /* Very light green */
+    --theme-light-palette-tab-active-bg-color: #c0e0c0; /* Light green */
+    --theme-light-palette-tab-hover-bg-color: #b8e0b8; /* Slightly darker */
+    --theme-light-button-bg-color: #388e3c; /* Dark green */
+    --theme-light-button-text-color: #ffffff; /* White text */
+    --theme-light-button-hover-bg-color: #2e7d32; /* Even darker green */
+
+    /* Dark Theme */
+    --theme-dark-bg-color: #21271e; /* Dark background */
+    --theme-dark-text-color: #dddddd; /* Light grey text */
+    --theme-dark-secondary-text-color: #999999; /* Grey */
+    --theme-dark-header-bg-color: #000000; /* Very dark */
+    --theme-dark-link-hover-bg-color: #333333; /* Dark grey */
+    --theme-dark-sidebar-bg-color: #1a1a1a; /* Very dark */
+    --theme-dark-sidebar-text-color: #dddddd; /* Light grey */
+    --theme-dark-input-bg-color: #333333; /* Dark grey */
+    --theme-dark-input-text-color: #dddddd; /* Light grey */
+    --theme-dark-input-border-color: #444444; /* Darker grey */
+    --theme-dark-palette-tab-bg-color: #3a3a3a; /* Dark grey */
+    --theme-dark-palette-tab-active-bg-color: #555555; /* Medium grey */
+    --theme-dark-palette-display-bg-color: #1e1e1e; /* Very dark */
+    --theme-dark-color-code-bg-color: rgba(0, 0, 0, 0.7);
+    --theme-dark-button-bg-color: #555555; /* Medium grey */
+    --theme-dark-button-hover-bg-color: #777777; /* Lighter grey */
+    --theme-dark-modal-content-bg-color: #3a3a3a; /* Dark grey */
+    --theme-dark-modal-content-text-color: #dddddd; /* Light grey */
+    --theme-dark-modal-content-label-color: #dddddd; /* Light grey */
+    --theme-dark-accessibility-text-box-bg-color: #3a3a3a; /* Dark grey */
+    --theme-dark-accessibility-text-color: #dddddd; /* Light grey */
+    --theme-dark-harmony-description-text-color: #999999; /* Grey */
+
+    /* Footer */
+    --footer-bg-color: #ffffff;
+    --footer-text-color: #666666;
+    --theme-dark-footer-bg-color: #1e1e1e;
+    --theme-dark-footer-text-color: #999999;
 }
 
-/* Dark Theme Variables */
-.theme-dark {
-    --background-color: #1e1e1e;
-    --text-color: #ffffff;
-    --primary-color: #ffffff;
-    --secondary-color: #bb86fc;
-    --header-background: #333333;
-    --header-text-color: #ffffff;
-    --swatch-shadow: rgba(255, 255, 255, 0.2);
-    --modal-background: rgba(255, 255, 255, 0.5);
-    --modal-content-background: #2e2e2e;
-    --button-background: #bb86fc;
-    --button-text-color: #000000;
-    --input-background: #2e2e2e;
-    --input-text-color: #ffffff;
-    --link-color: #bb86fc;
-}
 
-/* Global Styles */
-body {
+/* *********************************
+   General Styles and Resets
+********************************* */
+
+/* Reset margins and paddings */
+* {
     margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set default font and background */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    overflow-x: hidden;
-    padding-bottom: 100px;
-    scroll-behavior: smooth;
-    overflow-y: auto;
-    width: 100%;
 }
 
+/* Links */
 a {
-    color: var(--link-color);
     text-decoration: none;
+    color: inherit;
 }
 
-h1 {
-   color: var(--header-text-color)
-}
-
-h2, h3, h4, h5, h6 {
-    color: var(--primary-color);
-    margin: 0;
-}
-
-p {
-    margin: 0;
-    line-height: 1.6;
-}
-
-button {
-    background-color: var(--button-background);
-    color: var(--button-text-color);
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+/* Headers */
+h1, h2, h3 {
     font-family: 'Poppins', sans-serif;
-    font-size: 1em;
-    border-radius: 5px;
-}
-
-button:hover {
-    opacity: 0.9;
-}
-
-input, select {
-    background-color: var(--input-background);
-    color: var(--input-text-color);
-    border: 1px solid #ccc;
-    padding: 8px;
-    font-size: 1em;
-    border-radius: 5px;
-    margin: 5px;
+    margin-bottom: 10px;
 }
 
 /* *********************************
-   Header and Navigation
-   ********************************* */
+   Header and Navigation Styles
+********************************* */
 
 header {
-    width: 100%;
-    color: var(--header-text-color);
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
+    background-color: var(--header-bg-color);
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 nav {
-    width: 100%;
-    background: var(--header-background);
-    padding: 20px 100px;
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 }
 
+.navi {
+    display: flex;
+    gap: 15px;
+}
+
 .navi a {
-    color: var(--header-text-color);
-    margin: 0 15px;
-    font-size: 1.2em;
+    padding: 10px;
+    transition: background-color 0.3s;
 }
 
 .navi a:hover {
-    text-decoration: underline;
+    background-color: var(--link-hover-bg-color);
+    border-radius: 5px;
 }
 
 .header-options {
     display: flex;
+    gap: 10px;
     align-items: center;
 }
 
 .header-options select {
-    margin-left: 15px;
-}
-
-.export-options {
-    display: flex;
-    align-items: center;
-}
-
-.export-options label {
-    margin-right: 5px;
-}
-
-.export-options select {
-    margin-right: 10px;
-}
-
-/* *********************************
-   Main Content and Sections
-   ********************************* */
-
-main {
-    width: 100%;
-    max-width: 1200px;
-    padding: 20px;
-}
-
-.color-input-section {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.color-input-section input[type="text"] {
-    width: 200px;
-}
-
-.color-input-section .eyedropper-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
-    color: var(--text-color);
-}
-
-.color-input-section .image-upload-label {
-    background-color: var(--button-background);
-    color: var(--button-text-color);
-    padding: 10px 20px;
+    padding: 5px;
     border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
+    border: 1px solid var(--input-border-color);
+    background-color: var(--input-bg-color);
+    color: var(--input-text-color);
 }
 
-.color-input-section #image-upload {
-    display: none;
-}
+/* *********************************
+   Sidebar Styles
+********************************* */
 
-.toggle-switch {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-}
-
-.toggle-switch .switch {
-    margin-right: 5px;
-}
-
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider-switch {
-    position: absolute;
-    cursor: pointer;
+.sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg-color);
+    color: var(--sidebar-text-color);
+    padding: 20px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 34px;
+    /* height: calc(100vh - 80px); Adjusting for header height */
+    overflow-y: auto;
 }
 
-.slider-switch:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: 0.4s;
-    border-radius: 50%;
-}
-
-input:checked + .slider-switch {
-    background-color: var(--secondary-color);
-}
-
-input:checked + .slider-switch:before {
-    transform: translateX(26px);
-}
-
-/* *********************************
-   Color Blindness Simulator
-   ********************************* */
-
-.color-blindness-simulator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.color-blindness-simulator label {
-    margin-right: 10px;
-}
-
-/* *********************************
-   Palette Display and Swatches
-   ********************************* */
-
-.palette-block {
+.sidebar h3 {
     margin-top: 20px;
 }
 
-.palette-tabs {
+/* .sidebar .palette-tabs {
+    flex-direction: column;
+    gap: 5px;
+} */
+
+/* .sidebar .palette-tabs .tab {
+    width: 100%;
+} */
+
+.sidebar .palette-dropdown-section {
+    display: block; /* Hide dropdown in sidebar */
+}
+
+/* *********************************
+   Main Content Styles
+********************************* */
+
+main {
+    flex: 1;
     display: flex;
-    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+main > .content-area {
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Ensure that sections within content-area take full width */
+main > .content-area > section {
+    width: 100%;
+}
+
+section {
     margin-bottom: 20px;
 }
 
-.tabs-list {
-    list-style: none;
+h3 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: var(--secondary-text-color);
+}
+
+/* *********************************
+   Color Picker Section
+********************************* */
+
+.color-picker-section {
     display: flex;
-    padding: 0;
-    margin: 0;
+    align-items: center;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
-.tab {
-    padding: 10px 15px;
-    margin: 5px;
+.color-picker-section input[type="color"] {
+    width: 100%;
+    height: 50px;
+    border: none;
     cursor: pointer;
-    background-color: var(--button-background);
-    color: var(--button-text-color);
+    border-radius: 5px;
+    background-color: var(--input-bg-color);
+}
+
+.color-picker-section input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.color-picker-section input[type="color"]::-webkit-color-swatch {
+    border: none;
     border-radius: 5px;
 }
 
-.tab.active {
-    background-color: var(--secondary-color);
+.color-picker-section label {
+    font-weight: bold;
+    color: var(--secondary-text-color);
 }
 
-.palette-dropdown {
+#eyedropperBtn {
+    padding: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: var(--input-bg-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+    color: var(--main-text-color);
+}
+
+#eyedropperBtn:hover {
+    background-color: var(--link-hover-bg-color);
+}
+
+/* *********************************
+   Palette Selector Styles
+********************************* */
+
+.palette-selector {
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    background-color: var(--input-bg-color);
+    color: var(--input-text-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+    font-size: 1em;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Optional: Hover and Focus States */
+.palette-selector:hover,
+.palette-selector:focus {
+    background-color: #f0f0f0; /* Slightly lighter background on hover/focus */
+    border-color: var(--accent-color); /* Accent color border on hover/focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Ensure consistency in appearance across browsers */
+.palette-selector {
+    appearance: none; /* Remove default arrow in some browsers */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5"><polygon points="0,0 10,0 5,5" fill="%23333333"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px 5px;
+    cursor: pointer;
+}
+
+.palette-dropdown-section {
     display: none;
+    margin-top: 20px;
 }
 
-@media screen and (max-width: 600px) {
+.palette-dropdown-section select {
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    background-color: var(--input-bg-color);
+    color: var(--input-text-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+}
+
+/* Responsive Tabs and Dropdown */
+@media (max-width: 800px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: unset;
+    }
+
     .palette-tabs {
         display: none;
     }
-    .palette-dropdown {
+
+    .palette-dropdown-section {
         display: block;
-        margin: 0 auto 20px;
+    }
+
+    main {
+        flex-direction: column;
     }
 }
 
+/* *********************************
+   Harmony Description
+********************************* */
+
 .harmony-description {
-    text-align: center;
-    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#harmony-text {
+    font-size: 1.1em;
+    color: var(--harmony-description-text-color);
+}
+
+/* *********************************
+   Palette Display Styles
+********************************* */
+
+.palette-display-section {
+    margin-top: 20px;
 }
 
 .palette-display {
     display: flex;
     flex-wrap: nowrap;
-    overflow-x: auto;
-    margin-bottom: 20px;
-    position: relative;
+    gap: 10px;
 }
 
 .color-swatch {
-    flex: 0 0 auto;
-    width: 150px;
-    height: 200px;
+    flex: 1;
     position: relative;
     cursor: pointer;
-    box-shadow: -5px 0 10px var(--swatch-shadow);
-    z-index: 1;
-    transition: all 0.3s ease-in-out;
-}
-
-.color-swatch:hover {
-    transform: translateY(-5px);
-    box-shadow: -10px 0 15px var(--swatch-shadow);
-}
-
-.color-code {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
-    color: #000;
-    padding: 5px;
     border-radius: 5px;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.9em;
+    box-shadow: 0 2px 4px var(--palette-swatch-shadow-color);
+    overflow: hidden;
+}
+
+.color-swatch::before {
+    content: '';
+    display: block;
+    padding-top: 100%; /* Maintain square aspect ratio */
+}
+
+.color-swatch .color-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: inherit;
+}
+
+.color-swatch .color-code {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    background-color: var(--color-code-bg-color);
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    color: var(--color-code-text-color);
+}
+
+/* Responsive Palette Display */
+@media (max-width: 800px) {
+    .color-swatch {
+        width: calc(33.333% - 10px);
+        padding-bottom: calc(33.333% - 10px);
+    }
+}
+
+@media (max-width: 500px) {
+    .color-swatch {
+        width: calc(50% - 10px);
+        padding-bottom: calc(50% - 10px);
+    }
 }
 
 /* *********************************
-   Harmony Visualizer
-   ********************************* */
+   Harmony Visualizer Styles
+********************************* */
 
-.color-harmony-visualizer {
-    margin-top: 30px;
-    text-align: center;
+.harmony-visualizer-section {
+    margin-top: 20px;
 }
 
-.pattern-selection {
-    margin-bottom: 20px;
+.pattern-selector-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
-.harmony-preview {
+.harmony-visualizer-content {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    gap: 20px;
     align-items: center;
-}
-
-.harmony-button {
-    margin: 10px;
-}
-
-.harmony-text, .harmony-text2 {
-    width: 200px;
-    height: 100px;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.harmony-text p, .harmony-text2 p {
-    font-size: 1.2em;
-    font-weight: bold;
 }
 
 #harmony-svg {
     width: 200px;
     height: 200px;
-    margin: 10px;
+}
+
+.harmony-examples {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.harmony-button {
+    padding: 15px 30px;
+    font-size: 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: opacity 0.3s;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+}
+
+.harmony-button:hover {
+    opacity: 0.8;
+}
+
+.harmony-text, .harmony-text2 {
+    padding: 15px;
+    border-radius: 5px;
+    color: var(--button-text-color);
+}
+
+.harmony-text p, .harmony-text2 p {
+    font-size: 1em;
+}
+
+/* *********************************
+   Export Options Styles
+********************************* */
+
+.export-options {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.export-options h3 {
+    margin: 0;
+}
+
+.export-options select {
+    padding: 10px;
+    max-width: 200px;
+    background-color: var(--input-bg-color);
+    color: var(--input-text-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+}
+
+#export-button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 5px;
+}
+
+#export-button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+/* *********************************
+   Color Adjustment Modal Styles
+********************************* */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: var(--modal-bg-color);
+}
+
+.modal-content {
+    background-color: var(--modal-content-bg-color);
+    color: var(--modal-content-text-color);
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 5px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--modal-close-button-color);
+}
+
+.slider-container {
+    margin: 15px 0;
+}
+
+.slider-container label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--main-text-color);
+}
+
+.slider-container input[type="range"] {
+    width: 100%;
+}
+
+.color-preview {
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+#apply-adjustments {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+}
+
+#apply-adjustments:hover {
+    background-color: var(--button-hover-bg-color);
 }
 
 /* *********************************
    Accessibility Checker
    ********************************* */
 
-.accessibility-checker {
+   .accessibility-checker {
     margin-top: 40px;
 }
 
@@ -473,165 +653,132 @@ input:checked + .slider-switch:before {
 }
 
 /* *********************************
-   Palette Analytics
-   ********************************* */
+   Popular Palettes Section
+********************************* */
 
-.palette-analytics {
-    margin-top: 40px;
-    text-align: center;
-}
-
-.palette-analytics h3 {
-    margin-bottom: 20px;
-}
-
-#most-used-colors {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.analytics-color-swatch {
-    width: 50px;
-    height: 50px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    position: relative;
-}
-
-.analytics-color-swatch::after {
-    content: attr(title);
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-    width: 100%;
-    font-size: 0.8em;
-    color: var(--text-color);
-    text-align: center;
-}
-
-/* *********************************
-   Modal Styles (Feature 6)
-   ********************************* */
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: var(--modal-background);
-}
-
-.modal-content {
-    background-color: var(--modal-content-background);
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 10px;
-    color: var(--text-color);
-    position: relative;
-}
-
-.close-button {
-    color: var(--text-color);
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: var(--secondary-color);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.sliders {
+/* Container for all popular palettes */
+#popular-palettes-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
     margin-top: 20px;
+    padding: 10px;
 }
 
-.sliders label {
-    display: block;
-    margin-bottom: 15px;
+/* Individual palette card */
+.popular-palette {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: var(--palette-bg, #f9f9f9);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.sliders input[type="range"] {
-    width: 100%;
+/* Hover effect for palette card */
+.popular-palette:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.color-preview {
-    width: 100%;
-    height: 100px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-}
-
-/* *********************************
-   Footer (Optional)
-   ********************************* */
-
-/* Uncomment and style if you have a footer
-footer {
-    width: 100%;
-    background-color: var(--header-background);
-    color: var(--header-text-color);
+/* Palette name styling */
+.palette-name {
+    font-weight: bold;
     text-align: center;
-    padding: 20px;
-    position: fixed;
-    bottom: 0;
+    margin-bottom: 10px;
+    color: var(--palette-name-color, #333333);
+    font-size: 1.1em;
 }
-*/
+
+/* Container for color swatches within a palette */
+.palette-colors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+}
+
+/* Individual color swatch */
+.palette-colors .color-swatch {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+    border-radius: 3px;
+}
+
 
 /* *********************************
-   Responsive Styles
-   ********************************* */
+   Theme Styles
+********************************* */
 
-@media screen and (max-width: 768px) {
-    nav {
-        padding: 20px 20px;
-        flex-direction: column;
-    }
+/* Light Theme Overrides */
+.theme-light {
+    /* Background and Text */
+    background-color: var(--theme-light-bg-color);
+    color: var(--theme-light-text-color);
 
-    .navi {
-        margin-bottom: 10px;
-    }
+    /* Buttons */
+    --button-bg-color: var(--theme-light-button-bg-color);
+    --button-text-color: var(--theme-light-button-text-color);
+    --button-hover-bg-color: var(--theme-light-button-hover-bg-color);
 
-    .color-input-section {
-        flex-direction: column;
-    }
+    /* Palette Tabs */
+    --palette-tab-bg-color: var(--theme-light-palette-tab-bg-color);
+    --palette-tab-active-bg-color: var(--theme-light-palette-tab-active-bg-color);
+    --palette-tab-hover-bg-color: var(--theme-light-palette-tab-hover-bg-color);
 
-    .palette-display {
-        flex-wrap: wrap;
-    }
-
-    .color-swatch {
-        width: 45%;
-        margin: 2.5%;
-    }
+    /* Additional overrides if necessary */
 }
 
-@media screen and (max-width: 480px) {
-    .color-swatch {
-        width: 100%;
-        margin: 5px 0;
-    }
 
-    .color-swatch:hover {
-        transform: none;
-        box-shadow: none;
-    }
+/* Dark Theme Overrides */
+.theme-dark {
+    /* Background and Text */
+    background-color: var(--theme-dark-bg-color);
+    color: var(--theme-dark-text-color);
+    --secondary-text-color: var(--theme-dark-secondary-text-color);
+    --harmony-description-text-color: var(--theme-dark-harmony-description-text-color);
 
-    .eyedropper-btn {
-        margin-bottom: 10px;
-    }
+    /* Header and Navigation */
+    --header-bg-color: var(--theme-dark-header-bg-color);
+    --link-hover-bg-color: var(--theme-dark-link-hover-bg-color);
+
+    /* Sidebar */
+    --sidebar-bg-color: var(--theme-dark-sidebar-bg-color);
+    --sidebar-text-color: var(--theme-dark-sidebar-text-color);
+
+    /* Buttons */
+    --button-bg-color: var(--theme-dark-button-bg-color);
+    --button-text-color: var(--button-text-color); /* Assuming button text color remains as set */
+    --button-hover-bg-color: var(--theme-dark-button-hover-bg-color);
+
+    /* Palette Tabs */
+    --palette-tab-bg-color: var(--theme-dark-palette-tab-bg-color);
+    --palette-tab-active-bg-color: var(--theme-dark-palette-tab-active-bg-color);
+    --palette-tab-hover-bg-color: var(--theme-dark-palette-tab-hover-bg-color);
+
+    /* Modals */
+    --modal-content-bg-color: var(--theme-dark-modal-content-bg-color);
+    --modal-content-text-color: var(--theme-dark-modal-content-text-color);
+    --modal-close-button-color: var(--theme-dark-modal-close-button-color);
+
+    /* Accessibility Text Box */
+    --accessibility-text-box-bg-color: var(--theme-dark-accessibility-text-box-bg-color);
+    --accessibility-text-color: var(--theme-dark-accessibility-text-color);
+
+    /* Footer */
+    --footer-bg-color: var(--theme-dark-footer-bg-color);
+    --footer-text-color: var(--theme-dark-footer-text-color);
+
+    /* Additional overrides if necessary */
 }
+
+/* *********************************
+   Footer Styles (if any)
+********************************* */
+
+/* Styles remain unchanged */
