@@ -12,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const paletteDisplay = document.querySelector('.palette-display');
     const paletteTabs = document.querySelectorAll('.palette-tabs .tab');
     const paletteDropdown = document.getElementById('palette-dropdown');
+    const generateRandomPaletteButton = document.getElementById('generate-random-palette'); // Random palette generator button
+    const generateButton = document.getElementById('generate-palette'); // Generate palette button (if exists)
     const harmonyText = document.getElementById('harmony-text');
     const exportButton = document.getElementById('export-button');
     const exportFormat = document.getElementById('export-format');
@@ -20,21 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const harmonyButton = document.querySelector('.harmony-button');
     const harmonyTextExample1 = document.querySelector('.harmony-text');
     const harmonyTextExample2 = document.querySelector('.harmony-text2');
-    const colorAdjustmentModal = document.getElementById('color-adjustment-modal');
-    const applyAdjustmentsBtn = document.getElementById('apply-adjustments');
-    const hueSlider = document.getElementById('hue-slider');
-    const saturationSlider = document.getElementById('saturation-slider');
-    const lightnessSlider = document.getElementById('lightness-slider');
-    const colorPreview = document.getElementById('color-preview');
-    const closeButton = document.querySelector('.close-button');
     const languageSelector = document.getElementById('language-selector');
     const themeSelector = document.getElementById('theme-selector');
+
 
     // Variables to store current state
     let currentPaletteType = 'monochromatic';
     let baseColor = '#7E7E7E'; // Set the default base color to #7E7E7E
     let currentPalette = [];
-    let adjustedColor = baseColor;
 
     // Set the color picker to the base color
     colorPicker.value = baseColor;
@@ -221,6 +216,11 @@ const popularPalettes = [
         });
     });
 
+    // Handle Generate Palette Button Click (if applicable)
+    if (generateButton) {
+        generateButton.addEventListener('click', handlePaletteSelection);
+    }
+
     // Palette dropdown change event (for mobile view)
     paletteDropdown.addEventListener('change', () => {
         currentPaletteType = paletteDropdown.value;
@@ -248,36 +248,6 @@ const popularPalettes = [
         updateHarmonyVisualizer();
     });
 
-    // Open color adjustment modal
-    paletteDisplay.addEventListener('click', (event) => {
-        const swatch = event.target.closest('.color-swatch');
-        if (swatch) {
-            adjustedColor = swatch.style.backgroundColor;
-            openColorAdjustmentModal();
-        }
-    });
-
-    // Apply adjustments and close modal
-    applyAdjustmentsBtn.addEventListener('click', () => {
-        applyColorAdjustments();
-        closeColorAdjustmentModal();
-    });
-
-    // Close modal when clicking the close button
-    closeButton.addEventListener('click', closeColorAdjustmentModal);
-
-    // Close modal when clicking outside the modal content
-    window.addEventListener('click', (event) => {
-        if (event.target === colorAdjustmentModal) {
-            closeColorAdjustmentModal();
-        }
-    });
-
-    // Sliders input events
-    hueSlider.addEventListener('input', updateColorPreview);
-    saturationSlider.addEventListener('input', updateColorPreview);
-    lightnessSlider.addEventListener('input', updateColorPreview);
-
     // Language selector change event
     languageSelector.addEventListener('change', () => {
         const language = languageSelector.value;
@@ -289,6 +259,14 @@ const popularPalettes = [
         const theme = themeSelector.value;
         setTheme(theme);
     });
+
+    // Handle Random Palette Generator Button Click
+    if (generateRandomPaletteButton) {
+        generateRandomPaletteButton.addEventListener('click', () => {
+            currentPalette = generateRandomPalette();
+            displayPalette();
+        });
+    }
 
     /* *********************************
        Initialize the Page
@@ -315,14 +293,14 @@ const popularPalettes = [
     }
 
     // Adjust the brightness of a HEX color
-function adjustBrightness(hex, percent) {
-    let rgb = hexToRgbArray(hex);
-    rgb = rgb.map((value) => {
-        const newValue = Math.min(Math.max(value + percent, 0), 255); // Keep values between 0 and 255
-        return newValue;
-    });
-    return rgbToHex(`rgb(${rgb.join(', ')})`);
-}
+    function adjustBrightness(hex, percent) {
+        let rgb = hexToRgbArray(hex);
+        rgb = rgb.map((value) => {
+            const newValue = Math.min(Math.max(value + percent, 0), 255); // Keep values between 0 and 255
+            return newValue;
+        });
+        return rgbToHex(`rgb(${rgb.join(', ')})`);
+    }
 
 // Helper function to convert HEX to RGB array
 function hexToRgbArray(hex) {
@@ -471,6 +449,22 @@ function generateMonochromatic(hex) {
         return colors; // Return exactly 6 colors
     }
 
+    // Generate Random Palette with 8 Colors
+    function generateRandomPalette() {
+        const palette = [];
+
+        while (palette.length < 8) {
+            let randomColor = getRandomColor();
+
+            // Ensure uniqueness and accessibility
+            if (!palette.includes(randomColor) && isAccessible(randomColor)) {
+                palette.push(randomColor);
+            }
+        }
+
+        return palette;
+    }
+
     // Function to check if a color is accessible (placeholder)
     function isAccessible(hex) {
         // Implement accessibility check if needed
@@ -548,33 +542,57 @@ function populatePopularPalettes() {
                 return generateTetradic(hex);
             case 'powerpointTheme':
                 return generatePowerPointTheme(hex);
+            case 'random':
+                return generateRandomPalette();
             default:
                 return generateMonochromatic(hex);
         }
     }
 
+    // Random color generator for random palettes
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
     // Function to display the palette
     function displayPalette() {
-        paletteDisplay.innerHTML = '';
-        currentPalette.forEach(color => {
+        paletteDisplay.innerHTML = ''; // Clear existing palette
+    
+        currentPalette.forEach((color) => {
             const swatch = document.createElement('div');
             swatch.classList.add('color-swatch');
             swatch.style.backgroundColor = color;
-
+    
             const colorContent = document.createElement('div');
             colorContent.classList.add('color-content');
-
+    
             const colorCode = document.createElement('div');
             colorCode.classList.add('color-code');
             colorCode.textContent = color;
-
+    
+            // Add click event to copy color code
+            swatch.addEventListener('click', () => {
+                navigator.clipboard.writeText(color).then(() => {
+                    alert(`Copied ${color} to clipboard!`);
+                }).catch((err) => {
+                    console.error('Could not copy text: ', err);
+                });
+            });
+    
             colorContent.appendChild(colorCode);
             swatch.appendChild(colorContent);
-
+    
+            // Optional: Highlight inaccessible colors
+            if (!isAccessible(color)) {
+                swatch.style.border = '2px solid red'; // Highlight inaccessible colors
+            }
+    
             paletteDisplay.appendChild(swatch);
-
-            // Copy Color on Click
-            swatch.addEventListener('click', copyColor);
         });
     }
 
@@ -820,50 +838,6 @@ function populatePopularPalettes() {
         link.href = window.URL.createObjectURL(blob);
         link.click();
         window.URL.revokeObjectURL(link.href);
-    }
-
-    /* *********************************
-       Color Adjustment Modal Functions
-    ********************************* */
-
-    // Function to open the color adjustment modal
-    function openColorAdjustmentModal() {
-        colorAdjustmentModal.style.display = 'block';
-        initializeSliders();
-    }
-
-    // Function to close the color adjustment modal
-    function closeColorAdjustmentModal() {
-        colorAdjustmentModal.style.display = 'none';
-    }
-
-    // Function to initialize sliders and preview
-    function initializeSliders() {
-        const hsl = tinycolor(adjustedColor).toHsl();
-        hueSlider.value = hsl.h;
-        saturationSlider.value = hsl.s * 100;
-        lightnessSlider.value = hsl.l * 100;
-        updateColorPreview();
-    }
-
-    // Function to update the color preview in the modal
-    function updateColorPreview() {
-        const h = hueSlider.value;
-        const s = saturationSlider.value / 100;
-        const l = lightnessSlider.value / 100;
-        const color = tinycolor({ h, s, l });
-        colorPreview.style.backgroundColor = color.toHexString();
-    }
-
-    // Function to apply color adjustments
-    function applyColorAdjustments() {
-        const h = hueSlider.value;
-        const s = saturationSlider.value / 100;
-        const l = lightnessSlider.value / 100;
-        const color = tinycolor({ h, s, l }).toHexString();
-        baseColor = color;
-        colorPicker.value = baseColor;
-        updatePalette();
     }
 
     /* *********************************
