@@ -5,12 +5,12 @@
 ********************************* */
 
 const ThemeManager = (() => {
-    const defaultTheme = 'theme-default';
+    const defaultTheme = 'theme-light';
 
     // Function to apply the selected theme
     const applyTheme = (theme) => {
         // Remove existing theme classes
-        document.body.classList.remove('theme-default', 'theme-light', 'theme-dark');
+        document.body.classList.remove('theme-light', 'theme-dark');
         // Add the new theme class
         document.body.classList.add(theme);
         // Save the selected theme to localStorage
@@ -58,6 +58,8 @@ const LanguageManager = (() => {
             export_as: 'Export as:',
             select_format: 'Select format',
             export_palette: 'Export Palette',
+            generate_random_palette: 'Generate Random Palette',
+            select_popular_palette: 'Select a Popular Palette',
             color_harmony_visualizer: 'Color Harmony Visualizer',
             select_pattern: 'Select Pattern:',
             button_example: 'Button Example',
@@ -92,6 +94,8 @@ const LanguageManager = (() => {
             select_format: "Seleccionar formato",
             export_palette: "Exportar paleta",
             simulate_color_blindness: "Simular daltonismo:",
+            generate_random_palette: 'Generar Paleta Aleatoria',
+            select_popular_palette: 'Seleccionar una Paleta Popular',
             none: "Ninguno",
             monochromatic: "Monocromático",
             analogous: "Análogo",
@@ -129,6 +133,8 @@ const LanguageManager = (() => {
             extras: 'Extras',
             accessibility_checker: 'Vérificateur d’Accessibilité',
             choose_color: 'Choisissez une Couleur de Base',
+            generate_random_palette: 'Générer une palette aléatoire',
+            select_popular_palette: 'Sélectionnez une palette populaire',
             choose_harmony: 'Choisissez une harmonie de couleurs',
             select_palette: 'Sélectionner une Palette',
             select_palette_description: 'Sélectionnez une palette pour voir sa description.',
