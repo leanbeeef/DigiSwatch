@@ -33,6 +33,7 @@
             <h1 data-translate="title">Color Palette Generator</h1>
             <div class="header-options">
                 <!-- Language Selector for Localization -->
+                <p>Language:</p>
                 <select id="language-selector">
                     <option value="en" data-translate="english">English</option>
                     <option value="fr" data-translate="french">French</option>
@@ -41,10 +42,11 @@
                 </select>
 
                 <!-- Theme Selector for Themes and Dark Mode -->
+                <p>Theme:</p>
                 <select id="theme-selector">
-                    <!-- <option value="theme-default" data-translate="default_theme">Default</option> -->
                     <option value="theme-light" data-translate="light_theme">Light</option>
                     <option value="theme-dark" data-translate="dark_theme">Dark</option>
+                    <!-- <option value="theme-default" data-translate="default_theme">Default</option> -->
                 </select>
             </div>
         </nav>
@@ -155,28 +157,6 @@
             </section>
         </div>
     </main>
-
-    <!-- Color Adjustment Modal -->
-    <div id="color-adjustment-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h3 data-translate="adjust_color">Adjust Color</h3>
-            <div class="slider-container">
-                <label for="hue-slider" data-translate="hue">Hue:</label>
-                <input type="range" id="hue-slider" min="0" max="360">
-            </div>
-            <div class="slider-container">
-                <label for="saturation-slider" data-translate="saturation">Saturation:</label>
-                <input type="range" id="saturation-slider" min="0" max="100">
-            </div>
-            <div class="slider-container">
-                <label for="lightness-slider" data-translate="lightness">Lightness:</label>
-                <input type="range" id="lightness-slider" min="0" max="100">
-            </div>
-            <div id="color-preview" class="color-preview"></div>
-            <button id="apply-adjustments" data-translate="apply">Apply</button>
-        </div>
-    </div>
 
     <!-- Include the specific JavaScript file for this page -->
     <script src="scripts/site.js"></script>
