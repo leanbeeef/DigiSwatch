@@ -11,7 +11,7 @@
 
     /* Secondary Colors */
     --secondary-text-color: #2f362f; /* Dark greenish grey */
-    --harmony-description-text-color: #6f7d6f; /* Medium greenish grey */
+    --harmony-description-text-color: #2f362f; /* Medium greenish grey */
     --input-border-color: #b2bfb2; /* Light grey-green */
     --input-bg-color: #ffffff; /* White input background */
     --input-text-color: #2e2e2e; /* Dark text color */
@@ -19,7 +19,7 @@
 
     /* Header and Navigation */
     --header-bg-color: #aff0b9; /* Very light green */
-    --link-hover-bg-color: #c4e6c9; /* Light green on hover */
+    --link-hover-bg-color: #8ba38f; /* Light green on hover */
 
     /* Sidebar */
     --sidebar-bg-color: #91dd9c; /* Matching header background */
@@ -53,13 +53,13 @@
     --theme-light-text-color: #1a1a1a; /* Almost black */
     --theme-light-palette-tab-bg-color: #e0f0e0; /* Very light green */
     --theme-light-palette-tab-active-bg-color: #c0e0c0; /* Light green */
-    --theme-light-palette-tab-hover-bg-color: #b8e0b8; /* Slightly darker */
+    --theme-light-palette-tab-hover-bg-color: #435743; /* Slightly darker */
     --theme-light-button-bg-color: #388e3c; /* Dark green */
     --theme-light-button-text-color: #ffffff; /* White text */
-    --theme-light-button-hover-bg-color: #2e7d32; /* Even darker green */
+    --theme-light-button-hover-bg-color: #19461b; /* Even darker green */
 
     /* Dark Theme */
-    --theme-dark-bg-color: #21271e; /* Dark background */
+    --theme-dark-bg-color: #3d4738; /* Dark background */
     --theme-dark-text-color: #dddddd; /* Light grey text */
     --theme-dark-secondary-text-color: #999999; /* Grey */
     --theme-dark-header-bg-color: #000000; /* Very dark */
@@ -103,7 +103,7 @@
 
 /* Set default font and background */
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: var(--main-bg-color);
     color: var(--main-text-color);
     min-height: 100vh;
@@ -230,7 +230,7 @@ section {
 
 h3 {
     margin-bottom: 20px;
-    font-size: 1.5em;
+    font-size: 1.3em;
     color: var(--secondary-text-color);
 }
 
@@ -524,6 +524,15 @@ h3 {
     border-radius: 5px;
 }
 
+#hue-slider {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 5px;
+}
+
 #export-button:hover {
     background-color: var(--button-hover-bg-color);
 }
@@ -596,6 +605,27 @@ h3 {
 }
 
 #apply-adjustments:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+/* *********************************
+   Random Generate Button
+   ********************************* */
+
+.generate-button {
+    margin-top: 25px;
+    padding: 25px;
+    cursor: pointer;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-size: large;
+    font-family: inherit;
+}
+
+.generate-button:hover {
     background-color: var(--button-hover-bg-color);
 }
 
