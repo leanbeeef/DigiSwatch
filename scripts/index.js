@@ -25,14 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeSelector = document.getElementById('theme-selector');
     const colorBlindnessSelector = document.getElementById('color-blindness-selector');
 
-    // Initialize the default palette on load
-    const defaultPalette = popularPalettes.find(palette => palette.name === 'Sunset'); // Or any other default palette name
-    currentPalette = defaultPalette ? defaultPalette.colors : generateMonochromatic(baseColor); // Use 'Sunset' or generate a monochromatic palette by default
-    displayPalette();
-
-    // Update the palette on page load with base color
-    updatePalette();
-
     // Variables to store current state
     let currentPaletteType = 'monochromatic';
     let baseColor = '#7E7E7E'; // Set the default base color to #7E7E7E
@@ -198,6 +190,13 @@ document.addEventListener('DOMContentLoaded', () => {
     /* *********************************
        Initialize the Page
     ********************************* */
+
+    // Initialize the default palette on load
+    const defaultPalette = popularPalettes.find(palette => palette.name === 'Sunset'); // Choose 'Sunset' or another default palette
+    currentPalette = defaultPalette ? defaultPalette.colors : generateMonochromatic(baseColor); // Fallback to monochromatic if not found
+
+    // Display the default palette immediately
+    displayPalette();
 
     // Set initial theme
     setTheme('theme-light');
