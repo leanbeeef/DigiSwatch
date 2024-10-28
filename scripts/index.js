@@ -25,6 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeSelector = document.getElementById('theme-selector');
     const colorBlindnessSelector = document.getElementById('color-blindness-selector');
 
+    // Initialize the default palette on load
+    const defaultPalette = popularPalettes.find(palette => palette.name === 'Sunset'); // Or any other default palette name
+    currentPalette = defaultPalette ? defaultPalette.colors : generateMonochromatic(baseColor); // Use 'Sunset' or generate a monochromatic palette by default
+    displayPalette();
+
+    // Update the palette on page load with base color
+    updatePalette();
 
     // Variables to store current state
     let currentPaletteType = 'monochromatic';
