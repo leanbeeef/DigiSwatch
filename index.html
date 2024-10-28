@@ -16,7 +16,7 @@
 
     <!-- Include external libraries -->
     <script src="https://cdn.jsdelivr.net/npm/tinycolor2@1.4.2/dist/tinycolor-min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/color-blind@1.0.0/color-blind.min.js"></script>
+    <script src="https://unpkg.com/color-blind@1.0.0/color-blind.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <!-- Include patterns.js for SVG patterns if used -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/svg-patterns@1.0.0/patterns.min.js"></script> -->
@@ -28,29 +28,20 @@
         <nav>
             <div class="navi">
                 <a href="index.html" data-translate="home">Home</a>
-                <a href="pages/accessibility_checker.html" data-translate="accessibility_checker">Accessibility Checker</a>
+                <a href="pages/accessibility_checker.html" data-translate="accessibility_checker">Accessibility
+                    Checker</a>
             </div>
             <h1 data-translate="title">Color Palette Generator</h1>
             <div class="header-options">
-                <!-- Language Selector for Localization -->
-                <p>Language:</p>
-                <<select id="language-selector">
-                    <option value="en" data-translate="english">English</option>
-                    <option value="fr" data-translate="french">French</option>
-                    <option value="es" data-translate="spanish">Spanish</option>
-                    <option value="de" data-translate="german">German</option>
-                    <option value="zh" data-translate="chinese_simplified">Chinese (Simplified)</option>
-                    <option value="ja" data-translate="japanese">Japanese</option>
-                    <!-- Add more languages here -->
-                </select>
 
                 <!-- Theme Selector for Themes and Dark Mode -->
-                <p>Theme:</p>
+                <p data-translate="theme">Theme:</p>
                 <select id="theme-selector">
                     <option value="theme-light" data-translate="light_theme">Light</option>
                     <option value="theme-dark" data-translate="dark_theme">Dark</option>
                     <!-- <option value="theme-default" data-translate="default_theme">Default</option> -->
                 </select>
+
             </div>
         </nav>
     </header>
@@ -88,9 +79,19 @@
                         <!-- Options will be populated dynamically -->
                     </select>
                 </div>
-                <button id="generate-random-palette" class="generate-button" data-translate="generate_random_palette">Generate Random Palette</button>
+                <button id="generate-random-palette" class="generate-button"
+                    data-translate="generate_random_palette">Generate Random Palette</button>
             </section>
 
+            <section class="color-blindness-simulation">
+                <h3 data-translate="color_blindness_simulation">Color Blindness Simulation</h3>
+                <select id="color-blindness-selector" class="palette-selector">
+                    <option value="none" data-translate="none">None</option>
+                    <option value="protanopia" data-translate="protanopia">Protanopia</option>
+                    <option value="deuteranopia" data-translate="deuteranopia">Deuteranopia</option>
+                    <option value="tritanopia" data-translate="tritanopia">Tritanopia</option>
+                    <option value="achromatopsia" data-translate="achromatopsia">Achromatopsia</option>
+                </select>
             </section>
         </div>
 
@@ -130,11 +131,11 @@
                 <div class="pattern-selector-container">
                     <label for="pattern-selector" data-translate="select_pattern">Select Pattern:</label>
                     <select id="pattern-selector">
-                        <option value="jigsaw">Jigsaw</option>
-                        <option value="topography">Topography</option>
-                        <option value="overcast">Overcast</option>
-                        <option value="plus">Plus</option>
-                        <option value="bubbles">Bubbles</option>
+                        <option value="jigsaw" data-translate="jigsaw">Jigsaw</option>
+                        <option value="topography" data-translate="topography">Topography</option>
+                        <option value="overcast" data-translate="overcast">Overcast</option>
+                        <option value="plus" data-translate="plus">Plus</option>
+                        <option value="bubbles" data-translate="bubbles">Bubbles</option>
                         <!-- Add more patterns as needed -->
                     </select>
                 </div>
