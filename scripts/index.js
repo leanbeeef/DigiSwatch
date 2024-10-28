@@ -191,18 +191,12 @@ document.addEventListener('DOMContentLoaded', () => {
        Initialize the Page
     ********************************* */
 
-    // Initialize the default palette on load
-    const defaultPalette = popularPalettes.find(palette => palette.name === 'Sunset'); // Choose 'Sunset' or another default palette
-    currentPalette = defaultPalette ? defaultPalette.colors : generateMonochromatic(baseColor); // Fallback to monochromatic if not found
-
-    // Display the default palette immediately
+    // Generate and display the default monochromatic palette based on base color
+    currentPalette = generateMonochromatic(baseColor);
     displayPalette();
 
     // Set initial theme
     setTheme('theme-light');
-
-    // Update the palette on page load
-    updatePalette();
 
     /* *********************************
        Color Palette Generation Functions
@@ -283,16 +277,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Generate Complementary Palette
     function generateComplementary(hex) {
         const hsl = hexToHsl(hex);
-        let complementHue = (hsl.h + 180) % 360;
-        let complementColor = hslToHex({ h: complementHue, s: hsl.s, l: hsl.l });
+        const complementHue = (hsl.h + 180) % 360;
+        const complementColor = hslToHex({ h: complementHue, s: hsl.s, l: hsl.l });
 
+        // Start with the base color and its complementary color
         let colors = [hex, complementColor];
 
-        // Add monochromatic shades
-        colors = colors.concat(generateMonochromatic(hex).slice(1, 3)); // Shades of base color
-        colors = colors.concat(generateMonochromatic(complementColor).slice(1, 4)); // Shades of complement
+        // Add shades of the base color
+        colors = colors.concat(generateMonochromatic(hex).slice(1, 3)); // 2 shades of base color
 
-        return colors.slice(0, 8);
+        // Add shades of the complementary color
+        colors = colors.concat(generateMonochromatic(complementColor).slice(1, 4)); // 3 shades of complement
+
+        // Ensure we have exactly 8 colors
+        if (colors.length < 8) {
+            colors.push(adjustBrightness(hex, -50)); // Add an extra shade if needed
+        }
+
+        return colors.slice(0, 8); // Trim to exactly 8 colors if there are extra
     }
 
     // Generate Split Complementary Palette
