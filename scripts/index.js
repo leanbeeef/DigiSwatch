@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const harmonyButton = document.querySelector('.harmony-button');
     const harmonyTextExample1 = document.querySelector('.harmony-text');
     const harmonyTextExample2 = document.querySelector('.harmony-text2');
-    const languageSelector = document.getElementById('language-selector');
     const themeSelector = document.getElementById('theme-selector');
+    const colorBlindnessSelector = document.getElementById('color-blindness-selector');
 
 
     // Variables to store current state
@@ -34,167 +34,89 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set the color picker to the base color
     colorPicker.value = baseColor;
 
-    // Localization data
-    const translations = {
-        en: {
-            title: 'Color Palette Generator',
-            home: 'Home',
-            extras: 'Extras',
-            accessibility_checker: 'Accessibility Checker',
-            choose_color: 'Choose a Base Color',
-            select_palette: 'Select Palette',
-            select_palette_description: 'Select a palette to see its description.',
-            export_as: 'Export as:',
-            select_format: 'Select format',
-            export_palette: 'Export Palette',
-            color_harmony_visualizer: 'Color Harmony Visualizer',
-            select_pattern: 'Select Pattern:',
-            button_example: 'Button Example',
-            text_example: 'Text Example',
-            preview_text: 'This is a preview of your text.',
-            adjust_color: 'Adjust Color',
-            hue: 'Hue:',
-            saturation: 'Saturation:',
-            lightness: 'Lightness:',
-            apply: 'Apply',
-            default_theme: 'Default',
-            light_theme: 'Light',
-            dark_theme: 'Dark',
-            english: 'English',
-            spanish: 'Español',
-            monochromatic: 'Monochromatic',
-            analogous: 'Analogous',
-            complementary: 'Complementary',
-            split_complementary: 'Split Complementary',
-            triadic: 'Triadic',
-            tetradic: 'Tetradic',
-            powerpoint_theme: 'PowerPoint Theme'
-        },
-        es: {
-            title: "Generador de paleta de colores",
-            home: "Casa",
-            extras: "Extras",
-            accessibility_checker: "Comprobador de accesibilidad",
-            export_as: "Exportar como:",
-            select_format: "Seleccionar formato",
-            export_palette: "Exportar paleta",
-            simulate_color_blindness: "Simular daltonismo:",
-            none: "Ninguno",
-            monochromatic: "Monocromático",
-            analogous: "Análogo",
-            complementary: "Complementario",
-            split_complementary: "Dividir Complementario",
-            triadic: "Tríadico",
-            tetradic: "Tetrádico",
-            powerpoint_theme: "Tema de PowerPoint",
-            select_palette_description: "Seleccione una paleta para ver su descripción.",
-            color_harmony_visualizer: "Visualizador de armonía de color",
-            select_pattern: "Seleccionar patrón:",
-            button_example: "Ejemplo de botón",
-            text_example: "Ejemplo de texto",
-            preview_text: 'Esta es una vista previa de su texto.',
-            popular_palettes: "Paletas populares",
-            select_popular_palette: "Seleccione una paleta popular",
-            generate_random_palette: "Generar paleta aleatoria",
-            most_used_colors: "Colores más utilizados",
-            adjust_color: "Ajustar color",
-            hue: "Tono",
-            saturation: "Saturación",
-            lightness: "Ligereza",
-            apply: "Aplicar",
-            upload_image: "Subir imagen",
-            english: "Inglés",
-            spanish: "Español",
-            default_theme: "Predeterminado",
-            light_theme: "Luz",
-            dark_theme: "Oscuro",
-        },
-        // Add more languages as needed
-    };
-
     // Predefined Popular Color Palettes
-const popularPalettes = [
-    {
-        name: 'Sunset',
-        colors: ['#ff6b6b', '#ff8c42', '#ffd700', '#ffcc29', '#ffaa33', '#ff6f61', '#ff5e57', '#ff8a5b'],
-    },
-    {
-        name: 'Ocean Blue',
-        colors: ['#004e92', '#4286f4', '#00b4db', '#0083b0', '#0052cc', '#4a90e2', '#0073e6', '#0066cc'],
-    },
-    {
-        name: 'Forest Greens',
-        colors: ['#0b3d0b', '#004d00', '#008f00', '#00cc00', '#00e600', '#29a329', '#339933', '#006600'],
-    },
-    {
-        name: 'Purple Hues',
-        colors: ['#6a0dad', '#9b30ff', '#800080', '#dda0dd', '#e066ff', '#ba55d3', '#9370db', '#bf00ff'],
-    },
-    {
-        name: 'Vintage Pastels',
-        colors: ['#f4e1d2', '#e8c1c1', '#c5a3a3', '#a1a3c5', '#c1c1e8', '#d2e1f4', '#b3cde0', '#a3c1ad'],
-    },
-    {
-        name: 'Earth Tones',
-        colors: ['#a0522d', '#cd853f', '#deb887', '#f5deb3', '#e0c097', '#c19a6b', '#8b4513', '#5d3a1a'],
-    },
-    {
-        name: 'Neon Lights',
-        colors: ['#ff6ec7', '#ff33cc', '#cc33ff', '#9933ff', '#6699ff', '#33ccff', '#33ffff', '#66ffcc'],
-    },
-    {
-        name: 'Warm Autumn',
-        colors: ['#ff7f50', '#ff6347', '#ff4500', '#db7093', '#e9967a', '#f08080', '#cd5c5c', '#dc143c'],
-    },
-    {
-        name: 'Cool Winter',
-        colors: ['#4682b4', '#5f9ea0', '#6495ed', '#00ced1', '#1e90ff', '#87cefa', '#87ceeb', '#afeeee'],
-    },
-    {
-        name: 'Monochrome Grays',
-        colors: ['#111111', '#222222', '#333333', '#444444', '#555555', '#666666', '#777777', '#888888'],
-    },
-    {
-        name: 'Fresh Spring',
-        colors: ['#98fb98', '#00fa9a', '#00ff7f', '#7fff00', '#7cfc00', '#adff2f', '#32cd32', '#9acd32'],
-    },
-    {
-        name: 'Pastel Rainbow',
-        colors: ['#ffd1dc', '#ffe4e1', '#e6e6fa', '#e0ffff', '#e0ffe0', '#ffffe0', '#ffe4b5', '#ffe4c4'],
-    },
-    {
-        name: 'Bold Primary',
-        colors: ['#ff0000', '#0000ff', '#ffff00', '#00ff00', '#ff00ff', '#00ffff', '#000000', '#ffffff'],
-    },
-    {
-        name: 'Elegant Neutrals',
-        colors: ['#f5f5f5', '#e0e0e0', '#cccccc', '#b3b3b3', '#999999', '#808080', '#666666', '#4d4d4d'],
-    },
-    {
-        name: 'Chocolate Delight',
-        colors: ['#7b3f00', '#a0522d', '#8b4513', '#d2691e', '#cd853f', '#f4a460', '#deb887', '#ffe4c4'],
-    },
-    {
-        name: 'Tropical Paradise',
-        colors: ['#ff4500', '#ff8c00', '#ffd700', '#7cfc00', '#00fa9a', '#00ffff', '#1e90ff', '#da70d6'],
-    },
-    {
-        name: 'Muted Earth',
-        colors: ['#806b63', '#a68b79', '#c3a697', '#e0c6b5', '#f7e6d3', '#d9cab3', '#bba38b', '#9d7c63'],
-    },
-    {
-        name: 'Royal Gold',
-        colors: ['#ffd700', '#daa520', '#b8860b', '#ff8c00', '#ff7f50', '#ff6347', '#cd5c5c', '#8b0000'],
-    },
-    {
-        name: 'Minimalist Blue',
-        colors: ['#dbe9ee', '#a9cfd8', '#79b1c1', '#4f94af', '#266b8e', '#1b4f72', '#103b57', '#072a42'],
-    },
-    {
-        name: 'Floral Bouquet',
-        colors: ['#ffb6c1', '#ff69b4', '#db7093', '#ff1493', '#c71585', '#d8bfd8', '#dda0dd', '#ee82ee'],
-    },
-];
+    const popularPalettes = [
+        {
+            name: 'Sunset',
+            colors: ['#ff6b6b', '#ff8c42', '#ffd700', '#ffcc29', '#ffaa33', '#ff6f61', '#ff5e57', '#ff8a5b'],
+        },
+        {
+            name: 'Ocean Blue',
+            colors: ['#004e92', '#4286f4', '#00b4db', '#0083b0', '#0052cc', '#4a90e2', '#0073e6', '#0066cc'],
+        },
+        {
+            name: 'Forest Greens',
+            colors: ['#0b3d0b', '#004d00', '#008f00', '#00cc00', '#00e600', '#29a329', '#339933', '#006600'],
+        },
+        {
+            name: 'Purple Hues',
+            colors: ['#6a0dad', '#9b30ff', '#800080', '#dda0dd', '#e066ff', '#ba55d3', '#9370db', '#bf00ff'],
+        },
+        {
+            name: 'Vintage Pastels',
+            colors: ['#f4e1d2', '#e8c1c1', '#c5a3a3', '#a1a3c5', '#c1c1e8', '#d2e1f4', '#b3cde0', '#a3c1ad'],
+        },
+        {
+            name: 'Earth Tones',
+            colors: ['#a0522d', '#cd853f', '#deb887', '#f5deb3', '#e0c097', '#c19a6b', '#8b4513', '#5d3a1a'],
+        },
+        {
+            name: 'Neon Lights',
+            colors: ['#ff6ec7', '#ff33cc', '#cc33ff', '#9933ff', '#6699ff', '#33ccff', '#33ffff', '#66ffcc'],
+        },
+        {
+            name: 'Warm Autumn',
+            colors: ['#ff7f50', '#ff6347', '#ff4500', '#db7093', '#e9967a', '#f08080', '#cd5c5c', '#dc143c'],
+        },
+        {
+            name: 'Cool Winter',
+            colors: ['#4682b4', '#5f9ea0', '#6495ed', '#00ced1', '#1e90ff', '#87cefa', '#87ceeb', '#afeeee'],
+        },
+        {
+            name: 'Monochrome Grays',
+            colors: ['#111111', '#222222', '#333333', '#444444', '#555555', '#666666', '#777777', '#888888'],
+        },
+        {
+            name: 'Fresh Spring',
+            colors: ['#98fb98', '#00fa9a', '#00ff7f', '#7fff00', '#7cfc00', '#adff2f', '#32cd32', '#9acd32'],
+        },
+        {
+            name: 'Pastel Rainbow',
+            colors: ['#ffd1dc', '#ffe4e1', '#e6e6fa', '#e0ffff', '#e0ffe0', '#ffffe0', '#ffe4b5', '#ffe4c4'],
+        },
+        {
+            name: 'Bold Primary',
+            colors: ['#ff0000', '#0000ff', '#ffff00', '#00ff00', '#ff00ff', '#00ffff', '#000000', '#ffffff'],
+        },
+        {
+            name: 'Elegant Neutrals',
+            colors: ['#f5f5f5', '#e0e0e0', '#cccccc', '#b3b3b3', '#999999', '#808080', '#666666', '#4d4d4d'],
+        },
+        {
+            name: 'Chocolate Delight',
+            colors: ['#7b3f00', '#a0522d', '#8b4513', '#d2691e', '#cd853f', '#f4a460', '#deb887', '#ffe4c4'],
+        },
+        {
+            name: 'Tropical Paradise',
+            colors: ['#ff4500', '#ff8c00', '#ffd700', '#7cfc00', '#00fa9a', '#00ffff', '#1e90ff', '#da70d6'],
+        },
+        {
+            name: 'Muted Earth',
+            colors: ['#806b63', '#a68b79', '#c3a697', '#e0c6b5', '#f7e6d3', '#d9cab3', '#bba38b', '#9d7c63'],
+        },
+        {
+            name: 'Royal Gold',
+            colors: ['#ffd700', '#daa520', '#b8860b', '#ff8c00', '#ff7f50', '#ff6347', '#cd5c5c', '#8b0000'],
+        },
+        {
+            name: 'Minimalist Blue',
+            colors: ['#dbe9ee', '#a9cfd8', '#79b1c1', '#4f94af', '#266b8e', '#1b4f72', '#103b57', '#072a42'],
+        },
+        {
+            name: 'Floral Bouquet',
+            colors: ['#ffb6c1', '#ff69b4', '#db7093', '#ff1493', '#c71585', '#d8bfd8', '#dda0dd', '#ee82ee'],
+        },
+    ];
 
     /* *********************************
        Event Listeners
@@ -227,6 +149,9 @@ const popularPalettes = [
         updatePalette();
     });
 
+    // Event listener for color blindness selector
+    colorBlindnessSelector.addEventListener('change', applyColorBlindnessSimulation);
+
     // Event listener for popular palette selection
     if (popularPalettesSelector) {
         populatePopularPalettes(); // Populate popular palettes dropdown
@@ -248,12 +173,6 @@ const popularPalettes = [
         updateHarmonyVisualizer();
     });
 
-    // Language selector change event
-    languageSelector.addEventListener('change', () => {
-        const language = languageSelector.value;
-        setLanguage(language);
-    });
-
     // Theme selector change event
     themeSelector.addEventListener('change', () => {
         const theme = themeSelector.value;
@@ -265,6 +184,7 @@ const popularPalettes = [
         generateRandomPaletteButton.addEventListener('click', () => {
             currentPalette = generateRandomPalette();
             displayPalette();
+            updateHarmonyVisualizer();
         });
     }
 
@@ -272,8 +192,7 @@ const popularPalettes = [
        Initialize the Page
     ********************************* */
 
-    // Set initial language and theme
-    setLanguage('en');
+    // Set initial theme
     setTheme('theme-light');
 
     // Update the palette on page load
@@ -302,39 +221,39 @@ const popularPalettes = [
         return rgbToHex(`rgb(${rgb.join(', ')})`);
     }
 
-// Helper function to convert HEX to RGB array
-function hexToRgbArray(hex) {
-    let c = hex.startsWith('#') ? hex.substring(1) : hex;
-    if (c.length === 3) {
-        c = c.split('').map((char) => char + char).join('');
+    // Helper function to convert HEX to RGB array
+    function hexToRgbArray(hex) {
+        let c = hex.startsWith('#') ? hex.substring(1) : hex;
+        if (c.length === 3) {
+            c = c.split('').map((char) => char + char).join('');
+        }
+        const num = parseInt(c, 16);
+        return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
     }
-    const num = parseInt(c, 16);
-    return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
-}
 
-// Convert RGB string to HEX
-function rgbToHex(rgb) {
-    const rgbValues = rgb.match(/\d+/g).map(Number);
-    return (
-        '#' +
-        rgbValues
-            .map((x) => {
-                const hex = x.toString(16);
-                return hex.length === 1 ? '0' + hex : hex;
-            })
-            .join('')
-    ).toUpperCase();
-}
+    // Convert RGB string to HEX
+    function rgbToHex(rgb) {
+        const rgbValues = rgb.match(/\d+/g).map(Number);
+        return (
+            '#' +
+            rgbValues
+                .map((x) => {
+                    const hex = x.toString(16);
+                    return hex.length === 1 ? '0' + hex : hex;
+                })
+                .join('')
+        ).toUpperCase();
+    }
 
     // Generate Monochromatic Palette
-function generateMonochromatic(hex) {
-    let colors = [];
-    for (let i = -4; i <= 3; i++) {
-        let adjustedColor = adjustBrightness(hex, i * 25);
-        colors.push(adjustedColor);
+    function generateMonochromatic(hex) {
+        let colors = [];
+        for (let i = -4; i <= 3; i++) {
+            let adjustedColor = adjustBrightness(hex, i * 25);
+            colors.push(adjustedColor);
+        }
+        return colors.slice(0, 8);
     }
-    return colors.slice(0, 8);
-}
 
     // Generate Analogous Palette
     function generateAnalogous(hex) {
@@ -472,46 +391,99 @@ function generateMonochromatic(hex) {
     }
 
     // Copy color value to clipboard and display a message
-function copyColor(e) {
-    const color = e.currentTarget.dataset.color;
-    const format = colorFormatToggle && colorFormatToggle.checked ? 'RGB' : 'HEX';
-    const colorText = format === 'RGB' ? hexToRgbString(color) : color.toUpperCase();
+    function copyColor(e) {
+        const color = e.currentTarget.dataset.color;
+        const format = colorFormatToggle && colorFormatToggle.checked ? 'RGB' : 'HEX';
+        const colorText = format === 'RGB' ? hexToRgbString(color) : color.toUpperCase();
 
-    // Copy to clipboard
-    navigator.clipboard.writeText(colorText).then(() => {
-        // Display a message in the center of the screen
-        showCopyMessage(`Copied ${colorText}`);
-    });
-}
+        // Copy to clipboard
+        navigator.clipboard.writeText(colorText).then(() => {
+            // Display a message in the center of the screen
+            showCopyMessage(`Copied ${colorText}`);
+        });
+    }
+
+    // Function to simulate color blindness on swatches
+    function applyColorBlindnessSimulation() {
+        const simulationType = colorBlindnessSelector.value;
+
+        // Update color swatches
+        document.querySelectorAll('.palette-display .color-swatch').forEach(swatch => {
+            const originalColor = swatch.style.backgroundColor;
+            const simulatedColor = simulateColorBlindness(originalColor, simulationType);
+            swatch.style.backgroundColor = simulatedColor;
+        });
+
+        // Update harmony visualizer
+        updateHarmonyVisualizer(simulationType);
+    }
+
+    // Simulate color blindness based on type
+    function simulateColorBlindness(hex, type) {
+        // Ensure hex is converted to RGB before processing
+        const { r, g, b } = hexToRgb(hex);
+        let simulated = { r, g, b };
+
+        switch (type) {
+            case 'protanopia':
+                simulated.r = 0.56667 * r + 0.43333 * g;
+                simulated.g = 0.55833 * g + 0.44167 * b;
+                simulated.b = 0.24167 * g + 0.75833 * b;
+                break;
+            case 'deuteranopia':
+                simulated.r = 0.625 * r + 0.375 * g;
+                simulated.g = 0.7 * g + 0.3 * b;
+                simulated.b = 0.3 * g + 0.7 * b;
+                break;
+            case 'tritanopia':
+                simulated.r = 0.95 * r + 0.05 * b;
+                simulated.g = 0.43333 * g + 0.56667 * b;
+                simulated.b = b; // This stays as is
+                break;
+            case 'achromatopsia':
+                const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+                simulated.r = simulated.g = simulated.b = gray;
+                break;
+            default:
+                return hex; // If no color blindness, return the original hex color
+        }
+
+        // Ensure RGB is within bounds [0, 255] and convert back to hex
+        return rgbToHex({
+            r: Math.round(Math.min(255, Math.max(0, simulated.r))),
+            g: Math.round(Math.min(255, Math.max(0, simulated.g))),
+            b: Math.round(Math.min(255, Math.max(0, simulated.b)))
+        });
+    }
 
     // Apply the selected popular palette
     function applySelectedPalette() {
         if (!popularPalettesSelector) return;
-    
+
         const selectedPaletteName = popularPalettesSelector.value;
         const selectedPalette = popularPalettes.find((palette) => palette.name === selectedPaletteName);
-    
+
         if (selectedPalette) {
             currentPalette = selectedPalette.colors; // Update currentPalette instead of currentColors
             displayPalette(); // Call without parameters
-    
+
             if (typeof updateHarmonyVisualizer === 'function') {
                 updateHarmonyVisualizer(); // Update without parameters
             }
         }
-}
+    }
 
-// Populate the popular palettes dropdown
-function populatePopularPalettes() {
-    if (!popularPalettesSelector) return;
+    // Populate the popular palettes dropdown
+    function populatePopularPalettes() {
+        if (!popularPalettesSelector) return;
 
-    popularPalettes.forEach((palette) => {
-        const option = document.createElement('option');
-        option.value = palette.name;
-        option.innerText = palette.name;
-        popularPalettesSelector.appendChild(option);
-    });
-}
+        popularPalettes.forEach((palette) => {
+            const option = document.createElement('option');
+            option.value = palette.name;
+            option.innerText = palette.name;
+            popularPalettesSelector.appendChild(option);
+        });
+    }
 
     /* *********************************
        Main Functions
@@ -562,19 +534,19 @@ function populatePopularPalettes() {
     // Function to display the palette
     function displayPalette() {
         paletteDisplay.innerHTML = ''; // Clear existing palette
-    
+
         currentPalette.forEach((color) => {
             const swatch = document.createElement('div');
             swatch.classList.add('color-swatch');
             swatch.style.backgroundColor = color;
-    
+
             const colorContent = document.createElement('div');
             colorContent.classList.add('color-content');
-    
+
             const colorCode = document.createElement('div');
             colorCode.classList.add('color-code');
             colorCode.textContent = color;
-    
+
             // Add click event to copy color code
             swatch.addEventListener('click', () => {
                 navigator.clipboard.writeText(color).then(() => {
@@ -583,15 +555,15 @@ function populatePopularPalettes() {
                     console.error('Could not copy text: ', err);
                 });
             });
-    
+
             colorContent.appendChild(colorCode);
             swatch.appendChild(colorContent);
-    
+
             // Optional: Highlight inaccessible colors
             if (!isAccessible(color)) {
                 swatch.style.border = '2px solid red'; // Highlight inaccessible colors
             }
-    
+
             paletteDisplay.appendChild(swatch);
         });
     }
@@ -604,7 +576,7 @@ function populatePopularPalettes() {
     function updateHarmonyVisualizer() {
         // Update the SVG pattern
         const patternName = patternSelector.value;
-        const colors = currentPalette;
+        const colors = currentPalette
         const svgPattern = generateSVGPattern(patternName, colors);
         harmonySVG.innerHTML = svgPattern;
 
@@ -843,21 +815,6 @@ function populatePopularPalettes() {
     /* *********************************
        Localization and Theme Functions
     ********************************* */
-
-    // Localization function
-    function setLanguage(language) {
-        const elements = document.querySelectorAll('[data-translate]');
-        elements.forEach(el => {
-            const key = el.getAttribute('data-translate');
-            if (translations[language][key]) {
-                if (el.placeholder) {
-                    el.placeholder = translations[language][key];
-                } else {
-                    el.textContent = translations[language][key];
-                }
-            }
-        });
-    }
 
     // Theme function
     function setTheme(theme) {
