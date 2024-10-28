@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Meta Tags and Title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate="accessibility_checker">Accessibility Checker</title>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Open+Sans&display=swap"
+        rel="stylesheet">
 
     <!-- External CSS -->
     <link rel="stylesheet" href="../styles/styles.css">
 
-    <!-- Include external libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/color-blind@1.0.0/color-blind.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tinycolor2@1.4.2/dist/tinycolor-min.js"></script>
-</head>
-<body id="body" class="theme-default">
+    <!-- Color Blind -->
+    <script src="https://unpkg.com/color-blind@1.0.0/color-blind.min.js"></script>
 
+
+</head>
+
+<body id="body" class="theme-default">
     <header>
         <nav>
             <div class="navi">
@@ -26,75 +28,37 @@
             </div>
             <h1 data-translate="accessibility_checker">Accessibility Checker</h1>
             <div class="header-options">
-                <!-- Language Selector for Localization -->
-                <select id="language-selector">
-                    <option value="en" data-translate="english">English</option>
-                    <option value="fr" data-translate="french">French</option>
-                    <option value="es" data-translate="spanish">Spanish</option>
-                    <option value="de" data-translate="german">German</option>
-                    <option value="zh" data-translate="chinese_simplified">Chinese (Simplified)</option>
-                    <option value="ja" data-translate="japanese">Japanese</option>
-                    <!-- Add more languages here -->
-                </select>
-
-                <!-- Theme Selector for Themes and Dark Mode -->
                 <select id="theme-selector">
-                    <!-- <option value="theme-default" data-translate="default_theme">Default</option> -->
                     <option value="theme-light" data-translate="light_theme">Light</option>
                     <option value="theme-dark" data-translate="dark_theme">Dark</option>
                 </select>
             </div>
         </nav>
     </header>
-
     <main>
         <div class="sidebar">
-            <!-- Color Picker Section -->
             <section class="color-picker-section">
                 <h3 data-translate="choose_color">Choose Colors</h3>
                 <label for="foregroundColor" data-translate="foreground_color">Foreground Color:</label>
-                <input type="color" id="foregroundColor" value="#000000">
-                <br>
+                <input type="color" id="foregroundColor" value="#ffffff">
                 <label for="backgroundColor" data-translate="background_color">Background Color:</label>
-                <input type="color" id="backgroundColor" value="#ffffff">
-            </section>
-
-            <!-- Color Blindness Simulation -->
-            <section class="color-blindness-simulation">
-                <h3 data-translate="color_blindness_simulation">Color Blindness Simulation</h3>
-                <select id="color-blindness-selector">
-                    <option value="none" data-translate="none">None</option>
-                    <option value="protanopia">Protanopia</option>
-                    <option value="deuteranopia">Deuteranopia</option>
-                    <option value="tritanopia">Tritanopia</option>
-                    <option value="achromatopsia">Achromatopsia</option>
-                    <!-- Add more types as needed -->
-                </select>
+                <input type="color" id="backgroundColor" value="#000000">
             </section>
         </div>
 
         <div class="content-area">
-            <!-- Accessibility Checker -->
             <section class="accessibility-checker">
-                <h3 data-translate="accessibility_checker">Accessibility Checker</h3>
-                <div class="checker-inputs">
-                    <p id="accessibility-result" data-translate="accessibility_result">Accessibility Result:</p>
-                    <button id="apply-suggested-color" data-translate="apply_suggested_color">Apply Suggested Color</button>
-                </div>
+                <p id="accessibility-result" data-translate="accessibility_result">Accessibility Result:</p>
                 <div class="accessibility-preview">
-                    <div class="accessibility-text-box">
+                    <div id="preview-box" class="accessibility-text-box">
                         <p data-translate="preview_text">This is a preview of your text.</p>
                     </div>
                 </div>
             </section>
-
-            <!-- Additional Information or Features -->
-            <!-- You can add more sections here if needed -->
         </div>
     </main>
-
-    <!-- Include the specific JavaScript file for this page -->
-    <script src="../scripts/site.js"></script>
     <script src="../scripts/accessibility_checker.js"></script>
+    <script src="../scripts/site.js"></script>
 </body>
+
 </html>
