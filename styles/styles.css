@@ -896,10 +896,12 @@ h3 {
 
 /* Style the hamburger icon */
 .nav-toggle-label {
-    display: none; /* Hidden by default; will be shown on small screens */
+    display: none;
+    /* Hidden by default; will be shown on small screens */
     flex-direction: column;
     justify-content: space-around;
-    align-items: center; /* Center the spans horizontally */
+    align-items: center;
+    /* Center the spans horizontally */
     width: 30px;
     height: 25px;
     cursor: pointer;
@@ -1290,6 +1292,33 @@ h3 {
 /* Medium Devices (Tablets, max-width: 800px) */
 @media (max-width: 800px) {
 
+    .theme-light {
+        .navi {
+            --sidebar-bg-color: var(--button-bg-color);
+        }
+        .navi a {
+            color: white;
+        }
+        .navi p {
+            color: white;
+        }
+    }
+
+    .theme-dark {
+        .navi {
+            --sidebar-bg-color: var(--button-bg-color);
+        }
+        .navi a {
+            color: white;
+        }
+        .navi p {
+            color: white;
+        }
+        .nav-toggle-label span{
+            background: white;
+        }
+    }
+
     /* Header and Navigation */
     header {
         padding: 20px;
@@ -1358,7 +1387,7 @@ h3 {
     }
 
     /* Transform the hamburger icon into an 'X' when active */
-    .nav-toggle:checked + .nav-toggle-label span:nth-child(1) {
+    .nav-toggle:checked+.nav-toggle-label span:nth-child(1) {
         transform: rotate(45deg) translate(2px, 1px);
     }
 
@@ -1366,7 +1395,7 @@ h3 {
         opacity: 0;
     }
 
-    .nav-toggle:checked + .nav-toggle-label span:nth-child(3) {
+    .nav-toggle:checked+.nav-toggle-label span:nth-child(3) {
         transform: rotate(-45deg) translate(10px, -10px);
     }
 
