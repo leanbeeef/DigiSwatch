@@ -194,10 +194,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Generate and display the default monochromatic palette based on base color
     currentPalette = generateMonochromatic(baseColor);
     displayPalette();
-    updateHarmonyVisualizer();
+
 
     // Set initial theme
     setTheme('theme-light');
+
 
     /* *********************************
        Color Palette Generation Functions
@@ -219,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const newValue = Math.min(Math.max(value + percent, 0), 255); // Keep values between 0 and 255
             return newValue;
         });
-        return rgbToHex(`rgb(${rgb.join(', ')})`);
+        return rgbToHex({ r: rgb[0], g: rgb[1], b: rgb[2] }); // Corrected line
     }
 
     // Helper function to convert HEX to RGB array
@@ -234,11 +235,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Convert RGB string to HEX
     function rgbToHex(rgb) {
-        const rgbValues = rgb.match(/\d+/g).map(Number);
         return (
             '#' +
-            rgbValues
-                .map((x) => {
+            [rgb.r, rgb.g, rgb.b]
+                .map(x => {
                     const hex = x.toString(16);
                     return hex.length === 1 ? '0' + hex : hex;
                 })
@@ -412,45 +412,70 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Function to simulate color blindness on swatches
-    function applyColorBlindnessSimulation() {
-        const simulationType = colorBlindnessSelector.value;
+    /* *********************************
+       Color Blindness Simulation Functions
+    ********************************* */
 
-        // Update color swatches
-        document.querySelectorAll('.palette-display .color-swatch').forEach(swatch => {
-            const originalColor = swatch.style.backgroundColor;
-            const simulatedColor = simulateColorBlindness(originalColor, simulationType);
-            swatch.style.backgroundColor = simulatedColor;
-        });
+    // Convert HEX to RGB
+    function hexToRgb(hex) {
+        // Remove the hash symbol if present
+        hex = hex.replace(/^#/, '');
 
-        // Update harmony visualizer
-        updateHarmonyVisualizer(simulationType);
+        // Parse the hex string
+        let bigint = parseInt(hex, 16);
+        if (hex.length === 3) {
+            // Handle short form (#RGB)
+            let r = (bigint >> 8) & 0xF;
+            let g = (bigint >> 4) & 0xF;
+            let b = bigint & 0xF;
+            return {
+                r: (r << 4) | r,
+                g: (g << 4) | g,
+                b: (b << 4) | b
+            };
+        } else if (hex.length === 6) {
+            // Handle full form (#RRGGBB)
+            return {
+                r: (bigint >> 16) & 255,
+                g: (bigint >> 8) & 255,
+                b: bigint & 255
+            };
+        } else {
+            throw new Error('Invalid HEX color.');
+        }
     }
 
     // Simulate color blindness based on type
     function simulateColorBlindness(hex, type) {
-        // Ensure hex is converted to RGB before processing
-        const { r, g, b } = hexToRgb(hex);
-        let simulated = { r, g, b };
+        // Convert HEX to RGB
+        let rgb;
+        try {
+            rgb = hexToRgb(hex);
+        } catch (error) {
+            console.error('Invalid HEX color:', hex);
+            return hex; // Return original color if invalid
+        }
+
+        let simulated = { r: rgb.r, g: rgb.g, b: rgb.b };
 
         switch (type) {
             case 'protanopia':
-                simulated.r = 0.56667 * r + 0.43333 * g;
-                simulated.g = 0.55833 * g + 0.44167 * b;
-                simulated.b = 0.24167 * g + 0.75833 * b;
+                simulated.r = 0.56667 * rgb.r + 0.43333 * rgb.g;
+                simulated.g = 0.55833 * rgb.g + 0.44167 * rgb.b;
+                simulated.b = 0.24167 * rgb.g + 0.75833 * rgb.b;
                 break;
             case 'deuteranopia':
-                simulated.r = 0.625 * r + 0.375 * g;
-                simulated.g = 0.7 * g + 0.3 * b;
-                simulated.b = 0.3 * g + 0.7 * b;
+                simulated.r = 0.625 * rgb.r + 0.375 * rgb.g;
+                simulated.g = 0.7 * rgb.g + 0.3 * rgb.b;
+                simulated.b = 0.3 * rgb.g + 0.7 * rgb.b;
                 break;
             case 'tritanopia':
-                simulated.r = 0.95 * r + 0.05 * b;
-                simulated.g = 0.43333 * g + 0.56667 * b;
-                simulated.b = b; // This stays as is
+                simulated.r = 0.95 * rgb.r + 0.05 * rgb.b;
+                simulated.g = 0.43333 * rgb.g + 0.56667 * rgb.b;
+                // simulated.b remains the same
                 break;
             case 'achromatopsia':
-                const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+                const gray = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b;
                 simulated.r = simulated.g = simulated.b = gray;
                 break;
             default:
@@ -464,6 +489,32 @@ document.addEventListener('DOMContentLoaded', () => {
             b: Math.round(Math.min(255, Math.max(0, simulated.b)))
         });
     }
+
+    // Function to simulate color blindness on swatches
+    function applyColorBlindnessSimulation() {
+        const simulationType = colorBlindnessSelector.value;
+
+        document.querySelectorAll('.palette-display .color-swatch').forEach(swatch => {
+            const originalColor = swatch.dataset.originalColor; // Retrieve original color
+            if (!originalColor) return; // Skip if no original color
+
+            let simulatedColor;
+            if (simulationType && simulationType !== 'none') {
+                simulatedColor = simulateColorBlindness(originalColor, simulationType);
+            } else {
+                simulatedColor = originalColor; // No simulation
+            }
+
+            swatch.style.backgroundColor = simulatedColor;
+        });
+
+        // Update harmony visualizer with the simulation type
+        updateHarmonyVisualizer(simulationType);
+    }
+
+    /* *********************************
+       Palette Management Functions
+    ********************************* */
 
     // Apply the selected popular palette
     function applySelectedPalette() {
@@ -548,6 +599,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const swatch = document.createElement('div');
             swatch.classList.add('color-swatch');
             swatch.style.backgroundColor = color;
+            swatch.dataset.originalColor = color; // Store original color
 
             const colorContent = document.createElement('div');
             colorContent.classList.add('color-content');
@@ -575,6 +627,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             paletteDisplay.appendChild(swatch);
         });
+
+        // Re-apply color blindness simulation after displaying palette
+        applyColorBlindnessSimulation();
     }
 
     /* *********************************
@@ -582,10 +637,16 @@ document.addEventListener('DOMContentLoaded', () => {
     ********************************* */
 
     // Function to update the Harmony Visualizer
-    function updateHarmonyVisualizer() {
+    function updateHarmonyVisualizer(simulationType) {
         // Update the SVG pattern
         const patternName = patternSelector.value;
-        const colors = currentPalette
+        const colors = currentPalette.map(color => {
+            if (simulationType && simulationType !== 'none') {
+                return simulateColorBlindness(color, simulationType);
+            }
+            return color;
+        });
+
         const svgPattern = generateSVGPattern(patternName, colors);
         harmonySVG.innerHTML = svgPattern;
 
@@ -828,6 +889,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Theme function
     function setTheme(theme) {
         document.body.className = theme;
+    }
+
+    /* *********************************
+       Helper Functions
+    ********************************* */
+
+    // Convert RGB object to HEX
+    function rgbToHex(rgb) {
+        return (
+            '#' +
+            [rgb.r, rgb.g, rgb.b]
+                .map(x => {
+                    const hex = x.toString(16);
+                    return hex.length === 1 ? '0' + hex : hex;
+                })
+                .join('')
+        ).toUpperCase();
     }
 
 });
