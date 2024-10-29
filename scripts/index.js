@@ -651,6 +651,7 @@ document.addEventListener('DOMContentLoaded', () => {
             swatch.classList.add('color-swatch');
             swatch.style.backgroundColor = color;
             swatch.dataset.color = color; // Set data-color attribute
+            swatch.dataset.originalColor = color; // **Add this line to set data-original-color**
 
             const colorContent = document.createElement('div');
             colorContent.classList.add('color-content');
@@ -676,6 +677,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Re-apply color blindness simulation after displaying palette
         applyColorBlindnessSimulation();
     }
+
 
 
 
@@ -962,5 +964,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
-
-
