@@ -432,16 +432,16 @@ document.addEventListener('DOMContentLoaded', () => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
             color: '#fff',
-            padding: '15px 25px',
+            padding: '50px 100px',
             borderRadius: '8px',
             boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
             zIndex: '1000',
             opacity: '0',
             transition: 'opacity 0.3s ease',
-            fontSize: '16px',
-            fontFamily: 'Arial, sans-serif',
+            fontSize: '1.5em',
+            fontFamily: 'inherit',
             textAlign: 'center'
         });
 
