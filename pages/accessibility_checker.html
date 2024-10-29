@@ -16,23 +16,45 @@
     <!-- Color Blind -->
     <script src="https://unpkg.com/color-blind@1.0.0/color-blind.min.js"></script>
 
+    <style>
+        @media (max-width: 800px) {
+            .color-picker-section {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+        }
+    </style>
+
 
 </head>
 
 <body id="body" class="theme-default">
     <header>
         <nav>
+            <!-- Hamburger Menu Toggle (Checkbox) -->
+            <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+
+            <!-- Hamburger Icon (Label) -->
+            <label for="nav-toggle" class="nav-toggle-label">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
             <div class="navi">
                 <a href="../index.html" data-translate="home">Home</a>
                 <a href="accessibility_checker.html" data-translate="accessibility_checker">Accessibility Checker</a>
+                <div class="header-options">
+                    <p data-translate="theme">Theme:</p>
+                    <select id="theme-selector">
+                        <option value="theme-light" data-translate="light_theme">Light</option>
+                        <option value="theme-dark" data-translate="dark_theme">Dark</option>
+                    </select>
+                </div>
             </div>
             <h1 data-translate="accessibility_checker">Accessibility Checker</h1>
-            <div class="header-options">
-                <select id="theme-selector">
-                    <option value="theme-light" data-translate="light_theme">Light</option>
-                    <option value="theme-dark" data-translate="dark_theme">Dark</option>
-                </select>
-            </div>
+
         </nav>
     </header>
     <main>
