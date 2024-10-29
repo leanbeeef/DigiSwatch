@@ -402,15 +402,66 @@ document.addEventListener('DOMContentLoaded', () => {
     // Copy color value to clipboard and display a message
     function copyColor(e) {
         const color = e.currentTarget.dataset.color;
+        const colorFormatToggle = document.getElementById('colorFormatToggle'); // Ensure this element exists
+
+        if (!color) {
+            console.error('No color data attribute found.');
+            return;
+        }
+
         const format = colorFormatToggle && colorFormatToggle.checked ? 'RGB' : 'HEX';
         const colorText = format === 'RGB' ? hexToRgbString(color) : color.toUpperCase();
 
         // Copy to clipboard
         navigator.clipboard.writeText(colorText).then(() => {
             // Display a message in the center of the screen
-            showCopyMessage(`Copied ${colorText}`);
+            showCopyMessage(`Copied ${colorText} to clipboard!`);
+        }).catch((err) => {
+            console.error('Could not copy text: ', err);
         });
     }
+
+    // Display a copy message overlay in the center of the screen
+    function showCopyMessage(message) {
+        const messageBox = document.createElement('div');
+        messageBox.textContent = message;
+
+        // Style the message box
+        Object.assign(messageBox.style, {
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            color: '#fff',
+            padding: '15px 25px',
+            borderRadius: '8px',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
+            zIndex: '1000',
+            opacity: '0',
+            transition: 'opacity 0.3s ease',
+            fontSize: '16px',
+            fontFamily: 'Arial, sans-serif',
+            textAlign: 'center'
+        });
+
+        document.body.appendChild(messageBox);
+
+        // Trigger fade-in
+        setTimeout(() => {
+            messageBox.style.opacity = '1';
+        }, 100); // Slight delay to allow CSS transition
+
+        // Fade out and remove after 2 seconds
+        setTimeout(() => {
+            messageBox.style.opacity = '0';
+            // Remove the element after the transition
+            setTimeout(() => {
+                document.body.removeChild(messageBox);
+            }, 300); // Match the CSS transition duration
+        }, 2000);
+    }
+
 
     /* *********************************
        Color Blindness Simulation Functions
@@ -599,7 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const swatch = document.createElement('div');
             swatch.classList.add('color-swatch');
             swatch.style.backgroundColor = color;
-            swatch.dataset.originalColor = color; // Store original color
+            swatch.dataset.color = color; // Set data-color attribute
 
             const colorContent = document.createElement('div');
             colorContent.classList.add('color-content');
@@ -609,13 +660,7 @@ document.addEventListener('DOMContentLoaded', () => {
             colorCode.textContent = color;
 
             // Add click event to copy color code
-            swatch.addEventListener('click', () => {
-                navigator.clipboard.writeText(color).then(() => {
-                    alert(`Copied ${color} to clipboard!`);
-                }).catch((err) => {
-                    console.error('Could not copy text: ', err);
-                });
-            });
+            swatch.addEventListener('click', copyColor); // Use the copyColor function
 
             colorContent.appendChild(colorCode);
             swatch.appendChild(colorContent);
@@ -631,6 +676,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Re-apply color blindness simulation after displaying palette
         applyColorBlindnessSimulation();
     }
+
+
 
     /* *********************************
        Harmony Visualizer Functions
@@ -908,4 +955,12 @@ document.addEventListener('DOMContentLoaded', () => {
         ).toUpperCase();
     }
 
+    // Convert HEX to RGB string (e.g., #FFFFFF -> rgb(255, 255, 255))
+    function hexToRgbString(hex) {
+        const { r, g, b } = hexToRgb(hex);
+        return `rgb(${r}, ${g}, ${b})`;
+    }
+
 });
+
+
