@@ -2,26 +2,14 @@
 const bgColorInput = document.getElementById('backgroundColor');
 const textColorInput = document.getElementById('foregroundColor');
 const accessibilityResult = document.getElementById('accessibility-result');
-const applySuggestedColorButton = document.getElementById('apply-suggested-color');
 const themeSelector = document.getElementById('theme-selector');
 const previewBox = document.getElementById('preview-box');
 
-// Initialize Theme
-document.body.className = localStorage.getItem('selectedTheme') || 'theme-default';
-themeSelector.value = document.body.className;
 
 // Event Listeners
 bgColorInput.addEventListener('input', checkContrast);
 textColorInput.addEventListener('input', checkContrast);
-applySuggestedColorButton.addEventListener('click', () => {
-    const suggestedColor = suggestAccessibleColor(bgColorInput.value);
-    textColorInput.value = suggestedColor;
-    checkContrast();
-});
-themeSelector.addEventListener('change', () => {
-    document.body.className = themeSelector.value;
-    localStorage.setItem('selectedTheme', themeSelector.value);
-});
+
 
 // Accessibility Contrast Checker
 function checkContrast() {
@@ -36,19 +24,11 @@ function checkContrast() {
         accessibilityResult.innerHTML = `<span data-translate="contrast">Contrast Ratio:</span> ${contrastRatio.toFixed(2)} <span data-translate="passes">(Passes AA Standard)</span>`;
         accessibilityResult.style.color = 'green';
     } else {
-        const suggestedColor = suggestAccessibleColor(bgColor);
         accessibilityResult.innerHTML = `<span data-translate="contrast">Contrast Ratio:</span> ${contrastRatio.toFixed(2)} <span data-translate="fails">(Fails AA Standard)</span>`;
         accessibilityResult.style.color = 'red';
     }
 }
 
-// Function to suggest an accessible color
-function suggestAccessibleColor(bgColor) {
-    let hsl = hexToHsl(bgColor);  // Convert background color to HSL
-    hsl.l = hsl.l > 0.5 ? 0.2 : 0.8;  // Adjust lightness to ensure contrast
-
-    return hslToHex(hsl);  // Convert adjusted HSL back to HEX
-}
 
 // Helper Functions
 
@@ -123,3 +103,6 @@ function calculateLuminance(color) {
     const [R, G, B] = [r, g, b].map(v => (v / 255 <= 0.03928) ? v / 255 / 12.92 : Math.pow((v / 255 + 0.055) / 1.055, 2.4));
     return 0.2126 * R + 0.7152 * G + 0.0722 * B;
 }
+
+// Initialize the preview box on load
+checkContrast();
