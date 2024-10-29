@@ -194,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Generate and display the default monochromatic palette based on base color
     currentPalette = generateMonochromatic(baseColor);
     displayPalette();
+    updateHarmonyVisualizer();
 
     // Set initial theme
     setTheme('theme-light');
