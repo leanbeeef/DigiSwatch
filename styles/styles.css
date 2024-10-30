@@ -837,6 +837,7 @@ label[for="imageUpload"]:focus {
     margin-top: 15px;
     max-width: 100%;
     justify-content: center;
+    color: var(--main-text-color);
 }
 
 #contrastDescription ul {
