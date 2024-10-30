@@ -23,11 +23,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const harmonyTextExample1 = document.querySelector('.harmony-text');
     const harmonyTextExample2 = document.querySelector('.harmony-text2');
     const colorBlindnessSelector = document.getElementById('color-blindness-selector');
+    const livePreviewButton = document.getElementById('live-preview-toggle-button');
+    const previewElements = {
+        background: document.body,
+        header: document.querySelector('header'),
+        buttons: document.querySelectorAll('button'),
+        text: document.querySelectorAll('.content-area p, .content-area h1, .content-area h3'),
+        sidebar: document.querySelector('.sidebar'),
+        sidebarText: document.querySelectorAll('.sidebar h3, .sidebar p, .sidebar label')
+    };
+
 
     // Variables to store current state
     let currentPaletteType = 'monochromatic';
     let baseColor = '#7E7E7E'; // Set the default base color to #7E7E7E
     let currentPalette = [];
+    let isLivePreviewEnabled = false;
 
     // Set the color picker to the base color
     colorPicker.value = baseColor;
@@ -119,6 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
     /* *********************************
        Event Listeners
     ********************************* */
+
+    // Attach update to color picker and palette change events
+    colorPicker.addEventListener('input', updatePreviewOnPaletteChange);
+    paletteDropdown.addEventListener('change', updatePreviewOnPaletteChange);
+    popularPalettesSelector.addEventListener('change', updatePreviewOnPaletteChange);
+    generateRandomPaletteButton.addEventListener('click', updatePreviewOnPaletteChange);
 
     // Update the palette when the color picker changes
     colorPicker.addEventListener('input', () => {
@@ -448,6 +465,67 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.removeChild(messageBox);
             }, 300); // Match the CSS transition duration
         }, 2000);
+    }
+
+    // Apply palette colors to the preview elements
+    function applyPaletteToPreview(palette) {
+        if (!palette || palette.length < 6) return;
+
+        previewElements.background.style.backgroundColor = palette[0];
+        previewElements.header.style.backgroundColor = palette[1];
+        previewElements.sidebar.style.backgroundColor = palette[2];
+
+        previewElements.sidebarText.forEach((textElement, index) => {
+            const colorIndex = (index + 3) % palette.length;
+            textElement.style.color = palette[colorIndex];
+        });
+
+        previewElements.buttons.forEach((button, index) => {
+            const colorIndex = (index + 4) % palette.length;
+            button.style.backgroundColor = palette[colorIndex];
+            button.style.color = getContrastingColor(palette[colorIndex]);
+        });
+
+        previewElements.text.forEach((textElement, index) => {
+            const colorIndex = (index + 5) % palette.length;
+            textElement.style.color = palette[colorIndex];
+        });
+    }
+
+    // Clear the preview styles
+    function clearPreview() {
+        previewElements.background.style.backgroundColor = '';
+        previewElements.header.style.backgroundColor = '';
+        previewElements.sidebar.style.backgroundColor = '';
+        previewElements.buttons.forEach(button => {
+            button.style.backgroundColor = '';
+            button.style.color = '';
+        });
+        previewElements.text.forEach(textElement => {
+            textElement.style.color = '';
+        });
+        previewElements.sidebarText.forEach(textElement => {
+            textElement.style.color = '';
+        });
+    }
+
+    // Toggle live preview mode
+    livePreviewButton.addEventListener('click', () => {
+        isLivePreviewEnabled = !isLivePreviewEnabled;
+        if (isLivePreviewEnabled) {
+            applyPaletteToPreview(currentPalette);
+            livePreviewButton.textContent = 'Disable Live Preview';
+        } else {
+            clearPreview();
+            livePreviewButton.textContent = 'Enable Live Preview';
+        }
+    });
+
+    // Update live preview when palette changes
+    function updatePreviewOnPaletteChange() {
+        if (isLivePreviewEnabled) {
+            applyPaletteToPreview(currentPalette);
+        }
     }
 
 
