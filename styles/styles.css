@@ -785,6 +785,38 @@ h3 {
     flex-wrap: wrap;
 }
 
+/* Style for the upload label to make it look like a branded button */
+label[for="imageUpload"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--button-bg-color); /* Primary theme color */
+    color: var(--button-text-color); /* Light text color for contrast */
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%;
+}
+
+/* Hover effect for the label button */
+label[for="imageUpload"]:hover {
+    background-color: var(--button-hover-bg-color); /* Darker shade for hover */
+}
+
+/* Active effect for button press */
+label[for="imageUpload"]:active {
+    background-color: var(--primary-color-darker); /* Even darker shade for active state */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Accessibility focus style */
+label[for="imageUpload"]:focus {
+    outline: 3px solid var(--accent-color); /* Accent color for focus ring */
+}
+
 .image-preview {
     width: 100%;
     display: flex;
