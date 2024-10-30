@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const harmonyButton = document.querySelector('.harmony-button');
     const harmonyTextExample1 = document.querySelector('.harmony-text');
     const harmonyTextExample2 = document.querySelector('.harmony-text2');
-    const themeSelector = document.getElementById('theme-selector');
     const colorBlindnessSelector = document.getElementById('color-blindness-selector');
 
     // Variables to store current state
@@ -172,12 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateHarmonyVisualizer();
     });
 
-    // Theme selector change event
-    themeSelector.addEventListener('change', () => {
-        const theme = themeSelector.value;
-        setTheme(theme);
-    });
-
     // Handle Random Palette Generator Button Click
     if (generateRandomPaletteButton) {
         generateRandomPaletteButton.addEventListener('click', () => {
@@ -194,11 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Generate and display the default monochromatic palette based on base color
     currentPalette = generateMonochromatic(baseColor);
     displayPalette();
-
-
-    // Set initial theme
-    setTheme('theme-light');
-
 
     /* *********************************
        Color Palette Generation Functions
@@ -950,15 +938,6 @@ document.addEventListener('DOMContentLoaded', () => {
         link.href = window.URL.createObjectURL(blob);
         link.click();
         window.URL.revokeObjectURL(link.href);
-    }
-
-    /* *********************************
-       Localization and Theme Functions
-    ********************************* */
-
-    // Theme function
-    function setTheme(theme) {
-        document.body.className = theme;
     }
 
     /* *********************************
