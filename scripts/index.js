@@ -678,9 +678,6 @@ document.addEventListener('DOMContentLoaded', () => {
         applyColorBlindnessSimulation();
     }
 
-
-
-
     /* *********************************
        Harmony Visualizer Functions
     ********************************* */
@@ -879,7 +876,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to export palette as image
     function exportPaletteAsImage(format) {
+        // Store original styles
+        const originalGap = paletteDisplay.style.gap;
+        const originalBackground = paletteDisplay.style.background;
+        const colorSwatches = document.querySelectorAll('.color-swatch');
+        const colorCodes = document.querySelectorAll('.color-code');
+        const originalBorderRadius = [];
+
+        // Apply temporary styles for export
+        paletteDisplay.style.gap = "0px"; // Remove spacing
+        paletteDisplay.style.background = "transparent"; // Remove background
+        colorSwatches.forEach((el, index) => {
+            originalBorderRadius[index] = el.style.borderRadius;
+            el.style.borderRadius = "0"; // Make corners square
+        });
+        colorCodes.forEach(el => el.style.display = 'none'); // Hide color codes
+
+        // Capture the palette with html2canvas
         html2canvas(paletteDisplay).then(canvas => {
+            // Restore original styles after capture
+            paletteDisplay.style.gap = originalGap;
+            paletteDisplay.style.background = originalBackground;
+            colorSwatches.forEach((el, index) => el.style.borderRadius = originalBorderRadius[index]);
+            colorCodes.forEach(el => el.style.display = '');
+
+            // Export the canvas as an image
             const link = document.createElement('a');
             link.download = `palette.${format}`;
             link.href = canvas.toDataURL(`image/${format}`);
