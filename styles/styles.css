@@ -129,10 +129,43 @@ h3 {
    Header and Navigation Styles
 ********************************* */
 
+/* Style for the logo container */
+/* .header-logo {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+} */
+
+/* Style for the site logo */
+.site-logo {
+    width: 50px; /* Adjust to fit your header */
+    height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.title-logo-placement {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+}
+
+.title-logo-placement h1 {
+    margin: 0;
+}
+
 header {
     background-color: var(--header-bg-color);
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.web-links {
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
 }
 
 nav {
