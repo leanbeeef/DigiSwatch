@@ -1051,7 +1051,7 @@ label[for="imageUpload"]:focus {
     }
    
    .site-logo {
-       display: none;
+       display: none !important;
    }
    
     nav {
