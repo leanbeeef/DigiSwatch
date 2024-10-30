@@ -4,132 +4,83 @@
 
 :root {
     /* Default Theme */
-    --main-bg-color: #f0f4f0;
-    /* Light greenish background */
-    --main-text-color: #2e2e2e;
-    /* Dark grey text */
-    --accent-color: #4caf50;
-    /* Green accent */
-    --accent-hover-color: #388e3c;
-    /* Darker green on hover */
+    --main-bg-color: #f5f5f5; /* Light grey background */
+    --main-text-color: #333333; /* Dark grey text */
+    --accent-color: #007acc; /* Blue accent */
+    --accent-hover-color: #005f99; /* Darker blue on hover */
 
     /* Secondary Colors */
-    --secondary-text-color: #2f362f;
-    /* Dark greenish grey */
-    --harmony-description-text-color: #2f362f;
-    /* Medium greenish grey */
-    --input-border-color: #b2bfb2;
-    /* Light grey-green */
-    --input-bg-color: #ffffff;
-    /* White input background */
-    --input-text-color: #2e2e2e;
-    /* Dark text color */
-    --input-placeholder-color: #8fa08f;
-    /* Grey-green placeholder text */
+    --secondary-text-color: #4f4f4f; /* Medium grey */
+    --harmony-description-text-color: #4f4f4f; /* Matching medium grey */
+    --input-border-color: #cccccc; /* Light grey */
+    --input-bg-color: #ffffff; /* White input background */
+    --input-text-color: #333333; /* Dark grey text */
+    --input-placeholder-color: #888888; /* Light grey placeholder */
 
     /* Header and Navigation */
-    --header-bg-color: #aff0b9;
-    /* Very light green */
-    --link-hover-bg-color: #8ba38f;
-    /* Light green on hover */
+    --header-bg-color: #e0e0e0; /* Very light grey */
+    --link-hover-bg-color: #d0d0d0; /* Light grey on hover */
 
     /* Sidebar */
-    --sidebar-bg-color: #91dd9c;
-    /* Matching header background */
+    --sidebar-bg-color: #eeeeee; /* Light grey */
     --sidebar-text-color: var(--main-text-color);
 
     /* Buttons */
-    --button-bg-color: #388e3c;
-    /* Darker green */
-    --button-text-color: #ffffff;
-    --button-hover-bg-color: #2e7d32;
-    /* Even darker green on hover */
+    --button-bg-color: #007acc; /* Blue */
+    --button-text-color: #ffffff; /* White text */
+    --button-hover-bg-color: #005f99; /* Darker blue on hover */
 
     /* Palette Swatches */
-    --palette-swatch-bg-color: #c8d8c8;
-    /* Light grey-green */
+    --palette-swatch-bg-color: #e8e8e8; /* Light grey */
     --palette-swatch-shadow-color: rgba(0, 0, 0, 0.1);
     --color-code-bg-color: rgba(255, 255, 255, 0.7);
     --color-code-text-color: var(--main-text-color);
 
     /* Tabs */
-    --palette-tab-bg-color: #d8e8d8;
-    /* Light grey-green */
-    --palette-tab-active-bg-color: #c0d0c0;
-    /* Medium grey-green */
-    --palette-tab-hover-bg-color: #c8d8c8;
-    /* Slightly darker on hover */
+    --palette-tab-bg-color: #f0f0f0; /* Very light grey */
+    --palette-tab-active-bg-color: #d8d8d8; /* Light grey */
+    --palette-tab-hover-bg-color: #c8c8c8; /* Slightly darker on hover */
 
     /* Modals */
     --modal-bg-color: rgba(0, 0, 0, 0.5);
-    --modal-content-bg-color: #ffffff;
-    /* White modal background */
+    --modal-content-bg-color: #ffffff; /* White modal background */
     --modal-content-text-color: var(--main-text-color);
     --modal-close-button-color: var(--main-text-color);
 
     /* Themes */
     /* Light Theme */
-    --theme-light-bg-color: #ffffff;
-    /* White */
-    --theme-light-text-color: #1a1a1a;
-    /* Almost black */
-    --theme-light-palette-tab-bg-color: #e0f0e0;
-    /* Very light green */
-    --theme-light-palette-tab-active-bg-color: #c0e0c0;
-    /* Light green */
-    --theme-light-palette-tab-hover-bg-color: #435743;
-    /* Slightly darker */
-    --theme-light-button-bg-color: #388e3c;
-    /* Dark green */
-    --theme-light-button-text-color: #ffffff;
-    /* White text */
-    --theme-light-button-hover-bg-color: #19461b;
-    /* Even darker green */
+    --theme-light-bg-color: #ffffff; /* White */
+    --theme-light-text-color: #1a1a1a; /* Almost black */
+    --theme-light-palette-tab-bg-color: #f5f5f5; /* Very light grey */
+    --theme-light-palette-tab-active-bg-color: #e0e0e0; /* Light grey */
+    --theme-light-palette-tab-hover-bg-color: #d0d0d0; /* Slightly darker */
+    --theme-light-button-bg-color: #007acc; /* Blue */
+    --theme-light-button-text-color: #ffffff; /* White text */
+    --theme-light-button-hover-bg-color: #005f99; /* Darker blue */
 
     /* Dark Theme */
-    --theme-dark-bg-color: #3d4738;
-    /* Dark background */
-    --theme-dark-text-color: #ffffff;
-    /* Light grey text */
-    --theme-dark-secondary-text-color: #ffffff;
-    /* Grey */
-    --theme-dark-header-bg-color: #000000;
-    /* Very dark */
-    --theme-dark-link-hover-bg-color: #333333;
-    /* Dark grey */
-    --theme-dark-sidebar-bg-color: #1a1a1a;
-    /* Very dark */
-    --theme-dark-sidebar-text-color: #ffffff;
-    /* Light grey */
-    --theme-dark-input-bg-color: #333333;
-    /* Dark grey */
-    --theme-dark-input-text-color: #ffffff;
-    /* Light grey */
-    --theme-dark-input-border-color: #444444;
-    /* Darker grey */
-    --theme-dark-palette-tab-bg-color: #3a3a3a;
-    /* Dark grey */
-    --theme-dark-palette-tab-active-bg-color: #555555;
-    /* Medium grey */
-    --theme-dark-palette-display-bg-color: #1e1e1e;
-    /* Very dark */
+    --theme-dark-bg-color: #1e1e1e; /* Dark background */
+    --theme-dark-text-color: #e0e0e0; /* Light grey text */
+    --theme-dark-secondary-text-color: #cccccc; /* Light grey */
+    --theme-dark-header-bg-color: #111111; /* Very dark */
+    --theme-dark-link-hover-bg-color: #333333; /* Dark grey */
+    --theme-dark-sidebar-bg-color: #1a1a1a; /* Very dark */
+    --theme-dark-sidebar-text-color: #e0e0e0; /* Light grey */
+    --theme-dark-input-bg-color: #333333; /* Dark grey */
+    --theme-dark-input-text-color: #e0e0e0; /* Light grey */
+    --theme-dark-input-border-color: #444444; /* Darker grey */
+    --theme-dark-palette-tab-bg-color: #2a2a2a; /* Dark grey */
+    --theme-dark-palette-tab-active-bg-color: #444444; /* Medium grey */
+    --theme-dark-palette-display-bg-color: #1e1e1e; /* Very dark */
     --theme-dark-color-code-bg-color: rgba(0, 0, 0, 0.7);
-    --theme-dark-button-bg-color: #555555;
-    /* Medium grey */
-    --theme-dark-button-hover-bg-color: #777777;
-    /* Lighter grey */
-    --theme-dark-modal-content-bg-color: #3a3a3a;
-    /* Dark grey */
-    --theme-dark-modal-content-text-color: #ffffff;
-    /* Light grey */
-    --theme-dark-modal-content-label-color: #ffffff;
-    /* Light grey */
-    --theme-dark-accessibility-text-box-bg-color: #3a3a3a;
-    /* Dark grey */
-    --theme-dark-accessibility-text-color: #ffffff;
-    /* Light grey */
-    --theme-dark-harmony-description-text-color: #ffffff;
-    /* Grey */
+    --theme-dark-button-bg-color: #444444; /* Medium grey */
+    --theme-dark-button-hover-bg-color: #555555; /* Lighter grey */
+    --theme-dark-modal-content-bg-color: #2a2a2a; /* Dark grey */
+    --theme-dark-modal-content-text-color: #e0e0e0; /* Light grey */
+    --theme-dark-modal-content-label-color: #cccccc; /* Light grey */
+    --theme-dark-accessibility-text-box-bg-color: #2a2a2a; /* Dark grey */
+    --theme-dark-accessibility-text-color: #e0e0e0; /* Light grey */
+    --theme-dark-harmony-description-text-color: #cccccc; /* Light grey */
 
     /* Footer */
     --footer-bg-color: #ffffff;
