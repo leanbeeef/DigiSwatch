@@ -66,6 +66,12 @@
                 <label for="backgroundColor" data-translate="background_color">Background Color:</label>
                 <input type="color" id="backgroundColor" value="#000000">
             </section>
+
+            <section class="upload-image-section">
+                <h3>Image Contrast Checker</h3>
+                <label for="imageUpload">Upload Image</label>
+                <input type="file" id="imageUpload" accept="image/*" class="button">
+            </section>
         </div>
 
         <div class="content-area">
@@ -75,6 +81,20 @@
                     <div id="preview-box" class="accessibility-text-box">
                         <p data-translate="preview_text">This is a preview of your text.</p>
                     </div>
+                </div>
+            </section>
+
+            <section id="uploaded-image-section" class="uploaded-image-container">
+                <h3>Image with Contrast Indicators</h3>
+                <div id="uploadedImagePreview" class="image-preview"></div>
+                <!-- Palette Display -->
+                <section class="palette-display-section" style="display: none;">
+                    <div id="extractedColors" class="palette-display">
+                        <!-- Extracted colors will be displayed here -->
+                    </div>
+                </section>
+                <div id="contrastDescription" class="contrast-description">
+                    <!-- Contrast issues description will appear here -->
                 </div>
             </section>
         </div>
