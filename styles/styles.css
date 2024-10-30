@@ -754,6 +754,111 @@ h3 {
 }
 
 /* *********************************
+   Image Contrast Checker
+********************************* */
+
+#uploadedImagePreview,
+#contrastDescription {
+    display: none;
+}
+
+.upload-image-section h3 {
+    margin-bottom: 10px;
+    color: var(--secondary-text-color);
+}
+
+.uploaded-image-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.uploaded-image-container h3 {
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    color: var(--secondary-text-color);
+}
+
+.upload-image-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.image-preview {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border: 2px solid var(--input-border-color);
+    padding: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.uploaded-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+#contrastDescription {
+    margin-top: 15px;
+    max-width: 100%;
+    justify-content: center;
+}
+
+#contrastDescription ul {
+    list-style-type: none; /* Remove default list style */
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+#contrastDescription li {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--theme-light-palette-tab-active-bg-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 49%;
+    min-height: 50px;
+}
+
+/* #contrastDescription li:last-child {
+    margin-bottom: 0;
+} */
+
+.color-marker {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+}
+
+.contrast-info {
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.pass {
+    color: green;
+    font-weight: bold;
+}
+
+.fail {
+    color: red;
+    font-weight: bold;
+}
+
+
+/* *********************************
    Popular Palettes Section
 ********************************* */
 
