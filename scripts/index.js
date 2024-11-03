@@ -7,37 +7,30 @@ document.addEventListener('DOMContentLoaded', () => {
     ********************************* */
 
     // DOM Elements
+    // DOM Elements
     const colorPicker = document.getElementById('colorPicker');
+    const colorHexInput = document.getElementById('colorHex');
     const popularPalettesSelector = document.getElementById('popular-palettes-selector');
     const paletteDisplay = document.querySelector('.palette-display');
     const paletteTabs = document.querySelectorAll('.palette-tabs .tab');
     const paletteDropdown = document.getElementById('palette-dropdown');
-    const generateRandomPaletteButton = document.getElementById('generate-random-palette'); // Random palette generator button
-    const generateButton = document.getElementById('generate-palette'); // Generate palette button (if exists)
-    const harmonyText = document.getElementById('harmony-text');
-    const exportButton = document.getElementById('export-button');
-    const exportFormat = document.getElementById('export-format');
-    const patternSelector = document.getElementById('pattern-selector');
-    const harmonySVG = document.getElementById('harmony-svg');
-    const harmonyButton = document.querySelector('.harmony-button');
-    const harmonyTextExample1 = document.querySelector('.harmony-text');
-    const harmonyTextExample2 = document.querySelector('.harmony-text2');
-    const colorBlindnessSelector = document.getElementById('color-blindness-selector');
+    const generateRandomPaletteButton = document.getElementById('generate-random-palette');
+    const generateButton = document.getElementById('generate-palette');
     const livePreviewButton = document.getElementById('live-preview-toggle-button');
+    
+    
     const previewElements = {
         background: document.body,
         header: document.querySelector('header'),
         buttons: document.querySelectorAll('button'),
-        text: document.querySelectorAll('.content-area p, .content-area h1, .content-area h3'),
-        sidebar: document.querySelector('.sidebar'),
-        sidebarText: document.querySelectorAll('.sidebar h3, .sidebar p, .sidebar label')
+        text: document.querySelectorAll('.content-area p, .content-area h1, .content-area h3')
     };
 
 
     // Variables to store current state
     let currentPaletteType = 'monochromatic';
-    let baseColor = '#7E7E7E'; // Set the default base color to #7E7E7E
-    let currentPalette = [];
+    let baseColor = '#7E7E7E';
+    // let currentPalette = [];
     let isLivePreviewEnabled = false;
 
     // Set the color picker to the base color
@@ -131,14 +124,15 @@ document.addEventListener('DOMContentLoaded', () => {
        Event Listeners
     ********************************* */
 
-    // Attach update to color picker and palette change events
-    colorPicker.addEventListener('input', updatePreviewOnPaletteChange);
+    // Ensure the preview updates when the color palette changes
+    document.getElementById('colorPicker').addEventListener('input', updatePreviewOnPaletteChange);
     paletteDropdown.addEventListener('change', updatePreviewOnPaletteChange);
     popularPalettesSelector.addEventListener('change', updatePreviewOnPaletteChange);
     generateRandomPaletteButton.addEventListener('click', updatePreviewOnPaletteChange);
 
     // Update the palette when the color picker changes
     colorPicker.addEventListener('input', () => {
+        colorHexInput.value = colorPicker.value.toUpperCase();
         baseColor = colorPicker.value;
         updatePalette();
     });
@@ -173,27 +167,11 @@ document.addEventListener('DOMContentLoaded', () => {
         popularPalettesSelector.addEventListener('change', applySelectedPalette);
     }
 
-    // Export button click event
-    exportButton.addEventListener('click', () => {
-        const format = exportFormat.value;
-        if (!format) {
-            alert('Please select an export format.');
-            return;
-        }
-        exportPalette(format);
-    });
-
-    // Pattern selector change event
-    patternSelector.addEventListener('change', () => {
-        updateHarmonyVisualizer();
-    });
-
     // Handle Random Palette Generator Button Click
     if (generateRandomPaletteButton) {
         generateRandomPaletteButton.addEventListener('click', () => {
             currentPalette = generateRandomPalette();
             displayPalette();
-            updateHarmonyVisualizer();
         });
     }
 
@@ -509,124 +487,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Toggle live preview mode
+    // Toggle Live Preview
     livePreviewButton.addEventListener('click', () => {
         isLivePreviewEnabled = !isLivePreviewEnabled;
+        livePreviewButton.textContent = isLivePreviewEnabled ? 'Disable Live Preview' : 'Enable Live Preview';
         if (isLivePreviewEnabled) {
             applyPaletteToPreview(currentPalette);
-            livePreviewButton.textContent = 'Disable Live Preview';
         } else {
             clearPreview();
-            livePreviewButton.textContent = 'Enable Live Preview';
         }
     });
 
-    // Update live preview when palette changes
+    // Update preview on palette change if live preview is enabled
     function updatePreviewOnPaletteChange() {
         if (isLivePreviewEnabled) {
             applyPaletteToPreview(currentPalette);
         }
-    }
-
-
-    /* *********************************
-       Color Blindness Simulation Functions
-    ********************************* */
-
-    // Convert HEX to RGB
-    function hexToRgb(hex) {
-        // Remove the hash symbol if present
-        hex = hex.replace(/^#/, '');
-
-        // Parse the hex string
-        let bigint = parseInt(hex, 16);
-        if (hex.length === 3) {
-            // Handle short form (#RGB)
-            let r = (bigint >> 8) & 0xF;
-            let g = (bigint >> 4) & 0xF;
-            let b = bigint & 0xF;
-            return {
-                r: (r << 4) | r,
-                g: (g << 4) | g,
-                b: (b << 4) | b
-            };
-        } else if (hex.length === 6) {
-            // Handle full form (#RRGGBB)
-            return {
-                r: (bigint >> 16) & 255,
-                g: (bigint >> 8) & 255,
-                b: bigint & 255
-            };
-        } else {
-            throw new Error('Invalid HEX color.');
-        }
-    }
-
-    // Simulate color blindness based on type
-    function simulateColorBlindness(hex, type) {
-        // Convert HEX to RGB
-        let rgb;
-        try {
-            rgb = hexToRgb(hex);
-        } catch (error) {
-            console.error('Invalid HEX color:', hex);
-            return hex; // Return original color if invalid
-        }
-
-        let simulated = { r: rgb.r, g: rgb.g, b: rgb.b };
-
-        switch (type) {
-            case 'protanopia':
-                simulated.r = 0.56667 * rgb.r + 0.43333 * rgb.g;
-                simulated.g = 0.55833 * rgb.g + 0.44167 * rgb.b;
-                simulated.b = 0.24167 * rgb.g + 0.75833 * rgb.b;
-                break;
-            case 'deuteranopia':
-                simulated.r = 0.625 * rgb.r + 0.375 * rgb.g;
-                simulated.g = 0.7 * rgb.g + 0.3 * rgb.b;
-                simulated.b = 0.3 * rgb.g + 0.7 * rgb.b;
-                break;
-            case 'tritanopia':
-                simulated.r = 0.95 * rgb.r + 0.05 * rgb.b;
-                simulated.g = 0.43333 * rgb.g + 0.56667 * rgb.b;
-                // simulated.b remains the same
-                break;
-            case 'achromatopsia':
-                const gray = 0.299 * rgb.r + 0.587 * rgb.g + 0.114 * rgb.b;
-                simulated.r = simulated.g = simulated.b = gray;
-                break;
-            default:
-                return hex; // If no color blindness, return the original hex color
-        }
-
-        // Ensure RGB is within bounds [0, 255] and convert back to hex
-        return rgbToHex({
-            r: Math.round(Math.min(255, Math.max(0, simulated.r))),
-            g: Math.round(Math.min(255, Math.max(0, simulated.g))),
-            b: Math.round(Math.min(255, Math.max(0, simulated.b)))
-        });
-    }
-
-    // Function to simulate color blindness on swatches
-    function applyColorBlindnessSimulation() {
-        const simulationType = colorBlindnessSelector.value;
-
-        document.querySelectorAll('.palette-display .color-swatch').forEach(swatch => {
-            const originalColor = swatch.dataset.originalColor; // Retrieve original color
-            if (!originalColor) return; // Skip if no original color
-
-            let simulatedColor;
-            if (simulationType && simulationType !== 'none') {
-                simulatedColor = simulateColorBlindness(originalColor, simulationType);
-            } else {
-                simulatedColor = originalColor; // No simulation
-            }
-
-            swatch.style.backgroundColor = simulatedColor;
-        });
-
-        // Update harmony visualizer with the simulation type
-        updateHarmonyVisualizer(simulationType);
     }
 
     /* *********************************
@@ -643,10 +519,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (selectedPalette) {
             currentPalette = selectedPalette.colors; // Update currentPalette instead of currentColors
             displayPalette(); // Call without parameters
-
-            if (typeof updateHarmonyVisualizer === 'function') {
-                updateHarmonyVisualizer(); // Update without parameters
-            }
         }
     }
 
@@ -666,12 +538,11 @@ document.addEventListener('DOMContentLoaded', () => {
        Main Functions
     ********************************* */
 
-    // Function to update the palette
+    // Function to update the palette based on the selected color
     function updatePalette() {
         currentPalette = generatePalette(baseColor, currentPaletteType);
         displayPalette();
-        updateHarmonyVisualizer();
-        updateHarmonyDescription();
+        updateHarmonyDescription()
     }
 
     // Function to generate the palette
@@ -744,279 +615,31 @@ document.addEventListener('DOMContentLoaded', () => {
         applyColorBlindnessSimulation();
     }
 
-    /* *********************************
-       Harmony Visualizer Functions
-    ********************************* */
-
-    // Function to update the Harmony Visualizer
-    function updateHarmonyVisualizer(simulationType) {
-        // Update the SVG pattern
-        const patternName = patternSelector.value;
-        const colors = currentPalette.map(color => {
-            if (simulationType && simulationType !== 'none') {
-                return simulateColorBlindness(color, simulationType);
-            }
-            return color;
-        });
-
-        const svgPattern = generateSVGPattern(patternName, colors);
-        harmonySVG.innerHTML = svgPattern;
-
-        // Update the examples
-        harmonyButton.style.backgroundColor = colors[0];
-        harmonyButton.style.color = getContrastingColor(colors[0]);
-
-        harmonyTextExample1.style.backgroundColor = colors[1];
-        harmonyTextExample1.style.color = getContrastingColor(colors[1]);
-
-        harmonyTextExample2.style.backgroundColor = colors[2];
-        harmonyTextExample2.style.color = getContrastingColor(colors[2]);
-    }
-
-    // Function to generate SVG pattern
-    function generateSVGPattern(patternName, colors) {
-        // Create a copy of the colors array
-        let sortedColors = colors.slice();
-
-        // Optionally, sort colors if needed
-        sortedColors.sort((a, b) => {
-            return tinycolor(a).getLuminance() - tinycolor(b).getLuminance();
-        });
-
-        // Ensure there are enough colors
-        const defaultColor = '#FFFFFF';
-        while (sortedColors.length < 8) {
-            sortedColors.push(defaultColor);
-        }
-
-        // Simple example patterns
-        switch (patternName) {
-            case 'jigsaw':
-                return `<svg width="200" height="200">
-                        <defs>
-                            <pattern id="puzzlePattern" patternUnits="userSpaceOnUse" width="100" height="100">
-                                <!-- First puzzle piece -->
-                                <path d="
-                                    M25,0
-                                    h50
-                                    a25,25 0 0 1 0,50
-                                    v25
-                                    a25,25 0 0 1 -50,0
-                                    h-25
-                                    a25,25 0 0 1 0,-50
-                                    v-25
-                                    z
-                                " fill="${sortedColors[1]}" stroke="${sortedColors[2]}" stroke-width="8" />
-                                <!-- Second puzzle piece -->
-                                <path d="
-                                    M75,0
-                                    h50
-                                    v25
-                                    a25,25 0 0 1 -50,0
-                                    v-25
-                                    z
-                                " fill="${sortedColors[3]}" stroke="${sortedColors[4]}" stroke-width="8" transform="translate(-50,50)" />
-                                <!-- Third puzzle piece -->
-                                <path d="
-                                    M25,50
-                                    h50
-                                    v50
-                                    h-50
-                                    v-50
-                                    z
-                                " fill="${sortedColors[5]}" stroke="${sortedColors[6]}" stroke-width="8" transform="translate(0,50)" />
-                                <!-- Fourth puzzle piece -->
-                                <path d="
-                                    M75,50
-                                    h50
-                                    v50
-                                    h-50
-                                    v-50
-                                    z
-                                " fill="${sortedColors[7]}" stroke="${sortedColors[0]}" stroke-width="8" transform="translate(-50,50)" />
-                            </pattern>
-                        </defs>
-                        <rect width="200" height="200" fill="url(#puzzlePattern)" />
-                    </svg>`;
-            case 'topography':
-                return `<svg width="200" height="200">
-                            <rect width="200" height="250" fill="${sortedColors[0]}" />
-                            <path d="M0,25 Q50,-25 100,25 T200,25" stroke="${sortedColors[4]}" stroke-width="3" fill="none"/>
-                            <path d="M0,50 Q50,0 100,50 T200,50" stroke="${sortedColors[1]}" stroke-width="2" fill="none"/>
-                            <path d="M0,75 Q50,25 100,75 T200,75" stroke="${sortedColors[5]}" stroke-width="3" fill="none"/>
-                            <path d="M0,100 Q50,50 100,100 T200,100" stroke="${sortedColors[2]}" stroke-width="2" fill="none"/>
-                            <path d="M0,125 Q50,75 100,125 T200,125" stroke="${sortedColors[6]}" stroke-width="3" fill="none"/>
-                            <path d="M0,150 Q50,100 100,150 T200,150" stroke="${sortedColors[3]}" stroke-width="2" fill="none"/>
-                            <path d="M0,175 Q50,125 100,175 T200,175" stroke="${sortedColors[7]}" stroke-width="3" fill="none"/>
-                            <path d="M0,200 Q50,150 100,200 T200,200" stroke="${sortedColors[4]}" stroke-width="2" fill="none"/>
-                            <path d="M0,225 Q50,175 100,225 T200,225" stroke="${sortedColors[5]}" stroke-width="3" fill="none"/>
-                        </svg>`;
-            case 'overcast':
-                return `<svg width="200" height="200">
-                            <rect width="200" height="200" fill="${sortedColors[7]}" />
-                            <!-- Large cloud -->
-                            <ellipse cx="100" cy="100" rx="80" ry="50" fill="${sortedColors[1]}" />
-                            <!-- Smaller clouds -->
-                            <ellipse cx="60" cy="80" rx="40" ry="25" fill="${sortedColors[2]}" />
-                            <ellipse cx="140" cy="80" rx="40" ry="25" fill="${sortedColors[3]}" />
-                            <ellipse cx="80" cy="120" rx="40" ry="25" fill="${sortedColors[4]}" />
-                            <ellipse cx="120" cy="120" rx="40" ry="25" fill="${sortedColors[5]}" />
-                        </svg>`;
-            case 'plus':
-                return `<svg width="200" height="200">
-                            <rect width="200" height="200" fill="${sortedColors[7]}" />
-                            <!-- First plus sign -->
-                            <rect x="90" y="10" width="20" height="180" fill="${sortedColors[1]}" />
-                            <rect x="10" y="90" width="180" height="20" fill="${sortedColors[1]}" />
-                            <!-- Second plus sign -->
-                            <rect x="50" y="50" width="20" height="100" fill="${sortedColors[2]}" />
-                            <rect x="0" y="90" width="100" height="20" fill="${sortedColors[2]}" />
-                            <!-- Third plus sign -->
-                            <rect x="130" y="50" width="20" height="100" fill="${sortedColors[3]}" />
-                            <rect x="100" y="90" width="100" height="20" fill="${sortedColors[3]}" />
-                        </svg>`;
-            case 'bubbles':
-                return `<svg width="200" height="200">
-                            <rect width="200" height="200" fill="${sortedColors[7]}" />
-                            <circle cx="50" cy="50" r="40" fill="${sortedColors[4]}" />
-                            <circle cx="150" cy="150" r="40" fill="${sortedColors[3]}" />
-                            <circle cx="100" cy="100" r="30" fill="${sortedColors[2]}" />
-                            <circle cx="50" cy="150" r="20" fill="${sortedColors[1]}" />
-                            <circle cx="150" cy="50" r="20" fill="${sortedColors[0]}" />
-                        </svg>`;
-            default:
-                return `<svg width="200" height="200">
-                            <rect width="200" height="200" fill="${colors[0]}" />
-                        </svg>`;
-        }
-    }
-
     // Function to get contrasting color (black or white)
     function getContrastingColor(hexColor) {
         const color = tinycolor(hexColor);
         return color.isLight() ? '#000000' : '#FFFFFF';
     }
 
-    // Function to update Harmony Description
+    // Harmony descriptions
+    const harmonyDescriptions = {
+        monochromatic: "Monochromatic colors are all the colors (tones, tints, and shades) of a single hue.",
+        analogous: "Analogous colors are groups of three colors that are next to each other on the color wheel.",
+        complementary: "Complementary colors are pairs of colors that, when combined, cancel each other out.",
+        splitComplementary: "Split complementary is a color scheme using one base color and two secondary colors.",
+        triadic: "Triadic colors are evenly spaced around the color wheel.",
+        tetradic: "Tetradic colors are four colors arranged into two complementary pairs.",
+        powerpointTheme: "PowerPoint theme colors are designed to work well in presentations with accessible monochromatic shades."
+    };
+
+    // Function to update the harmony description based on selection
     function updateHarmonyDescription() {
-        const descriptions = {
-            monochromatic: 'Monochromatic colors are all the colors (tones, tints, and shades) of a single hue.',
-            analogous: 'Analogous colors are groups of three colors that are next to each other on the color wheel.',
-            complementary: 'Complementary colors are pairs of colors which, when combined, cancel each other out.',
-            splitComplementary: 'Split complementary is a color scheme using one base color and two secondary colors.',
-            triadic: 'Triadic colors are evenly spaced around the color wheel.',
-            tetradic: 'Tetradic colors are four colors arranged into two complementary pairs.',
-            powerpointTheme: 'PowerPoint theme colors are designed to work well in presentations.'
-        };
-        harmonyText.textContent = descriptions[currentPaletteType] || '';
+        const harmonyType = document.getElementById('palette-dropdown').value;
+        const descriptionElement = document.getElementById('harmony-description');
+        descriptionElement.textContent = harmonyDescriptions[harmonyType] || "Select a harmony type to see its description.";
     }
 
-    /* *********************************
-       Export Functions
-    ********************************* */
 
-    // Function to export the palette
-    function exportPalette(format) {
-        switch (format) {
-            case 'png':
-            case 'jpeg':
-                exportPaletteAsImage(format);
-                break;
-            case 'css':
-                exportPaletteAsCSS();
-                break;
-            case 'json':
-                exportPaletteAsJSON();
-                break;
-            case 'txt':
-                exportPaletteAsText();
-                break;
-            case 'svg':
-                exportPaletteAsSVG();
-                break;
-            default:
-                alert('Unsupported export format.');
-                break;
-        }
-    }
-
-    // Function to export palette as image
-    function exportPaletteAsImage(format) {
-        // Store original styles
-        const originalGap = paletteDisplay.style.gap;
-        const originalBackground = paletteDisplay.style.background;
-        const colorSwatches = document.querySelectorAll('.color-swatch');
-        const colorCodes = document.querySelectorAll('.color-code');
-        const originalBorderRadius = [];
-
-        // Apply temporary styles for export
-        paletteDisplay.style.gap = "0px"; // Remove spacing
-        paletteDisplay.style.background = "transparent"; // Remove background
-        colorSwatches.forEach((el, index) => {
-            originalBorderRadius[index] = el.style.borderRadius;
-            el.style.borderRadius = "0"; // Make corners square
-        });
-        colorCodes.forEach(el => el.style.display = 'none'); // Hide color codes
-
-        // Capture the palette with html2canvas
-        html2canvas(paletteDisplay).then(canvas => {
-            // Restore original styles after capture
-            paletteDisplay.style.gap = originalGap;
-            paletteDisplay.style.background = originalBackground;
-            colorSwatches.forEach((el, index) => el.style.borderRadius = originalBorderRadius[index]);
-            colorCodes.forEach(el => el.style.display = '');
-
-            // Export the canvas as an image
-            const link = document.createElement('a');
-            link.download = `palette.${format}`;
-            link.href = canvas.toDataURL(`image/${format}`);
-            link.click();
-        });
-    }
-
-    // Function to export palette as CSS
-    function exportPaletteAsCSS() {
-        let cssContent = ':root {\n';
-        currentPalette.forEach((color, index) => {
-            cssContent += `  --color-${index + 1}: ${color};\n`;
-        });
-        cssContent += '}';
-        downloadFile(cssContent, 'palette.css', 'text/css');
-    }
-
-    // Function to export palette as JSON
-    function exportPaletteAsJSON() {
-        const jsonContent = JSON.stringify(currentPalette, null, 2);
-        downloadFile(jsonContent, 'palette.json', 'application/json');
-    }
-
-    // Function to export palette as Text
-    function exportPaletteAsText() {
-        const textContent = currentPalette.join('\n');
-        downloadFile(textContent, 'palette.txt', 'text/plain');
-    }
-
-    // Function to export palette as SVG
-    function exportPaletteAsSVG() {
-        // Generate an SVG representation of the palette
-        let svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="100">\n`;
-        const swatchWidth = 100;
-        currentPalette.forEach((color, index) => {
-            svgContent += `<rect x="${index * swatchWidth}" y="0" width="${swatchWidth}" height="100" fill="${color}" />\n`;
-        });
-        svgContent += '</svg>';
-        downloadFile(svgContent, 'palette.svg', 'image/svg+xml');
-    }
-
-    // Utility function to download files
-    function downloadFile(content, filename, contentType) {
-        const blob = new Blob([content], { type: contentType });
-        const link = document.createElement('a');
-        link.download = filename;
-        link.href = window.URL.createObjectURL(blob);
-        link.click();
-        window.URL.revokeObjectURL(link.href);
-    }
 
     /* *********************************
        Helper Functions
@@ -1042,5 +665,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
-
 

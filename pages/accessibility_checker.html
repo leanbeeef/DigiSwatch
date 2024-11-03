@@ -4,109 +4,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-translate="accessibility_checker">Accessibility Checker</title>
+    <title data-translate="accessibility_checker">Contrast Checker</title>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Open+Sans&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+
 
     <!-- External CSS -->
     <link rel="stylesheet" href="../styles/styles.css">
 
-    <!-- Color Blind -->
-    <script src="https://unpkg.com/color-blind@1.0.0/color-blind.min.js"></script>
-
-    <style>
-        @media (max-width: 800px) {
-            .color-picker-section {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-        }
-    </style>
-
-
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body id="body" class="theme-default">
+
+    <!-- Top Header with Site Title, Theme Selector, Color Selector, and Image Upload -->
     <header>
-        <nav>
-            <!-- Hamburger Menu Toggle (Checkbox) -->
-            <input type="checkbox" id="nav-toggle" class="nav-toggle" />
-
-            <!-- Hamburger Icon (Label) -->
-            <label for="nav-toggle" class="nav-toggle-label">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-
-            <div class="navi">
-                <div class="web-links">
-                    <a href="../index.html" data-translate="home">Home</a>
-                    <a href="accessibility_checker.html" data-translate="accessibility_checker">Contrast Checker</a>
-                </div>
-                <div class="header-options">
-                    <p data-translate="theme">Theme:</p>
+        <nav class="top-nav">
+            <div class="nav-brand">
+                <img src="../cpg_logo.svg" alt="Site Logo" class="site-logo">
+                <h1 data-translate="title">Contrast Checker</h1>
+            </div>
+            <div class="right-side">
+                <div class="theme-select">
+                    <label data-translate="theme">Theme:</label>
                     <select id="theme-selector">
                         <option value="theme-light" data-translate="light_theme">Light</option>
                         <option value="theme-dark" data-translate="dark_theme">Dark</option>
                     </select>
-                </div>
-            </div>
-            <div class="title-logo-placement">
-                <h1 data-translate="title">Contrast Checker</h1>
-                <div class="header-logo">
-                    <img src="../cpg_logo.svg" alt="Site Logo" class="site-logo">
+                    <!-- Button to open the sidebar -->
+                    <button id="openSidebarButton" class="sidebar-toggle">Gadgets</button>
                 </div>
             </div>
         </nav>
     </header>
-    <main>
-        <div class="sidebar">
-            <section class="color-picker-section">
-                <h3 data-translate="choose_color">Choose Colors</h3>
-                <label for="foregroundColor" data-translate="foreground_color">Foreground Color:</label>
-                <input type="color" id="foregroundColor" value="#ffffff">
-                <label for="backgroundColor" data-translate="background_color">Background Color:</label>
-                <input type="color" id="backgroundColor" value="#000000">
-            </section>
 
-            <section class="upload-image-section">
-                <h3>Image Contrast Checker</h3>
-                <label for="imageUpload">Upload Image</label>
-                <input type="file" id="imageUpload" accept="image/*" class="button" style="display: none;">
-            </section>
+    <!-- Sidebar Structure -->
+    <div id="sidebar" class="sidebar">
+        <div class="title-x">
+            <h3>Gadgets</h3>
+            <button id="closeSidebarButton" class="close-sidebar">&times;</button>
         </div>
+        <div class="sidebar-content">
+            <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+            <a href="../pages/accessibility_checker.html"><i class="fas fa-universal-access"></i> Contrast Checker</a>
+            <a href="../pages/image_ext.html"><i class="fas fa-image"></i> Image Extractor</a>
+        </div>
+    </div>
 
-        <div class="content-area">
+    <main>
+        <div class="content-area-2">
+            <section class="color-selector">
+                <h3 data-translate="choose_color">Choose Colors</h3>
+                <div class="color-inputs">
+                    <div class="color-picker">
+                        <label for="foregroundColor" data-translate="foreground_color">Text color</label>
+                        <div class="color-input-group">
+                            <input type="color" id="foregroundColor" value="#ffffff">
+                            <input type="text" id="foregroundHex" value="#ffffff" readonly>
+                        </div>
+                    </div>
+                    <div class="color-picker">
+                        <label for="backgroundColor" data-translate="background_color">Background color</label>
+                        <div class="color-input-group">
+                            <input type="color" id="backgroundColor" value="#000000">
+                            <input type="text" id="backgroundHex" value="#000000" readonly>
+                        </div>
+                    </div>
+                </div>                
+                <div id="contrastResultCard" class="contrast-result-card">
+                    <!-- JavaScript will dynamically populate this area with contrast results -->
+                </div>
+            </section>
             <section class="accessibility-checker">
-                <p id="accessibility-result" data-translate="accessibility_result">Accessibility Result:</p>
                 <div class="accessibility-preview">
                     <div id="preview-box" class="accessibility-text-box">
-                        <p data-translate="preview_text">This is a preview of your text.</p>
+                        <p class="large_text">This is a preview of large text.</p>
+                        <p class="little_text">This is a preview of smaller text</p>
                     </div>
-                </div>
-            </section>
-
-            <section id="uploaded-image-section" class="uploaded-image-container">
-                <h3>Image with Contrast Indicators</h3>
-                <div id="uploadedImagePreview" class="image-preview"></div>
-                <!-- Palette Display -->
-                <section class="palette-display-section" style="display: none;">
-                    <div id="extractedColors" class="palette-display">
-                        <!-- Extracted colors will be displayed here -->
-                    </div>
-                </section>
-                <div id="contrastDescription" class="contrast-description">
-                    <!-- Contrast issues description will appear here -->
                 </div>
             </section>
         </div>
-    </main>
-    <script src="../scripts/accessibility_checker.js"></script>
-    <script src="../scripts/site.js"></script>
-</body>
+    </main>    
+    
 
-</html>
+    <!-- Include JavaScript files -->
+    <script src="../scripts/site.js"></script>
+    <script src="../scripts/accessibility_checker.js"></script>
+
+</body>

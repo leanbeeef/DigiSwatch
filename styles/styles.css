@@ -1,107 +1,56 @@
 /* *********************************
    CSS Variables
 ********************************* */
-
 :root {
-    /* Default Theme */
-    --main-bg-color: #f5f5f5; /* Light grey background */
-    --main-text-color: #333333; /* Dark grey text */
-    --accent-color: #007acc; /* Blue accent */
-    --accent-hover-color: #005f99; /* Darker blue on hover */
-
-    /* Secondary Colors */
-    --secondary-text-color: #4f4f4f; /* Medium grey */
-    --harmony-description-text-color: #4f4f4f; /* Matching medium grey */
-    --input-border-color: #cccccc; /* Light grey */
-    --input-bg-color: #ffffff; /* White input background */
-    --input-text-color: #333333; /* Dark grey text */
-    --input-placeholder-color: #888888; /* Light grey placeholder */
-
-    /* Header and Navigation */
-    --header-bg-color: #e0e0e0; /* Very light grey */
-    --link-hover-bg-color: #d0d0d0; /* Light grey on hover */
-
-    /* Sidebar */
-    --sidebar-bg-color: #eeeeee; /* Light grey */
-    --sidebar-text-color: var(--main-text-color);
-
-    /* Buttons */
-    --button-bg-color: #007acc; /* Blue */
-    --button-text-color: #ffffff; /* White text */
-    --button-hover-bg-color: #005f99; /* Darker blue on hover */
-
-    /* Palette Swatches */
-    --palette-swatch-bg-color: #e8e8e8; /* Light grey */
-    --palette-swatch-shadow-color: rgba(0, 0, 0, 0.1);
-    --color-code-bg-color: rgba(255, 255, 255, 0.7);
-    --color-code-text-color: var(--main-text-color);
-
-    /* Tabs */
-    --palette-tab-bg-color: #f0f0f0; /* Very light grey */
-    --palette-tab-active-bg-color: #d8d8d8; /* Light grey */
-    --palette-tab-hover-bg-color: #c8c8c8; /* Slightly darker on hover */
-
-    /* Modals */
-    --modal-bg-color: rgba(0, 0, 0, 0.5);
-    --modal-content-bg-color: #ffffff; /* White modal background */
-    --modal-content-text-color: var(--main-text-color);
-    --modal-close-button-color: var(--main-text-color);
-
-    /* Themes */
-    /* Light Theme */
-    --theme-light-bg-color: #ffffff; /* White */
-    --theme-light-text-color: #1a1a1a; /* Almost black */
-    --theme-light-palette-tab-bg-color: #f5f5f5; /* Very light grey */
-    --theme-light-palette-tab-active-bg-color: #e0e0e0; /* Light grey */
-    --theme-light-palette-tab-hover-bg-color: #d0d0d0; /* Slightly darker */
-    --theme-light-button-bg-color: #007acc; /* Blue */
-    --theme-light-button-text-color: #ffffff; /* White text */
-    --theme-light-button-hover-bg-color: #005f99; /* Darker blue */
-
-    /* Dark Theme */
-    --theme-dark-bg-color: #1e1e1e; /* Dark background */
-    --theme-dark-text-color: #e0e0e0; /* Light grey text */
-    --theme-dark-secondary-text-color: #cccccc; /* Light grey */
-    --theme-dark-header-bg-color: #111111; /* Very dark */
-    --theme-dark-link-hover-bg-color: #333333; /* Dark grey */
-    --theme-dark-sidebar-bg-color: #1a1a1a; /* Very dark */
-    --theme-dark-sidebar-text-color: #e0e0e0; /* Light grey */
-    --theme-dark-input-bg-color: #333333; /* Dark grey */
-    --theme-dark-input-text-color: #e0e0e0; /* Light grey */
-    --theme-dark-input-border-color: #444444; /* Darker grey */
-    --theme-dark-palette-tab-bg-color: #2a2a2a; /* Dark grey */
-    --theme-dark-palette-tab-active-bg-color: #444444; /* Medium grey */
-    --theme-dark-palette-display-bg-color: #1e1e1e; /* Very dark */
-    --theme-dark-color-code-bg-color: rgba(0, 0, 0, 0.7);
-    --theme-dark-button-bg-color: #444444; /* Medium grey */
-    --theme-dark-button-hover-bg-color: #555555; /* Lighter grey */
-    --theme-dark-modal-content-bg-color: #2a2a2a; /* Dark grey */
-    --theme-dark-modal-content-text-color: #e0e0e0; /* Light grey */
-    --theme-dark-modal-content-label-color: #cccccc; /* Light grey */
-    --theme-dark-accessibility-text-box-bg-color: #2a2a2a; /* Dark grey */
-    --theme-dark-accessibility-text-color: #e0e0e0; /* Light grey */
-    --theme-dark-harmony-description-text-color: #cccccc; /* Light grey */
-
-    /* Footer */
-    --footer-bg-color: #ffffff;
-    --footer-text-color: #666666;
-    --theme-dark-footer-bg-color: #1e1e1e;
-    --theme-dark-footer-text-color: #999999;
+    --main-bg-color: #f5f5f5;       /* Light grey for light theme */
+    --main-text-color: #333333;      /* Dark text */
+    --accent-color: #007acc;         /* Accent color for interactive elements */
+    --button-bg-color: #007acc;      /* Primary button background */
+    --button-text-color: #ffffff;    /* Primary button text color */
+    --input-bg-color: #ffffff;       /* Input background */
+    --input-border-color: #cccccc;   /* Input border color */
+    --palette-swatch-bg-color: #e8e8e8;
+    --dropdown-color: #e8e8e8;
 }
 
+
+/* Light Theme */
+
+.theme-light {
+    --main-bg-color: #f5f5f5; /* Light grey background */
+    --main-text-color: #333333; /* Dark text */
+    --accent-color: #007acc; /* Blue accent */
+    --button-bg-color: #007acc;
+    --button-text-color: #ffffff;
+    --input-bg-color: #ffffff;
+    --input-border-color: #cccccc;
+    --dropdown-color: #e8e8e8;
+}
+
+
+/* Dark Theme */
+
+.theme-dark {
+    --main-bg-color: #2c2c2c; /* Dark grey background */
+    --main-text-color: #ffffff; /* Light text */
+    --accent-color: #ffcc00; /* Yellow accent */
+    --button-bg-color: #444444;
+    --button-text-color: #ffffff;
+    --input-bg-color: #333333;
+    --input-border-color: #949494;
+    --palette-swatch-bg-color: #444444;
+    --dropdown-color: #555555;
+}
 
 /* *********************************
    General Styles and Resets
 ********************************* */
-
-/* Reset margins and paddings */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Set default font and background */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--main-bg-color);
@@ -109,333 +58,848 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    font-weight: 500;
+    /* Default weight */
 }
 
-/* Links */
 a {
     text-decoration: none;
     color: inherit;
 }
 
-/* Headers */
 h1,
 h2,
 h3 {
-    font-family: 'Poppins', sans-serif;
-    margin-bottom: 10px;
+    font-weight: 700;
+    /* Bold weight for headings */
+}
+
+p,
+label {
+    font-weight: 500;
+    /* Light weight for text */
 }
 
 /* *********************************
-   Header and Navigation Styles
+   Header and Top Navigation
 ********************************* */
-
-/* Style for the logo container */
-/* .header-logo {
+.top-nav {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px;
-} */
-
-/* Style for the site logo */
-.site-logo {
-    width: 50px; /* Adjust to fit your header */
-    height: auto;
-    max-width: 100%;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-}
-
-.title-logo-placement {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 15px;
-}
-
-.title-logo-placement h1 {
-    margin: 0;
-}
-
-header {
+    padding: 15px 30px;
     background-color: var(--header-bg-color);
-    padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.web-links {
+.nav-brand {
     display: flex;
-    align-content: center;
-    flex-wrap: wrap;
-}
-
-nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
     align-items: center;
+    gap: 10px;
 }
 
-.navi {
+.nav-brand h1 {
+    font-size: 1.5em;
+    margin: 0;
+    color: var(--main-text-color);
+}
+
+.theme-select {
     display: flex;
-    gap: 15px;
+    align-items: center;
+    gap: 10px;
 }
 
-.navi a {
-    padding: 10px;
+/* Logo Styling */
+.site-logo {
+    width: 40px;
+    /* Adjust size as needed */
+    height: auto;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* Sidebar container */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Initially hidden outside the screen */
+    width: 300px;
+    height: 100%;
+    background-color: var(--main-bg-color);
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    transition: right 0.3s ease; /* Slide in effect */
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sidebar content links */
+.sidebar-content a {
+    padding: 15px 20px;
+    font-size: 1em;
+    color: var(--main-text-color);
+    text-decoration: none;
+    display: block;
     transition: background-color 0.3s;
 }
 
-.navi a:hover {
-    background-color: var(--link-hover-bg-color);
-    border-radius: 5px;
+.sidebar-content a:hover {
+    background-color: var(--accent-color);
+    color: var(--input-bg-color);
 }
 
-.header-options {
+/* Close button for sidebar */
+.close-sidebar {
+    align-self: flex-end;
+    padding: 10px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: var(--main-text-color);
+    cursor: pointer;
+    margin: 10px;
+}
+
+.sidebar.open {
+    right: 0; /* Slide in to be fully visible */
+}
+
+/* Sidebar toggle button */
+.sidebar-toggle {
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.sidebar-toggle:hover {
+    color: var(--accent-color);
+}
+
+.title-x {
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
     align-items: center;
 }
 
-.header-options select {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid var(--input-border-color);
-    background-color: var(--input-bg-color);
-    color: var(--input-text-color);
-}
-
-/* *********************************
-   Sidebar Styles
-********************************* */
-
-.sidebar {
-    width: 330px;
-    background-color: var(--sidebar-bg-color);
-    color: var(--sidebar-text-color);
-    padding: 20px;
-    box-sizing: border-box;
-    flex-shrink: 0;
-    position: sticky;
-    top: 0;
-    /* height: calc(100vh - 80px); Adjusting for header height */
-    overflow-y: auto;
+.right-side {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;  
 }
 
 .sidebar h3 {
-    margin-top: 20px;
-}
-
-/* .sidebar .palette-tabs {
-    flex-direction: column;
-    gap: 5px;
-} */
-
-/* .sidebar .palette-tabs .tab {
-    width: 100%;
-} */
-
-.sidebar .palette-dropdown-section {
-    display: block;
-    /* Hide dropdown in sidebar */
+    margin-bottom: 0;
+    padding: 15px 20px;
 }
 
 /* *********************************
-   Main Content Styles
+   Navbar with Dropdowns
 ********************************* */
+/* Navbar with Dropdowns */
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    background-color: var(--header-bg-color);
+    padding: 5px 30px;
+    border-top: 1px solid var(--input-border-color);
+}
 
+.navbar ul {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-item a,
+.nav-item button {
+    color: var(--main-text-color);
+    font-size: 1em;
+    padding: 8px;
+    transition: color 0.3s;
+    user-select: none;
+}
+
+.nav-item a:hover,
+.nav-item button:hover {
+    color: var(--accent-color);
+}
+
+/* Dropdown Menu */
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0; /* Align dropdown to the right edge */
+    background-color: var(--dropdown-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 15px 20px; /* Increase padding for a cleaner look */
+    z-index: 10;
+    min-width: 220px;
+    max-width: 280px;
+    overflow: hidden;
+}
+
+.dropdown h3 {
+    font-size: 1.1em;
+    color: var(--secondary-text-color);
+    margin: 0 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--input-border-color);
+    text-align: center;
+}
+
+
+.dropdown button,
+.dropdown input[type="color"] {
+    width: 100%; /* Full width to align evenly */
+    padding: 10px;
+    margin: 10px 0; /* Spacing between elements */
+    font-size: 0.95em;
+    color: var(--main-text-color);
+    background-color: var(--input-bg-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 6px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.dropdown select {
+    width: 100%; /* Full width to align evenly */
+    font-size: 0.95em;
+    color: var(--main-text-color);
+    background-color: var(--input-bg-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 6px;
+    text-align: center;
+}
+
+.dropdown button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px;
+    margin: 10px 0; /* Spacing between links */
+    text-align: center;
+    color: var(--main-text-color);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.dropdown a:hover {
+    background-color: var(--link-hover-bg-color);
+}
+
+
+/* Show Dropdown on Hover */
+.nav-item:hover .dropdown {
+    display: block;
+}
+
+.harmony-description {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #555;
+    padding: 10px;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* *********************************
+   Main Content Area
+********************************* */
 main {
     flex: 1;
     display: flex;
-    flex-wrap: nowrap;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
 }
 
-main>.content-area {
-    flex: 1;
-    padding: 20px;
-    box-sizing: border-box;
+.content-area {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    flex-wrap: wrap;
+    align-content: flex-end;
 }
 
-/* Ensure that sections within content-area take full width */
-main>.content-area>section {
-    width: 100%;
-}
-
-section {
-    margin-bottom: 20px;
-}
-
+/* Headers */
 h3 {
     margin-bottom: 20px;
     font-size: 1.3em;
     color: var(--secondary-text-color);
 }
 
-/* *********************************
-   Color Picker Section
-********************************* */
-
-.color-picker-section {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.color-picker-section input[type="color"] {
-    width: 100%;
-    height: 50px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: var(--input-bg-color);
-}
-
-.color-picker-section input[type="color"]::-webkit-color-swatch-wrapper {
-    padding: 0;
-}
-
-.color-picker-section input[type="color"]::-webkit-color-swatch {
-    border: none;
-    border-radius: 5px;
-}
-
-.color-picker-section label {
-    font-weight: bold;
-    color: var(--secondary-text-color);
-}
-
-#eyedropperBtn {
-    padding: 10px;
-    font-size: 1.2em;
-    cursor: pointer;
-    background-color: var(--input-bg-color);
-    border: 1px solid var(--input-border-color);
-    border-radius: 5px;
-    color: var(--main-text-color);
-}
-
-#eyedropperBtn:hover {
-    background-color: var(--link-hover-bg-color);
-}
-
-/* *********************************
-   Palette Selector Styles
-********************************* */
-
-.palette-selector {
-    padding: 10px;
-    width: 100%;
-    max-width: 300px;
-    background-color: var(--input-bg-color);
-    color: var(--input-text-color);
-    border: 1px solid var(--input-border-color);
-    border-radius: 5px;
-    font-size: 1em;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-/* Optional: Hover and Focus States */
-.palette-selector:hover,
-.palette-selector:focus {
-    background-color: #f0f0f0;
-    /* Slightly lighter background on hover/focus */
-    border-color: var(--accent-color);
-    /* Accent color border on hover/focus */
-    outline: none;
-    /* Remove default outline */
-}
-
-/* Ensure consistency in appearance across browsers */
-.palette-selector {
-    appearance: none;
-    /* Remove default arrow in some browsers */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="5"><polygon points="0,0 10,0 5,5" fill="%23333333"/></svg>');
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 10px 5px;
-    cursor: pointer;
-}
-
-.palette-dropdown-section {
-    display: none;
-    margin-top: 20px;
-}
-
-.palette-dropdown-section select {
-    padding: 10px;
-    width: 100%;
-    max-width: 300px;
-    background-color: var(--input-bg-color);
-    color: var(--input-text-color);
-    border: 1px solid var(--input-border-color);
-    border-radius: 5px;
-}
-
-/* Responsive Tabs and Dropdown */
-@media (max-width: 800px) {
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        top: unset;
-    }
-
-    .palette-tabs {
-        display: none;
-    }
-
-    .palette-dropdown-section {
-        display: block;
-    }
-
-    main {
-        flex-direction: column;
-    }
-}
-
-/* *********************************
-   Harmony Description
-********************************* */
-
-.harmony-description {
-    margin-top: 20px;
-}
-
-#harmony-text {
-    font-size: 1.1em;
-    color: var(--harmony-description-text-color);
-}
-
-/* *********************************
-   Palette Display Styles
-********************************* */
-
+/* Palette Display Section */
 .palette-display-section {
     margin-top: 20px;
 }
 
 .palette-display {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 10px;
+    justify-content: center;
 }
 
-.color-swatch {
+/* *********************************
+   Main Content Area Page 2
+********************************* */
+
+.content-area-2 {
+    display: flex;
+    gap: 20px;
+    /* background-color: #d6d6d6; */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 90%;
+    margin: 100px auto;
+    flex-wrap: wrap;
+}
+
+.color-selector {
     flex: 1;
+    padding: 20px;
+    background-color: var(--main-bg-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.color-selector h3 {
+    font-size: 1.3em;
+    color: var(--secondary-text-color);
+    margin-bottom: 15px;
+}
+
+/* Color Inputs Container */
+.color-inputs {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Individual Color Picker Section */
+.color-picker {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    width: -webkit-fill-available;
+    user-select: none;
+}
+
+.color-picker label {
+    font-weight: bold;
+    color: var(--secondary-text-color);
+    margin-bottom: 5px;
+    font-size: 1em;
+}
+
+/* Combined Color and Hex Input Group */
+.color-input-group {
+    display: flex;
+    align-items: center;
+    background-color: var(--input-bg-color);
+    border: 1px solid var(--input-border-color);
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.color-input-group input[type="color"] {
+    border: none;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0;
+    appearance: none; /* Ensures a clean look across browsers */
+}
+
+.color-input-group input[type="color"]::-webkit-color-swatch {
+    border-radius: 5px;
+}
+
+.color-input-group input[type="text"] {
+    width: 100px;
+    border: none;
+    font-size: 1em;
+    color: var(--main-text-color);
+    font-family: inherit;
+    padding: 0;
+    background-color: transparent;
+    text-align: center;
+    pointer-events: none; /* Makes input uneditable */
+}
+
+.contrast-result-card {
+    background-color: var(--dropdown-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.contrast-score {
+    font-size: 2.5em;
+    color: var(--main-text-color);
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.contrast-score .score-value {
+    font-size: 3em;
+}
+
+.contrast-score .score-rating {
+    font-size: 1em;
+    color: var(--main-text-color);
+}
+
+.text-sizes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    
+}
+
+.text-sizes div {
+    font-weight: 599;
+    color: var(--main-text-color);
+}
+
+.text-rating {
+    background-color: var(--dropdown-color);
+    padding: 2px 5px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    margin-left: 5px;
+}
+
+.contrast-suggestion {
+    font-size: 0.85em;
+    color: var(--main-text-color);
+    margin-top: 15px;
+}
+
+/* Accessibility Checker Section */
+.accessibility-checker {
+    flex: 1;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Accessibility Preview Container */
+.accessibility-preview {
+    background-color: #eeeeee;
+    border-radius: 8px;
+    padding: 0; /* Remove padding to let the preview-box fill the container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px; /* Increased height to make it more prominent */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
+}
+
+/* Accessibility Text Box */
+.accessibility-text-box {
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Add padding inside the box for text spacing */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.accessibility-text-box .large_text,
+.accessibility-text-box .little_text {
+    text-align: center;
+    margin: 10px 0; /* Space between text items */
+}
+
+.large_text {
+    font-size: 1.5em; /* Larger font size for emphasis */
+    color: #333;
+}
+
+.little_text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    color: #555;
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .content-area-2 {
+        flex-direction: column;
+    }
+
+    .color-selector, .accessibility-checker {
+        max-width: 100%;
+    }
+}
+
+/* *********************************
+   Main Content Area Page 3
+********************************* */
+
+/* Main Content Area */
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+/* Contrast Report Button */
+.contrast-report-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--button-text-color);
+    background-color: var(--button-bg-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    user-select: none;
+    justify-content: center;
+    font-family: inherit;
+    border: none;
+}
+
+.contrast-report-button:hover {
+    background-color: #0056b3;
+}
+
+.right-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.right-container .palette-display-section {
+    margin-top: 0px !important;
+}
+
+
+/* Uploaded Image Container */
+.uploaded-image-container {
+    width: 100%;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.uploaded-image-container h3 {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Counter and Button Styling */
+#counter-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+#counter-container button {
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color);
+    border: none;
+    padding: 10px 15px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: inherit;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#counter-container button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+#counter-container #counter-value {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--main-text-color);
+    background-color: var(--input-bg-color);
+    padding: 10px 15px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 5px;
+    min-width: 40px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* *********************************
+   Contrast Reporting Modal Styles
+********************************* */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--main-bg-color);
+    width: 80%;
+    max-width: 800px;
+    height: 70%;
+    max-height: 600px;
+    border-radius: 8px;
+    overflow-y: auto;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    color: var(--main-text-color);
+    cursor: pointer;
+}
+
+/* *********************************
+   Contrast Description Section
+********************************* */
+
+.contrast-description {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.contrast-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contrast-pair {
+    display: flex;
+    width: 100%;
+}
+
+.contrast-list-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.color-markers {
+    display: flex;
+    gap: 10px;
+    margin-right: 20px;
+    width: 20%;
+}
+
+.color-marker {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #fff;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.contrast-column {
+    display: flex;
+    align-items: center;
+}
+
+.color-description {
+    flex: 2;
+    font-size: 1em;
+    color: var(--main-text-color);
+    width: 30%;
+}
+
+.contrast-result {
+    flex: 1;
+    text-align: center;
+    width: 30%;
+}
+
+/* Pass and Fail styles for contrast status */
+.pass {
+    background-color: #28a745; /* Green */
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.fail {
+    background-color: #dc3545; /* Red */
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+
+/* Image Preview Container */
+.image-preview {
+    width: 40%;
+    border: 1px solid var(--input-border-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-bg-color);
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+/* Ensure image fits within the preview area without distortion */
+#uploadedImagePreview {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Cover the container while preserving aspect ratio */
+    border-radius: 8px;
+}
+
+#eyeDroppersContainer {
+    pointer-events: none; /* Keep this so container doesn’t capture events */
+}
+
+.eye-dropper {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    cursor: grab;
+    position: absolute; /* Keep position absolute for droppers themselves */
+    pointer-events: auto; /* Ensure droppers capture events */
+    z-index: 10; /* Keep droppers above the canvas */
+    user-select: none;
+}
+.eye-dropper:active {
+    cursor: grabbing;
+}
+
+#visibleCanvas {
+    max-width: 800px;
+    max-height: 450px;
+    width: 100%;
+    height: auto;
+}
+
+
+
+/* *********************************
+   Palette Display
+********************************* */
+/* Palette Display - Full Width and Height */
+.palette-display-section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.palette-display {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    /* Dynamic columns */
+    grid-auto-rows: 1fr;
+    /* Make rows fill available space */
+    width: 100%;
+    height: 100%;
+    gap: 0;
+}
+
+/* Make each color swatch fill its grid space */
+.color-swatch {
+    width: 100%;
+    height: 100%;
     position: relative;
     cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px var(--palette-swatch-shadow-color);
-    overflow: hidden;
+    border-radius: 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Added ease transition */
+    box-shadow: none;
+}
+
+.color-swatch:hover {
+    transform: translateY(-4px);
+    /* Move up slightly */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    /* Add subtle shadow */
 }
 
 .color-swatch::before {
     content: '';
     display: block;
     padding-top: 100%;
-    /* Maintain square aspect ratio */
 }
 
 .color-swatch .color-content {
@@ -451,102 +915,28 @@ h3 {
     position: absolute;
     bottom: 5px;
     left: 5px;
-    background-color: var(--color-code-bg-color);
+    background-color: var(--main-bg-color);
     padding: 2px 5px;
     border-radius: 3px;
     font-size: 0.8em;
-    color: var(--color-code-text-color);
+    color: var(--main-text-color);
 }
 
-/* Responsive Palette Display */
-@media (max-width: 800px) {
-    .color-swatch {
-        width: calc(33.333% - 10px);
-        padding-bottom: calc(33.333% - 10px);
-    }
+/* Optional: Add specific styles for color blindness dropdown */
+#color-blindness-selector {
+    width: 100%;
+    margin-top: 10px;
 }
 
-@media (max-width: 500px) {
-    .color-swatch {
-        width: calc(50% - 10px);
-        padding-bottom: calc(50% - 10px);
-    }
-}
 
 /* *********************************
-   Harmony Visualizer Styles
+   Export Options
 ********************************* */
-
-.harmony-visualizer-section {
-    margin-top: 20px;
-}
-
-.pattern-selector-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.harmony-visualizer-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: center;
-}
-
-#harmony-svg {
-    width: 200px;
-    height: 200px;
-}
-
-.harmony-examples {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.harmony-button {
-    padding: 15px 30px;
-    font-size: 1em;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    transition: opacity 0.3s;
-    background-color: var(--button-bg-color);
-    color: var(--button-text-color);
-}
-
-.harmony-button:hover {
-    opacity: 0.8;
-}
-
-.harmony-text,
-.harmony-text2 {
-    padding: 15px;
-    border-radius: 5px;
-    color: var(--button-text-color);
-}
-
-.harmony-text p,
-.harmony-text2 p {
-    font-size: 1em;
-}
-
-/* *********************************
-   Export Options Styles
-********************************* */
-
 .export-options {
     margin-top: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.export-options h3 {
-    margin: 0;
 }
 
 .export-options select {
@@ -558,6 +948,10 @@ h3 {
     border-radius: 5px;
 }
 
+/* *********************************
+   Button Styles
+********************************* */
+
 #export-button {
     padding: 10px 20px;
     cursor: pointer;
@@ -565,1194 +959,81 @@ h3 {
     color: var(--button-text-color);
     border: none;
     border-radius: 5px;
-}
-
-#hue-slider {
-    padding: 10px 20px;
-    cursor: pointer;
-    background-color: var(--button-bg-color);
-    color: var(--button-text-color);
-    border: none;
-    border-radius: 5px;
+    font-family: inherit;
 }
 
 #export-button:hover {
     background-color: var(--button-hover-bg-color);
 }
 
-/* *********************************
-   Color Adjustment Modal Styles
-********************************* */
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: var(--modal-bg-color);
-}
-
-.modal-content {
-    background-color: var(--modal-content-bg-color);
-    color: var(--modal-content-text-color);
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 5px;
-    width: 90%;
-    max-width: 400px;
-    position: relative;
-}
-
-.close-button {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    font-size: 1.5em;
-    cursor: pointer;
-    color: var(--modal-close-button-color);
-}
-
-.slider-container {
-    margin: 15px 0;
-}
-
-.slider-container label {
-    display: block;
-    margin-bottom: 5px;
-    color: var(--main-text-color);
-}
-
-.slider-container input[type="range"] {
-    width: 100%;
-}
-
-.color-preview {
-    width: 100%;
-    height: 50px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-}
-
-#apply-adjustments {
+#generate-random-palette {
     padding: 10px 20px;
     cursor: pointer;
     background-color: var(--button-bg-color);
     color: var(--button-text-color);
     border: none;
     border-radius: 5px;
-    width: 100%;
-}
-
-#apply-adjustments:hover {
-    background-color: var(--button-hover-bg-color);
-}
-
-/* *********************************
-   Random Generate Button
-   ********************************* */
-
-.generate-button {
-    margin-top: 25px;
-    padding: 25px;
-    cursor: pointer;
-    background-color: var(--button-bg-color);
-    color: var(--button-text-color);
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    font-size: large;
     font-family: inherit;
 }
 
-.generate-button:hover {
+#generate-random-palette:hover {
     background-color: var(--button-hover-bg-color);
 }
 
-.preview-toggle {
-    margin-top: 20px;
-    text-align: center;
-}
-
-#live-preview-toggle-button {
-    margin-top: 5px;
-    padding: 25px;
-    cursor: pointer;
-    background-color: var(--button-bg-color);
-    color: var(--button-text-color);
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    font-size: large;
-    font-family: inherit;
-    width: 100%;
-}
-
-#live-preview-toggle-button:hover {
-    background-color: var(--button-hover-bg-color);
-}
-
-/* *********************************
-   Accessibility Checker
-   ********************************* */
-
-.accessibility-checker {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-}
-
-.accessibility-checker h3 {
-    margin-bottom: 20px;
-}
-
-.checker-inputs {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.checker-inputs label {
-    margin: 0 10px;
-}
-
-.accessibility-preview {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.accessibility-text-box {
-    width: 50%;
-    height: 40vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-}
-
-.accessibility-text-box p {
-    font-size: 1.5em;
-    font-weight: bold;
-    padding: 40px;
-}
-
-#accessibility-result {
-    text-align: center;
-    font-size: 1.2em;
-    margin-bottom: 20px;
-}
-
-#apply-suggested-color {
-    margin: 25px auto;
-    padding: 25px;
-    cursor: pointer;
-    background-color: var(--button-bg-color);
-    color: var(--button-text-color);
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    font-size: large;
-    font-family: inherit;
-}
-
-/* *********************************
-   Image Contrast Checker
-********************************* */
-
-#uploadedImagePreview,
-#contrastDescription {
-    display: none;
-}
-
-.upload-image-section h3 {
-    margin-bottom: 10px;
-    color: var(--secondary-text-color);
-}
-
-.uploaded-image-container {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.uploaded-image-container h3 {
-    margin-bottom: 20px;
-    font-size: 1.3em;
-    color: var(--secondary-text-color);
-}
-
-.upload-image-section {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-/* Style for the upload label to make it look like a branded button */
-label[for="imageUpload"] {
-    display: inline-block;
+/* Live Preview Button in Navbar */
+.live-preview-button {
     padding: 10px 20px;
-    background-color: var(--button-bg-color); /* Primary theme color */
-    color: var(--button-text-color); /* Light text color for contrast */
-    font-size: 1em;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 5px; /* Rounded corners */
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    width: 100%;
-}
-
-/* Hover effect for the label button */
-label[for="imageUpload"]:hover {
-    background-color: var(--button-hover-bg-color); /* Darker shade for hover */
-}
-
-/* Active effect for button press */
-label[for="imageUpload"]:active {
-    background-color: var(--primary-color-darker); /* Even darker shade for active state */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Accessibility focus style */
-label[for="imageUpload"]:focus {
-    outline: 3px solid var(--accent-color); /* Accent color for focus ring */
-}
-
-.image-preview {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    border: 2px solid var(--input-border-color);
-    padding: 10px;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.uploaded-image {
-    max-width: 100%;
-    height: auto;
+    background-color: var(--button-bg-color);
+    color: var(--button-text-color) !important;
+    border: none;
     border-radius: 5px;
+    font-family: inherit;
 }
 
-#contrastDescription {
-    margin-top: 15px;
-    max-width: 100%;
-    justify-content: center;
-    color: var(--main-text-color);
+.live-preview-button:hover {
+    background-color: var(--button-hover-bg-color);
 }
 
-#contrastDescription ul {
-    list-style-type: none; /* Remove default list style */
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
-#contrastDescription li {
+/* Navbar Upload Button */
+.upload-button {
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: var(--theme-light-palette-tab-active-bg-color);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    width: 49%;
-    min-height: 50px;
-}
-
-/* #contrastDescription li:last-child {
-    margin-bottom: 0;
-} */
-
-.color-marker {
-    width: 20px;
-    height: 20px;
-    border-radius: 3px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-}
-
-.contrast-info {
-    font-size: 0.9em;
-    line-height: 1.4;
-}
-
-.pass {
-    color: green;
-    font-weight: bold;
-}
-
-.fail {
-    color: red;
-    font-weight: bold;
-}
-
-
-/* *********************************
-   Popular Palettes Section
-********************************* */
-
-/* Container for all popular palettes */
-#popular-palettes-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-    padding: 10px;
-}
-
-/* Individual palette card */
-.popular-palette {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    cursor: pointer;
-    background-color: var(--palette-bg, #f9f9f9);
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Hover effect for palette card */
-.popular-palette:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Palette name styling */
-.palette-name {
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 10px;
-    color: var(--palette-name-color, #333333);
-    font-size: 1.1em;
-}
-
-/* Container for color swatches within a palette */
-.palette-colors {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: 5px;
-    width: 100%;
-}
-
-/* Individual color swatch */
-.palette-colors .color-swatch {
-    width: 20px;
-    height: 20px;
-    border: 1px solid #000;
-    border-radius: 3px;
-}
-
-
-/* *********************************
-   Theme Styles
-********************************* */
-
-/* Light Theme Overrides */
-.theme-light {
-    /* Background and Text */
-    background-color: var(--theme-light-bg-color);
-    color: var(--theme-light-text-color);
-
-    /* Buttons */
-    --button-bg-color: var(--theme-light-button-bg-color);
-    --button-text-color: var(--theme-light-button-text-color);
-    --button-hover-bg-color: var(--theme-light-button-hover-bg-color);
-
-    /* Palette Tabs */
-    --palette-tab-bg-color: var(--theme-light-palette-tab-bg-color);
-    --palette-tab-active-bg-color: var(--theme-light-palette-tab-active-bg-color);
-    --palette-tab-hover-bg-color: var(--theme-light-palette-tab-hover-bg-color);
-
-    /* Additional overrides if necessary */
-}
-
-
-/* Dark Theme Overrides */
-.theme-dark {
-    /* Background and Text */
-    background-color: var(--theme-dark-bg-color);
-    color: var(--theme-dark-text-color);
-    --secondary-text-color: var(--theme-dark-secondary-text-color);
-    --harmony-description-text-color: var(--theme-dark-harmony-description-text-color);
-
-    /* Header and Navigation */
-    --header-bg-color: var(--theme-dark-header-bg-color);
-    --link-hover-bg-color: var(--theme-dark-link-hover-bg-color);
-
-    /* Sidebar */
-    --sidebar-bg-color: var(--theme-dark-sidebar-bg-color);
-    --sidebar-text-color: var(--theme-dark-sidebar-text-color);
-
-    /* Buttons */
-    --button-bg-color: var(--theme-dark-button-bg-color);
-    --button-text-color: var(--button-text-color);
-    /* Assuming button text color remains as set */
-    --button-hover-bg-color: var(--theme-dark-button-hover-bg-color);
-
-    /* Palette Tabs */
-    --palette-tab-bg-color: var(--theme-dark-palette-tab-bg-color);
-    --palette-tab-active-bg-color: var(--theme-dark-palette-tab-active-bg-color);
-    --palette-tab-hover-bg-color: var(--theme-dark-palette-tab-hover-bg-color);
-
-    /* Modals */
-    --modal-content-bg-color: var(--theme-dark-modal-content-bg-color);
-    --modal-content-text-color: var(--theme-dark-modal-content-text-color);
-    --modal-close-button-color: var(--theme-dark-modal-close-button-color);
-
-    /* Accessibility Text Box */
-    --accessibility-text-box-bg-color: var(--theme-dark-accessibility-text-box-bg-color);
-    --accessibility-text-color: var(--theme-dark-accessibility-text-color);
-
-    /* Footer */
-    --footer-bg-color: var(--theme-dark-footer-bg-color);
-    --footer-text-color: var(--theme-dark-footer-text-color);
-
-    /* Additional overrides if necessary */
-}
-
-/* *********************************
-   Footer Styles (if any)
-********************************* */
-
-/* Styles remain unchanged */
-
-/* *********************************
-   Hamburger Menu Styles
-********************************* */
-
-/* Hide the checkbox input */
-.nav-toggle {
-    display: none;
-}
-
-/* Style the hamburger icon */
-.nav-toggle-label {
-    display: none;
-    /* Hidden by default; will be shown on small screens */
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    /* Center the spans horizontally */
-    width: 30px;
-    height: 25px;
+    color: var(--button-text-color);
+    background-color: var(--button-bg-color);
+    padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    font-weight: 500;
+    user-select: none;
+    justify-content: center;
 }
 
-.nav-toggle-label span {
-    width: 100%;
-    height: 3px;
-    background-color: var(--main-text-color);
-    border-radius: 2px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+.upload-button:hover {
+    opacity: 0.8;
 }
-
 
 /* *********************************
-   Responsive Styles (if any)
+   Responsive Styles
 ********************************* */
-
-/* Extra Small Devices (Phones, max-width: 480px) */
-@media (max-width: 480px) {
-
-    /* Header and Navigation */
-    header {
-        padding: 10px;
-    }
-
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .navi {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .navi a {
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-        border-radius: 0;
-        /* Remove border-radius for full-width links */
-    }
-
-    .header-logo {
-        display: none !important;
-    }
-
-    .header-options {
-        flex-direction: column;
-        width: 100%;
-        gap: 10px;
-    }
-
-    .header-options select {
-        width: 100%;
-    }
-
-    /* Sidebar */
-    .sidebar {
-        width: 100%;
-        padding: 10px;
-        position: relative;
-        /* Ensure sidebar stacks naturally */
-        height: auto;
-    }
-
-    /* Main Content */
-    main {
-        flex-direction: column;
-    }
-
-    main>.content-area {
-        padding: 10px;
-    }
-
-    /* Color Picker Section */
-    .color-picker-section {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .color-picker-section label {
-        margin-bottom: 5px;
-    }
-
-    .color-picker-section input[type="color"] {
-        width: 100%;
-        height: 40px;
-    }
-
-    #eyedropperBtn {
-        width: 100%;
-    }
-
-    /* Palette Selector */
-    .palette-selector {
-        max-width: 100%;
-    }
-
-    /* Palette Display */
-    .palette-display {
-        flex-wrap: wrap;
-        gap: 5px;
-    }
-
-    .color-swatch {
-        width: calc(50% - 5px);
-        padding-bottom: calc(50% - 5px);
-    }
-
-    /* Harmony Visualizer */
-    .harmony-visualizer-section {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #harmony-svg {
-        width: 100%;
-        height: auto;
-    }
-
-    .harmony-examples {
-        width: 100%;
-    }
-
-    /* Buttons and Inputs */
-    .harmony-button,
-    #export-button,
-    #apply-adjustments,
-    .generate-button,
-    #accessibility-result,
-    #apply-suggested-color {
-        width: 100%;
-        font-size: 1em;
-        padding: 10px;
-    }
-
-    /* Modal */
-    .modal-content {
-        width: 90%;
-        margin: 20% auto;
-    }
-
-    /* Export Options */
-    .export-options {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .export-options select,
-    .export-options h3 {
-        width: 100%;
-    }
-
-    /* Popular Palettes Section */
-    #popular-palettes-container {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 10px;
-    }
-
-    .popular-palette .palette-colors .color-swatch {
-        width: 15px;
-        height: 15px;
-    }
-
-    /* Accessibility Checker */
-    .accessibility-checker {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .checker-inputs {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .accessibility-preview {
-        flex-direction: column;
-    }
-
-    /* Footer */
-    footer {
-        padding: 10px;
-        text-align: center;
-    }
-
-    /* Harmony Description */
-    #harmony-text {
-        font-size: 1em;
-    }
-
-    /* Adjust Font Sizes for Better Readability */
-    body {
-        font-size: 14px;
-    }
-
-    h1,
-    h2,
-    h3 {
-        font-size: 1.2em;
-    }
-
-    /* Ensure Touch-Friendly Elements */
-    button,
-    .generate-button,
-    #eyedropperBtn,
-    .harmony-button,
-    #export-button,
-    #apply-adjustments,
-    #apply-suggested-color {
-        min-height: 44px;
-    }
-}
-
-
-/* Small Devices (Phablets, max-width: 600px) */
-@media (max-width: 600px) {
-
-    /* Header and Navigation */
-    header {
-        padding: 15px;
-    }
-
-    nav {
-        flex-wrap: wrap;
-    }
-
-    .navi {
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-
-    .navi a {
-        padding: 8px 10px;
-    }
-
-    .header-options {
-        flex-direction: row;
-        width: 100%;
-    }
-
-    /* Sidebar */
-    .sidebar {
-        width: 100%;
-        padding: 15px;
-    }
-
-    /* Main Content */
-    main {
-        flex-direction: column;
-    }
-
-    main>.content-area {
-        padding: 15px;
-    }
-
-    /* Color Picker Section */
-    .color-picker-section {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .color-picker-section input[type="color"] {
-        height: 40px;
-    }
-
-    #eyedropperBtn {
-        width: 100%;
-    }
-
-    /* Palette Selector */
-    .palette-selector {
-        max-width: 100%;
-    }
-
-    /* Palette Display */
-    .palette-display {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .color-swatch {
-        width: calc(33.333% - 10px);
-        padding-bottom: calc(33.333% - 10px);
-    }
-
-    /* Harmony Visualizer */
-    .harmony-visualizer-section {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    #harmony-svg {
-        width: 150px;
-        height: 150px;
-    }
-
-    .harmony-examples {
-        width: 100%;
-    }
-
-    /* Buttons and Inputs */
-    .harmony-button,
-    #export-button,
-    #apply-adjustments,
-    .generate-button,
-    #accessibility-result,
-    #apply-suggested-color {
-        width: 100%;
-        font-size: 1em;
-        padding: 10px;
-    }
-
-    /* Modal */
-    .modal-content {
-        width: 90%;
-        margin: 20% auto;
-    }
-
-    /* Export Options */
-    .export-options {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .export-options select,
-    .export-options h3 {
-        width: 100%;
-    }
-
-    /* Popular Palettes Section */
-    #popular-palettes-container {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 10px;
-    }
-
-    .popular-palette .palette-colors .color-swatch {
-        width: 15px;
-        height: 15px;
-    }
-
-    /* Accessibility Checker */
-    .accessibility-checker {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .checker-inputs {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .accessibility-preview {
-        flex-direction: column;
-    }
-
-    /* Footer */
-    footer {
-        padding: 15px;
-        text-align: center;
-    }
-
-    /* Harmony Description */
-    #harmony-text {
-        font-size: 1.1em;
-    }
-
-    /* Adjust Font Sizes for Better Readability */
-    body {
-        font-size: 15px;
-    }
-
-    h1,
-    h2,
-    h3 {
-        font-size: 1.3em;
-    }
-
-    /* Ensure Touch-Friendly Elements */
-    button,
-    .generate-button,
-    #eyedropperBtn,
-    .harmony-button,
-    #export-button,
-    #apply-adjustments,
-    #apply-suggested-color {
-        min-height: 44px;
-    }
-}
-
-/* Medium Devices (Tablets, max-width: 800px) */
 @media (max-width: 800px) {
-
-    .theme-light {
-        .navi {
-            --sidebar-bg-color: var(--button-bg-color);
-        }
-        .navi a {
-            color: white;
-        }
-        .navi p {
-            color: white;
-        }
-    }
-
-    .theme-dark {
-        .navi {
-            --sidebar-bg-color: var(--button-bg-color);
-        }
-        .navi a {
-            color: white;
-        }
-        .navi p {
-            color: white;
-        }
-        .nav-toggle-label span{
-            background: white;
-        }
-    }
-
-    /* Header and Navigation */
-    header {
-        padding: 20px;
-    }
-
-    nav {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    nav h1 {
-        margin: 0;
-    }
-
-    .navi {
-        flex-direction: row;
-        justify-content: space-around;
-    }
-
-    .navi a {
-        padding: 10px 15px;
-    }
-
-    /* Show the hamburger icon */
-    .nav-toggle-label {
-        display: flex;
-    }
-
-    /* Hide the navigation links by default */
-    .navi {
-        display: none;
+    .navbar ul {
         flex-direction: column;
-        width: 100%;
-        background-color: var(--sidebar-bg-color);
-        /* Match sidebar background */
-        position: absolute;
-        top: 60px;
-        /* Adjust based on header height */
-        left: 0;
-        padding: 25px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        z-index: 999;
-        /* Ensure it appears above other elements */
-    }
-
-    /* When the checkbox is checked, display the navigation links */
-    .nav-toggle:checked+.nav-toggle-label+.navi {
-        display: flex;
-    }
-
-    /* Style navigation links for vertical layout */
-    .navi a {
-        padding: 10px 20px;
-        border-bottom: 1px solid var(--input-border-color);
-    }
-
-    .navi a:last-child {
-        border-bottom: none;
-    }
-
-    /* Optional: Add hover effects for better UX */
-    .navi a:hover {
-        background-color: var(--link-hover-bg-color);
-    }
-
-    /* Transform the hamburger icon into an 'X' when active */
-    .nav-toggle:checked+.nav-toggle-label span:nth-child(1) {
-        transform: rotate(45deg) translate(2px, 1px);
-    }
-
-    .nav-toggle:checked+.nav-toggle-label span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .nav-toggle:checked+.nav-toggle-label span:nth-child(3) {
-        transform: rotate(-45deg) translate(10px, -10px);
-    }
-
-    .header-options {
-        flex-direction: row;
-        width: auto;
-        gap: 10px;
-    }
-
-    /* Sidebar */
-    .sidebar {
-        width: 100%;
-        padding: 20px;
-        position: relative;
-        /* Ensure sidebar stacks naturally */
-        height: auto;
-    }
-
-    /* Main Content */
-    main {
-        flex-direction: column;
-    }
-
-    main>.content-area {
-        padding: 20px;
-    }
-
-    /* Color Picker Section */
-    .color-picker-section {
-        flex-direction: row;
-        align-items: center;
         gap: 15px;
     }
 
-    .color-picker-section input[type="color"] {
-        width: 100%;
-        height: 40px;
+    .dropdown {
+        width: 90%;
     }
 
-    #eyedropperBtn {
-        width: auto;
+    .content-area {
+        padding: 10px;
     }
 
-    /* Palette Selector */
-    .palette-selector {
-        max-width: 100% !important;
-    }
-
-    /* Palette Display */
     .palette-display {
         flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .color-swatch {
-        width: calc(25% - 10px);
-        padding-bottom: calc(25% - 10px);
-    }
-
-    /* Harmony Visualizer */
-    .harmony-visualizer-section {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    #harmony-svg {
-        width: 200px;
-        height: 200px;
-    }
-
-    .harmony-examples {
-        width: 45%;
-    }
-
-    /* Buttons and Inputs */
-    .harmony-button,
-    #export-button,
-    #apply-adjustments,
-    .generate-button,
-    #accessibility-result,
-    #apply-suggested-color {
-        width: 100%;
-        font-size: 1em;
-        padding: 10px 20px;
-    }
-
-    /* Modal */
-    .modal-content {
-        width: 80%;
-        margin: 10% auto;
-    }
-
-    /* Export Options */
-    .export-options {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-    }
-
-    .export-options select,
-    .export-options h3 {
-        width: auto;
-    }
-
-    /* Popular Palettes Section */
-    #popular-palettes-container {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 15px;
-    }
-
-    .popular-palette .palette-colors .color-swatch {
-        width: 20px;
-        height: 20px;
-    }
-
-    /* Accessibility Checker */
-    .accessibility-checker {
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .accessibility-text-box {
-        width: auto;
-        height: auto;
-    }
-
-    .checker-inputs {
-        flex-direction: row;
-        align-items: center;
-    }
-
-    .accessibility-preview {
-        flex-direction: column;
-    }
-
-    /* Footer */
-    footer {
-        padding: 20px;
-        text-align: center;
-    }
-
-    /* Harmony Description */
-    #harmony-text {
-        font-size: 1.2em;
-    }
-
-    /* Adjust Font Sizes for Better Readability */
-    body {
-        font-size: 16px;
-    }
-
-    h1,
-    h2,
-    h3 {
-        font-size: 1.4em;
-    }
-
-    /* Ensure Touch-Friendly Elements */
-    button,
-    .generate-button,
-    #eyedropperBtn,
-    .harmony-button,
-    #export-button,
-    #apply-adjustments,
-    #apply-suggested-color {
-        min-height: 44px;
-    }
-}
-
-/* Landscape Orientation */
-@media (orientation: landscape) and (max-width: 800px) {
-
-    /* Header and Navigation */
-    nav {
-        flex-direction: row;
-    }
-
-    .navi {
-        flex-direction: row;
-        justify-content: space-around;
-    }
-
-    /* Palette Display */
-    .palette-display {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .color-swatch {
-        width: calc(25% - 10px);
-        padding-bottom: calc(25% - 10px);
-    }
-
-    /* Harmony Visualizer */
-    #harmony-svg {
-        width: 200px;
-        height: 200px;
-    }
-
-    /* Adjust buttons and inputs */
-    .harmony-button,
-    #export-button,
-    #apply-adjustments,
-    .generate-button,
-    #accessibility-result,
-    #apply-suggested-color {
-        font-size: 0.9em;
     }
 }
