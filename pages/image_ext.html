@@ -81,7 +81,7 @@
                         <option value="txt">Text</option>
                         <option value="svg">SVG</option>
                     </select>
-                    <button id="export-button" data-translate="export_palette">Export Palette</button>
+                    <button id="export-button"  class="btn" data-translate="export_palette">Export Palette</button>
                 </div>
             </li>
         </ul>
@@ -95,8 +95,8 @@
         </div>
         <div class="sidebar-content">
             <a href="../index.html"><i class="fas fa-home"></i> Home</a>
-            <a href="accessibility_checker.html"><i class="fas fa-universal-access"></i> Contrast Checker</a>
-            <a href="image_ext.html"><i class="fas fa-image"></i> Image Extractor</a>
+            <a href="../pages/accessibility_checker.html"><i class="fas fa-universal-access"></i> Contrast Checker</a>
+            <a href="../pages/image_ext.html"><i class="fas fa-image"></i> Image Extractor</a>
         </div>
     </div>
 
@@ -111,7 +111,7 @@
 
             <!-- Right Column: Palette Display and Contrast Button -->
             <div class="right-container">
-                <label for="imageUpload" class="button upload-button">
+                <label for="imageUpload" class="btn upload-button">
                     <i class="fas fa-download"></i> Upload Image
                 </label>
                 <input type="file" id="imageUpload" accept="image/*" style="display: none;">
@@ -124,7 +124,7 @@
                     <div id="extractedColors" class="palette-display"></div>
                 </section>
 
-                <button id="contrastReportButton" class="contrast-report-button">View Contrast Report</button>
+                <button id="contrastReportButton" class="contrast-report-button btn">View Contrast Report</button>
             </div>
         </div>
 
