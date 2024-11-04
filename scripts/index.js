@@ -23,9 +23,10 @@ document.addEventListener('DOMContentLoaded', () => {
         background: document.body,
         header: document.querySelector('header'),
         buttons: document.querySelectorAll('button'),
-        text: document.querySelectorAll('.content-area p, .content-area h1, .content-area h3'),
+        text: document.querySelectorAll('.content-area p, .content-area h1, .content-area h3, .dropdown h3, .top-nav label, .top-nav h1'),
         sidebar: document.querySelector('.sidebar'),
-        sidebarText: document.querySelectorAll('.sidebar a')
+        sidebarText: document.querySelectorAll('.sidebar a'),
+        dropdowns: document.querySelectorAll('.dropdown'),
     };
 
 
@@ -463,6 +464,11 @@ document.addEventListener('DOMContentLoaded', () => {
         previewElements.sidebar.style.backgroundColor = palette[getRandomInt() % palette.length];
         console.log(previewElements)
         
+        previewElements.dropdowns.forEach((dropdown) => {
+            const colorIndex = getRandomInt() % palette.length;
+            dropdown.style.backgroundColor = palette[colorIndex];
+            dropdown.style.color = getContrastingColor(palette[colorIndex]);
+        });
 
         previewElements.sidebarText.forEach((textElement) => {
             const colorIndex = getRandomInt() % palette.length;
@@ -470,7 +476,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         previewElements.buttons.forEach((button) => {
-            console.log(button);
             const colorIndex = getRandomInt() % palette.length;
             button.style.backgroundColor = palette[colorIndex];
             button.style.color = getContrastingColor(palette[colorIndex]);
