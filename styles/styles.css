@@ -1092,7 +1092,7 @@ h3 {
     .dropdown {
         width: 90%;
         margin-top: 10px;
-        z-index: 20px;
+        z-index: 20;
         right: auto;
     }
 
