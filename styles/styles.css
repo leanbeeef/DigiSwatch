@@ -2,13 +2,20 @@
    CSS Variables
 ********************************* */
 :root {
-    --main-bg-color: #f5f5f5;       /* Light grey for light theme */
-    --main-text-color: #333333;      /* Dark text */
-    --accent-color: #007acc;         /* Accent color for interactive elements */
-    --button-bg-color: #007acc;      /* Primary button background */
-    --button-text-color: #ffffff;    /* Primary button text color */
-    --input-bg-color: #ffffff;       /* Input background */
-    --input-border-color: #cccccc;   /* Input border color */
+    --main-bg-color: #f5f5f5;
+    /* Light grey for light theme */
+    --main-text-color: #333333;
+    /* Dark text */
+    --accent-color: #007acc;
+    /* Accent color for interactive elements */
+    --button-bg-color: #007acc;
+    /* Primary button background */
+    --button-text-color: #ffffff;
+    /* Primary button text color */
+    --input-bg-color: #ffffff;
+    /* Input background */
+    --input-border-color: #cccccc;
+    /* Input border color */
     --palette-swatch-bg-color: #e8e8e8;
     --dropdown-color: #e8e8e8;
 }
@@ -17,9 +24,12 @@
 /* Light Theme */
 
 .theme-light {
-    --main-bg-color: #f5f5f5; /* Light grey background */
-    --main-text-color: #333333; /* Dark text */
-    --accent-color: #007acc; /* Blue accent */
+    --main-bg-color: #f5f5f5;
+    /* Light grey background */
+    --main-text-color: #333333;
+    /* Dark text */
+    --accent-color: #007acc;
+    /* Blue accent */
     --button-bg-color: #007acc;
     --button-text-color: #ffffff;
     --input-bg-color: #ffffff;
@@ -31,9 +41,12 @@
 /* Dark Theme */
 
 .theme-dark {
-    --main-bg-color: #2c2c2c; /* Dark grey background */
-    --main-text-color: #ffffff; /* Light text */
-    --accent-color: #ffcc00; /* Yellow accent */
+    --main-bg-color: #2c2c2c;
+    /* Dark grey background */
+    --main-text-color: #ffffff;
+    /* Light text */
+    --accent-color: #ffcc00;
+    /* Yellow accent */
     --button-bg-color: #444444;
     --button-text-color: #ffffff;
     --input-bg-color: #333333;
@@ -123,13 +136,15 @@ label {
 .sidebar {
     position: fixed;
     top: 0;
-    right: -300px; /* Initially hidden outside the screen */
+    right: -300px;
+    /* Initially hidden outside the screen */
     width: 300px;
     height: 100%;
     background-color: var(--main-bg-color);
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
-    transition: right 0.3s ease; /* Slide in effect */
+    transition: right 0.3s ease;
+    /* Slide in effect */
     z-index: 1000;
     display: flex;
     flex-direction: column;
@@ -163,7 +178,8 @@ label {
 }
 
 .sidebar.open {
-    right: 0; /* Slide in to be fully visible */
+    right: 0;
+    /* Slide in to be fully visible */
 }
 
 /* Sidebar toggle button */
@@ -193,7 +209,7 @@ label {
 .right-side {
     display: flex;
     flex-direction: row;
-    gap: 20px;  
+    gap: 20px;
 }
 
 .sidebar h3 {
@@ -244,11 +260,13 @@ label {
     display: none;
     position: absolute;
     top: 100%;
-    right: 0; /* Align dropdown to the right edge */
+    right: 0;
+    /* Align dropdown to the right edge */
     background-color: var(--dropdown-color);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    padding: 15px 20px; /* Increase padding for a cleaner look */
+    padding: 15px 20px;
+    /* Increase padding for a cleaner look */
     z-index: 10;
     min-width: 220px;
     max-width: 280px;
@@ -268,9 +286,11 @@ label {
 
 .dropdown button,
 .dropdown input[type="color"] {
-    width: 100%; /* Full width to align evenly */
+    width: 100%;
+    /* Full width to align evenly */
     padding: 10px;
-    margin: 10px 0; /* Spacing between elements */
+    margin: 10px 0;
+    /* Spacing between elements */
     font-size: 0.95em;
     color: var(--main-text-color);
     background-color: var(--input-bg-color);
@@ -281,7 +301,8 @@ label {
 }
 
 .dropdown select {
-    width: 100%; /* Full width to align evenly */
+    width: 100%;
+    /* Full width to align evenly */
     font-size: 0.95em;
     color: var(--main-text-color);
     background-color: var(--input-bg-color);
@@ -291,8 +312,10 @@ label {
 }
 
 .dropdown button {
-    margin: 10px 0; /* Spacing between elements */
-    width: 100%; /* Full width to align evenly */
+    margin: 10px 0;
+    /* Spacing between elements */
+    width: 100%;
+    /* Full width to align evenly */
     background-color: var(--button-bg-color);
     color: var(--button-text-color);
     border: none;
@@ -306,7 +329,8 @@ label {
 .dropdown a {
     display: block;
     padding: 10px;
-    margin: 10px 0; /* Spacing between links */
+    margin: 10px 0;
+    /* Spacing between links */
     text-align: center;
     color: var(--main-text-color);
     text-decoration: none;
@@ -449,7 +473,8 @@ h3 {
     border-radius: 5px;
     cursor: pointer;
     padding: 0;
-    appearance: none; /* Ensures a clean look across browsers */
+    appearance: none;
+    /* Ensures a clean look across browsers */
 }
 
 .color-input-group input[type="color"]::-webkit-color-swatch {
@@ -465,7 +490,8 @@ h3 {
     padding: 0;
     background-color: transparent;
     text-align: center;
-    pointer-events: none; /* Makes input uneditable */
+    pointer-events: none;
+    /* Makes input uneditable */
 }
 
 .contrast-result-card {
@@ -487,7 +513,7 @@ h3 {
 }
 
 .contrast-score .score-value {
-    font-size: 3em;
+    font-size: 2.5em;
 }
 
 .contrast-score .score-rating {
@@ -499,7 +525,7 @@ h3 {
     display: flex;
     justify-content: space-around;
     margin-top: 15px;
-    
+
 }
 
 .text-sizes div {
@@ -535,11 +561,13 @@ h3 {
 .accessibility-preview {
     background-color: #eeeeee;
     border-radius: 8px;
-    padding: 0; /* Remove padding to let the preview-box fill the container */
+    padding: 0;
+    /* Remove padding to let the preview-box fill the container */
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 250px; /* Increased height to make it more prominent */
+    min-height: 250px;
+    /* Increased height to make it more prominent */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     height: 100%;
@@ -555,18 +583,21 @@ h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px; /* Add padding inside the box for text spacing */
+    padding: 20px;
+    /* Add padding inside the box for text spacing */
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .accessibility-text-box .large_text,
 .accessibility-text-box .little_text {
     text-align: center;
-    margin: 10px 0; /* Space between text items */
+    margin: 10px 0;
+    /* Space between text items */
 }
 
 .large_text {
-    font-size: 1.5em; /* Larger font size for emphasis */
+    font-size: 1.5em;
+    /* Larger font size for emphasis */
     color: #333;
 }
 
@@ -577,16 +608,6 @@ h3 {
 }
 
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .content-area-2 {
-        flex-direction: column;
-    }
-
-    .color-selector, .accessibility-checker {
-        max-width: 100%;
-    }
-}
 
 /* *********************************
    Main Content Area Page 3
@@ -793,7 +814,8 @@ h3 {
 
 /* Pass and Fail styles for contrast status */
 .pass {
-    background-color: #28a745; /* Green */
+    background-color: #28a745;
+    /* Green */
     color: #ffffff;
     padding: 5px 10px;
     border-radius: 4px;
@@ -801,7 +823,8 @@ h3 {
 }
 
 .fail {
-    background-color: #dc3545; /* Red */
+    background-color: #dc3545;
+    /* Red */
     color: #ffffff;
     padding: 5px 10px;
     border-radius: 4px;
@@ -826,12 +849,14 @@ h3 {
 #uploadedImagePreview {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Cover the container while preserving aspect ratio */
+    object-fit: contain;
+    /* Cover the container while preserving aspect ratio */
     border-radius: 8px;
 }
 
 #eyeDroppersContainer {
-    pointer-events: none; /* Keep this so container doesn’t capture events */
+    pointer-events: none;
+    /* Keep this so container doesn’t capture events */
 }
 
 .eye-dropper {
@@ -841,11 +866,15 @@ h3 {
     border: 2px solid #fff;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     cursor: grab;
-    position: absolute; /* Keep position absolute for droppers themselves */
-    pointer-events: auto; /* Ensure droppers capture events */
-    z-index: 10; /* Keep droppers above the canvas */
+    position: absolute;
+    /* Keep position absolute for droppers themselves */
+    pointer-events: auto;
+    /* Ensure droppers capture events */
+    z-index: 10;
+    /* Keep droppers above the canvas */
     user-select: none;
 }
+
 .eye-dropper:active {
     cursor: grabbing;
 }
@@ -984,21 +1013,206 @@ h3 {
 /* *********************************
    Responsive Styles
 ********************************* */
-@media (max-width: 800px) {
+@media (max-width: 768px) {
+
+    /* Top Navigation */
+    .top-nav {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px 15px;
+    }
+
+    .sidebar {
+        font-size: 1.5em;
+    }
+
+    .nav-brand h1 {
+        font-size: 1.2em;
+    }
+
+    /* Navbar with Stacked Layout */
+    .navbar {
+        flex-direction: column;
+        padding: 10px 15px;
+    }
+
     .navbar ul {
+        flex-direction: row;
+        gap: 10px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 100%;
+        right: -100%;
+    }
+
+    .sidebar.open {
+        right: 0;
+    }
+
+    /* Content Area Adjustments */
+    .content-area-2 {
+        flex-direction: column-reverse;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .color-selector,
+    .accessibility-checker {
+        max-width: 100%;
+    }
+
+    /* Container Adjustment */
+    .container {
         flex-direction: column;
         gap: 15px;
     }
 
-    .dropdown {
-        width: 90%;
+    .image-preview {
+        width: 100%;
     }
 
-    .content-area {
+    /* Color Inputs */
+    .color-inputs {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Dropdown Menu */
+    .dropdown {
+        width: 90%;
+        margin-top: 10px;
+        z-index: 20px;
+    }
+
+    /* Palette Display */
+    .palette-display {
+        grid-template-columns: 1fr;
+    }
+
+    #extractedColors .color-swatch {
+        width: 100vw;
+        box-shadow: #2c2c2c;
+    }
+
+    #paletteDisplay .palette-display {
+        height: 100vh;
+    }
+
+    /* Button Adjustments */
+    .btn,
+    .contrast-report-button,
+    .sidebar-toggle,
+    #counter-container button {
+        font-size: 0.9em;
+        padding: 8px 12px;
+    }
+
+    /* Modal */
+    .modal-content {
+        width: 95%;
+        max-height: 85%;
+        padding: 15px;
+    }
+
+    /* Harmony Description */
+    .harmony-description {
+        font-size: 0.85em;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 576px) {
+
+    /* Top Navigation Adjustments */
+    .top-nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .site-logo {
+        width: 30px;
+    }
+
+    .navbar {
+        padding: 8px 15px;
+    }
+
+    /* Container Adjustment */
+    .container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Navbar */
+    .navbar ul {
+        gap: 5px;
+    }
+
+    /* Color Picker */
+    .color-picker input[type="color"] {
+        width: 35px;
+        height: 35px;
+    }
+
+    .color-input-group input[type="text"] {
+        width: 80px;
+        font-size: 0.9em;
+    }
+
+    /* Accessibility Text Box */
+    .accessibility-text-box {
         padding: 10px;
     }
 
-    .palette-display {
-        flex-wrap: wrap;
+    .large_text {
+        font-size: 1.3em;
+    }
+
+    .little_text {
+        font-size: 0.9em;
+    }
+
+    /* Sidebar and Toggle Adjustments */
+    .sidebar-content a {
+        padding: 12px;
+        font-size: 0.95em;
+    }
+
+    .sidebar-toggle {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    /* Harmony Description */
+    .harmony-description {
+        font-size: 0.8em;
+        padding: 6px;
+    }
+
+    /* Palette Swatch Text */
+    .color-swatch .color-code {
+        font-size: 0.7em;
+        padding: 1px 4px;
+    }
+
+    /* Contrast Description */
+    .contrast-description {
+        font-size: 0.9em;
+    }
+
+    /* Modal Close */
+    .modal-content {
+        padding: 15px;
+    }
+
+    /* Export Options */
+    .export-options select {
+        font-size: 0.9em;
+        max-width: 150px;
     }
 }
