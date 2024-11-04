@@ -21,7 +21,7 @@ const ctx = visibleCanvas.getContext("2d", { willReadFrequently: true });
 // Initialize variables
 let currentDroppers = [];
 let counter = 5; // Counter for the number of eye droppers
-const maxDroppers = 7;
+const maxDroppers = 10;
 let initialDroppersCount = 5;
 
 // Event Listeners
@@ -38,7 +38,7 @@ addButton.addEventListener("click", () => {
     }
 });
 removeButton.addEventListener("click", () => {
-    if (counter > 0) {
+    if (counter > 2) {
         removeLastDropper(); // Removes the last added eye dropper
         counter--;
         counterValueElement.textContent = counter;
