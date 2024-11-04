@@ -151,7 +151,7 @@ function initializeEyeDroppers(canvas, dropperCount = 5) {
         const canvasY = ((yPosition - offsetY) * canvas.height) / canvasRect.height;
         const pixelData = ctx.getImageData(canvasX, canvasY, 1, 1).data;
         const color = { r: pixelData[0], g: pixelData[1], b: pixelData[2] };
-        
+
         // Set the dropper's background color based on the sampled color
         dropper.style.backgroundColor = colorToString(color);
     }
@@ -292,7 +292,7 @@ function updatePaletteColors() {
 
     // Display the extracted colors and update color blindness simulation if enabled
     displayExtractedColors(colors);
-    
+
 }
 
 function displayExtractedColors(colors) {
@@ -321,6 +321,9 @@ function displayExtractedColors(colors) {
         swatch.appendChild(colorContent);
         colorContent.appendChild(colorCode);
         extractedColorsContainer.appendChild(swatch);
+
+        // Add click event to copy color code
+        swatch.addEventListener('click', copyColor); // Use the copyColor function
     });
 
     // Apply color blindness simulation if necessary
@@ -344,17 +347,17 @@ function viewContrastReport() {
 }
 
 // Close the contrast report modal
-document.getElementById("contrastReportButton").addEventListener("click", function() {
+document.getElementById("contrastReportButton").addEventListener("click", function () {
     document.getElementById("contrastModal").style.display = "flex";
 });
 
 // Close the modal when clicking the close button
-document.querySelector(".close").addEventListener("click", function() {
+document.querySelector(".close").addEventListener("click", function () {
     document.getElementById("contrastModal").style.display = "none";
 });
 
 // Close the modal when clicking outside of the modal content
-window.onclick = function(event) {
+window.onclick = function (event) {
     const modal = document.getElementById("contrastModal");
     if (event.target === modal) {
         modal.style.display = "none";
