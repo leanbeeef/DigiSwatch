@@ -1092,17 +1092,15 @@ h3 {
     /* Palette Display */
     .palette-display {
         grid-template-columns: 1fr;
-        
     }
 
     #extractedColors .color-swatch {
         width: 100vw;
-        box-shadow: #2c2c2c;
+        box-shadow: 0px 1px 4px #333333;
     }
 
     #paletteDisplay .palette-display {
         height: 100vh;
-        gap: 1px;
     }
 
     /* Button Adjustments */
