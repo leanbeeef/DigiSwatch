@@ -252,7 +252,7 @@ label {
 
 .nav-item a:hover,
 .nav-item button:hover {
-    color: var(--accent-color);
+    color: var(--button-text-color);
 }
 
 /* Dropdown Menu */
