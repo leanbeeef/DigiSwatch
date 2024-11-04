@@ -1086,12 +1086,13 @@ h3 {
         width: 90%;
         margin-top: 10px;
         z-index: 20px;
+        right: auto;
     }
 
     /* Palette Display */
     .palette-display {
         grid-template-columns: 1fr;
-        gap: 1px;
+        
     }
 
     #extractedColors .color-swatch {
@@ -1101,6 +1102,7 @@ h3 {
 
     #paletteDisplay .palette-display {
         height: 100vh;
+        gap: 1px;
     }
 
     /* Button Adjustments */
