@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewElements = {
         background: document.body,
         header: document.querySelector('header'),
-        buttons: document.querySelectorAll('button'),
-        text: document.querySelectorAll('.content-area p, .content-area h1, .content-area h3, .dropdown h3, .top-nav label, .top-nav h1'),
+        buttons: document.querySelectorAll('button, option, select'),
+        text: document.querySelectorAll('p, h1, h3, label, i, select, option'),
         sidebar: document.querySelector('.sidebar'),
         sidebarText: document.querySelectorAll('.sidebar a'),
         dropdowns: document.querySelectorAll('.dropdown'),
@@ -492,9 +492,14 @@ document.addEventListener('DOMContentLoaded', () => {
         previewElements.background.style.backgroundColor = '';
         previewElements.header.style.backgroundColor = '';
         previewElements.sidebar.style.backgroundColor = '';
+        
         previewElements.buttons.forEach(button => {
             button.style.backgroundColor = '';
             button.style.color = '';
+        });
+        previewElements.dropdowns.forEach((dropdown) => {
+            dropdown.style.backgroundColor = '';
+            dropdown.style.color = '';
         });
         previewElements.text.forEach(textElement => {
             textElement.style.color = '';
