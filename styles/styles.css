@@ -1091,6 +1091,7 @@ h3 {
     /* Palette Display */
     .palette-display {
         grid-template-columns: 1fr;
+        gap: 1px;
     }
 
     #extractedColors .color-swatch {
@@ -1122,6 +1123,10 @@ h3 {
     .harmony-description {
         font-size: 0.85em;
         padding: 8px;
+    }
+
+    #counter-container {
+        margin: 0;
     }
 }
 
