@@ -139,6 +139,7 @@ function initializeEyeDroppers(canvas, dropperCount = 5) {
 
         // Add drag functionality for live movement and color sampling
         dropper.addEventListener("mousedown", (event) => startDrag(event, dropper, canvas, canvasRect));
+        dropper.addEventListener("touchstart", (event) => startDrag(event, dropper, canvas, canvasRect));
 
         // Append each dropper directly to the document body for accurate positioning
         document.body.appendChild(dropper);
@@ -234,37 +235,39 @@ function sampleColorFromCanvas(canvas, x, y) {
     return { r: pixelData[0], g: pixelData[1], b: pixelData[2] };
 }
 
-// Drag functionality for eye droppers
+// Updated startDrag function to support both mouse and touch
 function startDrag(event, dropper, canvas, canvasRect) {
     event.preventDefault();
-    
-    const dropperSize = 35; // Size of the eye dropper
-    const offsetX = dropperSize / 2; // Center offset for the dropper width
-    const offsetY = dropperSize / 2; // Center offset for the dropper height
 
-    function onMouseMove(event) {
-        const x = event.clientX - canvasRect.left;
-        const y = event.clientY - canvasRect.top;
+    const isTouch = event.type === "touchstart";
+    const dropperSize = 35;
+    const offsetX = dropperSize / 2;
+    const offsetY = dropperSize / 2;
+
+    function onMove(e) {
+        const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+        const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+
+        const x = clientX - canvasRect.left;
+        const y = clientY - canvasRect.top;
 
         if (x >= 0 && y >= 0 && x < canvasRect.width && y < canvasRect.height) {
-            // Adjust left and top to center the dropper on the cursor
             dropper.style.left = `${canvasRect.left + x - offsetX}px`;
             dropper.style.top = `${canvasRect.top + y - offsetY}px`;
 
-            // Sample color at the new position on the canvas
             const color = sampleColorFromCanvas(canvas, x, y);
             dropper.style.backgroundColor = colorToString(color);
             updatePaletteColors();
         }
     }
 
-    function onMouseUp() {
-        document.removeEventListener("mousemove", onMouseMove);
-        document.removeEventListener("mouseup", onMouseUp);
+    function onEnd() {
+        document.removeEventListener(isTouch ? "touchmove" : "mousemove", onMove);
+        document.removeEventListener(isTouch ? "touchend" : "mouseup", onEnd);
     }
 
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseup", onMouseUp);
+    document.addEventListener(isTouch ? "touchmove" : "mousemove", onMove);
+    document.addEventListener(isTouch ? "touchend" : "mouseup", onEnd);
 }
 
 
