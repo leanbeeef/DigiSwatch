@@ -458,13 +458,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function applyPaletteToPreview(palette) {
         if (!palette || palette.length < 8) return;
 
-        previewElements.background.style.backgroundColor = palette[0];
-        previewElements.header.style.backgroundColor = palette[1];
-        previewElements.sidebar.style.backgroundColor = palette[2];
+        previewElements.background.style.backgroundColor = palette[getRandomInt() % palette.length];
+        previewElements.header.style.backgroundColor = palette[getRandomInt() % palette.length];
+        previewElements.sidebar.style.backgroundColor = palette[getRandomInt() % palette.length];
         console.log(previewElements)
         
 
-        previewElements.sidebarText.forEach((textElement, index) => {
+        previewElements.sidebarText.forEach((textElement) => {
             const colorIndex = getRandomInt() % palette.length;
             textElement.style.color = palette[colorIndex];
         });
