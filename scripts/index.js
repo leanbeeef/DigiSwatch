@@ -23,7 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
         background: document.body,
         header: document.querySelector('header'),
         buttons: document.querySelectorAll('button'),
-        text: document.querySelectorAll('.content-area p, .content-area h1, .content-area h3')
+        text: document.querySelectorAll('.content-area p, .content-area h1, .content-area h3'),
+        sidebar: document.querySelector('.sidebar'),
+        sidebarText: document.querySelectorAll('.sidebar a')
     };
 
 
@@ -32,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let baseColor = '#7E7E7E';
     // let currentPalette = [];
     let isLivePreviewEnabled = false;
+    let randomValue = getRandomInt(1, 9); // Random integer between 0 and 8
+
 
     // Set the color picker to the base color
     colorPicker.value = baseColor;
@@ -445,27 +449,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
     }
 
+    function getRandomInt(min = 1, max = 8) {
+        return Math.floor(Math.random() * (max - min)) + min;
+      }
+      
+
     // Apply palette colors to the preview elements
     function applyPaletteToPreview(palette) {
-        if (!palette || palette.length < 6) return;
+        if (!palette || palette.length < 8) return;
 
         previewElements.background.style.backgroundColor = palette[0];
         previewElements.header.style.backgroundColor = palette[1];
         previewElements.sidebar.style.backgroundColor = palette[2];
+        console.log(previewElements)
+        
 
         previewElements.sidebarText.forEach((textElement, index) => {
-            const colorIndex = (index + 3) % palette.length;
+            const colorIndex = getRandomInt() % palette.length;
             textElement.style.color = palette[colorIndex];
         });
 
-        previewElements.buttons.forEach((button, index) => {
-            const colorIndex = (index + 4) % palette.length;
+        previewElements.buttons.forEach((button) => {
+            console.log(button);
+            const colorIndex = getRandomInt() % palette.length;
             button.style.backgroundColor = palette[colorIndex];
             button.style.color = getContrastingColor(palette[colorIndex]);
         });
 
-        previewElements.text.forEach((textElement, index) => {
-            const colorIndex = (index + 5) % palette.length;
+        previewElements.text.forEach((textElement) => {
+            const colorIndex = getRandomInt() % palette.length;
             textElement.style.color = palette[colorIndex];
         });
     }
