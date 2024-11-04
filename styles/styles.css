@@ -923,6 +923,7 @@ h3 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     /* Added ease transition */
     box-shadow: none;
+    box-shadow: 0px 0px 23px 2px #333333;
 }
 
 .color-swatch:hover {
@@ -1096,7 +1097,6 @@ h3 {
 
     #extractedColors .color-swatch {
         width: 100vw;
-        box-shadow: 0px 1px 4px #333333;
     }
 
     #paletteDisplay .palette-display {
