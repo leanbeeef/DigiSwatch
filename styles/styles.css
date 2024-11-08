@@ -55,6 +55,30 @@
     --dropdown-color: #555555;
 }
 
+/* Light theme logo */
+.logo-light {
+    display: flex;
+    width: 90%;
+    /* Adjust size as needed */
+    height: auto;
+}
+
+.logo-dark {
+    display: none;
+    width: 90%;
+    /* Adjust size as needed */
+    height: auto;
+}
+
+/* Dark theme styles */
+body.dark-theme .logo-light {
+    display: none;
+}
+
+body.dark-theme .logo-dark {
+    display: flex;
+}
+
 /* *********************************
    General Styles and Resets
 ********************************* */
@@ -65,7 +89,7 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Raleway', sans-serif;
     background-color: var(--main-bg-color);
     color: var(--main-text-color);
     min-height: 100vh;
@@ -123,15 +147,6 @@ label {
     gap: 10px;
 }
 
-/* Logo Styling */
-.site-logo {
-    width: 40px;
-    /* Adjust size as needed */
-    height: auto;
-    margin-right: 10px;
-    vertical-align: middle;
-}
-
 /* Sidebar container */
 .sidebar {
     position: fixed;
@@ -156,8 +171,9 @@ label {
     font-size: 1em;
     color: var(--main-text-color);
     text-decoration: none;
-    display: block;
+    display: flex;
     transition: background-color 0.3s;
+    gap: 15px;
 }
 
 .sidebar-content a:hover {
@@ -225,7 +241,7 @@ label {
     display: flex;
     justify-content: flex-end;
     background-color: var(--header-bg-color);
-    padding: 5px 30px;
+    padding: 10px 30px;
     border-top: 1px solid var(--input-border-color);
 }
 
@@ -241,8 +257,19 @@ label {
     align-items: center;
 }
 
-.nav-item a,
 .nav-item button {
+    color: var(--button-text-color);
+    font-size: 1em;
+    padding: 8px;
+    transition: color 0.3s;
+    user-select: none;
+}
+
+.nav-item button:hover {
+    color: var(--button-text-color);
+}
+
+.nav-item a {
     color: var(--main-text-color);
     font-size: 1em;
     padding: 8px;
@@ -250,9 +277,9 @@ label {
     user-select: none;
 }
 
-.nav-item a:hover,
-.nav-item button:hover {
-    color: var(--button-text-color);
+.nav-item a:hover {
+    color: var(--accent-color);
+    cursor: default;
 }
 
 /* Dropdown Menu */
@@ -358,9 +385,189 @@ label {
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
+
 /* *********************************
-   Main Content Area
+   Intro page
 ********************************* */
+
+.home {
+
+    /* Center content */
+    .home-intro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background-color: var(--main-bg-color);
+    }
+
+    .intro-logo {
+        width: 100%;
+        max-width: 350px;
+        margin-bottom: 50px;
+    }
+
+    .get-started-btn {
+        padding: 10px 20px;
+        font-size: 1.2em;
+        color: var(--button-text-color);
+        background-color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .get-started-btn:hover {
+        opacity: 0.8 !important;
+    }
+
+
+}
+
+/* *********************************
+   Popular Palettes Page
+********************************* */
+
+.popular {
+
+    .palette-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        /* Set to 4 columns */
+        gap: 50px;
+        /* Increased gap for more spacing */
+        padding: 20px;
+        justify-items: center;
+        /* Center items in the grid */
+    }
+
+    .palette-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        padding: 12px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        min-height: 200px;
+        background-color: #fff;
+    }
+
+    .palette-name {
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 8px;
+        /* Space between the name and the color blocks */
+        text-align: center;
+    }
+
+    .palette-colors {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        margin-bottom: 8px;
+    }
+
+    .color-block {
+        flex: 1;
+        height: 100%;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 800px;
+        /* Optional: Limit max width for a cleaner look */
+        max-height: 80%;
+        /* Ensure it fits within the screen */
+        overflow-y: auto;
+        /* Enable scrolling if content exceeds modal height */
+        box-sizing: border-box;
+        text-align: center;
+        position: relative;
+    }
+
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .palette-display-pop {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+        gap: 0;
+        /* Remove gaps between color swatches */
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        margin-top: 20px;
+    }
+
+    .color-swatch {
+        width: 100%;
+        height: 150px;
+        /* Increase height for taller swatches */
+        cursor: pointer;
+        position: relative;
+        border-radius: 0;
+        /* Remove rounded corners if not needed */
+        box-shadow: 0px 0px 20px -10px #333333;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .color-swatch::before {
+        content: attr(data-color);
+        /* Show color code on hover */
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        font-size: 12px;
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 2px 5px;
+        border-radius: 3px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .color-swatch:hover::before {
+        opacity: 1;
+    }
+
+    .export-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+/* *********************************
+   Palette Page
+********************************* */
+
 main {
     flex: 1;
     display: flex;
@@ -388,9 +595,9 @@ h3 {
 }
 
 /* Palette Display Section */
-.palette-display-section {
+/* .palette-display-section {
     margin-top: 20px;
-}
+} */
 
 .palette-display {
     display: flex;
@@ -712,187 +919,193 @@ h3 {
 /* *********************************
    Contrast Reporting Modal Styles
 ********************************* */
+.image {
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-}
+    .modal-content {
+        background-color: var(--main-bg-color);
+        width: 80%;
+        max-width: 800px;
+        height: 70%;
+        max-height: 600px;
+        border-radius: 8px;
+        overflow-y: auto;
+        padding: 20px;
+        position: relative;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
 
-.modal-content {
-    background-color: var(--main-bg-color);
-    width: 80%;
-    max-width: 800px;
-    height: 70%;
-    max-height: 600px;
-    border-radius: 8px;
-    overflow-y: auto;
-    padding: 20px;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 24px;
+        color: var(--main-text-color);
+        cursor: pointer;
+    }
 
-.close {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 24px;
-    color: var(--main-text-color);
-    cursor: pointer;
-}
 
-/* *********************************
+
+    /* *********************************
    Contrast Description Section
 ********************************* */
 
-.contrast-description {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    overflow-y: auto;
+    .contrast-description {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        overflow-y: auto;
+    }
+
+    .contrast-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .contrast-pair {
+        display: flex;
+        width: 100%;
+    }
+
+    .contrast-list-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid var(--input-border-color);
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .color-markers {
+        display: flex;
+        gap: 10px;
+        margin-right: 20px;
+        width: 20%;
+    }
+
+    .color-marker {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #fff;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .contrast-column {
+        display: flex;
+        align-items: center;
+    }
+
+    .color-description {
+        flex: 2;
+        font-size: 1em;
+        color: var(--main-text-color);
+        width: 30%;
+    }
+
+    .contrast-result {
+        flex: 1;
+        text-align: center;
+        width: 30%;
+    }
+
+    /* Pass and Fail styles for contrast status */
+    .pass {
+        background-color: #28a745;
+        /* Green */
+        color: #ffffff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+
+    .fail {
+        background-color: #dc3545;
+        /* Red */
+        color: #ffffff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+
+
+    /* Image Preview Container */
+    .image-preview {
+        width: 40%;
+        border: 1px solid var(--input-border-color);
+        border-radius: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--main-bg-color);
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    /* Ensure image fits within the preview area without distortion */
+    #uploadedImagePreview {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        /* Cover the container while preserving aspect ratio */
+        border-radius: 8px;
+    }
+
+    #eyeDroppersContainer {
+        pointer-events: none;
+        /* Allows clicks to pass through if needed */
+        position: absolute;
+        /* Positions droppers relative to the nearest positioned ancestor */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        /* Ensures droppers don't overflow the container */
+        z-index: 10;
+        /* Ensures droppers appear above the canvas */
+    }
+
+    .eye-dropper {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        cursor: grab;
+        position: absolute;
+        /* Keep position absolute for droppers themselves */
+        pointer-events: auto;
+        /* Ensure droppers capture events */
+        z-index: 10;
+        /* Keep droppers above the canvas */
+        user-select: none;
+    }
+
+    .eye-dropper:active {
+        cursor: grabbing;
+    }
+
+    #visibleCanvas {
+        max-width: 800px;
+        max-height: 450px;
+        width: 100%;
+        height: auto;
+    }
+
 }
-
-.contrast-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.contrast-pair {
-    display: flex;
-    width: 100%;
-}
-
-.contrast-list-item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid var(--input-border-color);
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.color-markers {
-    display: flex;
-    gap: 10px;
-    margin-right: 20px;
-    width: 20%;
-}
-
-.color-marker {
-    width: 30px;
-    height: 30px;
-    border: 1px solid #fff;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-}
-
-.contrast-column {
-    display: flex;
-    align-items: center;
-}
-
-.color-description {
-    flex: 2;
-    font-size: 1em;
-    color: var(--main-text-color);
-    width: 30%;
-}
-
-.contrast-result {
-    flex: 1;
-    text-align: center;
-    width: 30%;
-}
-
-/* Pass and Fail styles for contrast status */
-.pass {
-    background-color: #28a745;
-    /* Green */
-    color: #ffffff;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-weight: bold;
-}
-
-.fail {
-    background-color: #dc3545;
-    /* Red */
-    color: #ffffff;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-weight: bold;
-}
-
-
-/* Image Preview Container */
-.image-preview {
-    width: 40%;
-    border: 1px solid var(--input-border-color);
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--main-bg-color);
-    overflow: hidden;
-    margin: 0 auto;
-}
-
-/* Ensure image fits within the preview area without distortion */
-#uploadedImagePreview {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    /* Cover the container while preserving aspect ratio */
-    border-radius: 8px;
-}
-
-#eyeDroppersContainer {
-    pointer-events: none; /* Allows clicks to pass through if needed */
-    position: absolute;   /* Positions droppers relative to the nearest positioned ancestor */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;     /* Ensures droppers don't overflow the container */
-    z-index: 10;          /* Ensures droppers appear above the canvas */
-}
-
-.eye-dropper {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    cursor: grab;
-    position: absolute;
-    /* Keep position absolute for droppers themselves */
-    pointer-events: auto;
-    /* Ensure droppers capture events */
-    z-index: 10;
-    /* Keep droppers above the canvas */
-    user-select: none;
-}
-
-.eye-dropper:active {
-    cursor: grabbing;
-}
-
-#visibleCanvas {
-    max-width: 800px;
-    max-height: 450px;
-    width: 100%;
-    height: auto;
-}
-
-
 
 /* *********************************
    Palette Display
@@ -1011,6 +1224,7 @@ h3 {
     font-weight: 500;
     user-select: none;
     justify-content: center;
+    border: none;
 }
 
 .btn:hover {
@@ -1092,7 +1306,7 @@ h3 {
     .dropdown {
         width: 90%;
         margin-top: 10px;
-        z-index: 20;
+        z-index: 20px;
         right: auto;
     }
 

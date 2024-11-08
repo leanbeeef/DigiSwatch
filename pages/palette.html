@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags and Title -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiSwatch Home - Your Digital Palette Playground</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../styles/styles.css">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Include external libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinycolor/1.4.2/tinycolor.min.js"></script>
+    <script src="https://unpkg.com/color-blind@1.0.0/color-blind.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+
+<body id="body" class="theme-default palette">
+
+    <!-- Top Header with Site Title and Theme Selector -->
+    <header>
+        <nav class="top-nav">
+            <div class="nav-brand">
+                <img src="../ds_hz_black.svg" alt="DigiSwatch Logo" class="logo-light">
+                <img src="../assets/ds_hz_white.svg" alt="DigiSwatch Logo" class="logo-dark">
+            </div>
+            <div class="right-side">
+                <div class="theme-select">
+                    <label data-translate="theme">Theme:</label>
+                    <select id="theme-selector">
+                        <option value="theme-light" data-translate="light_theme">Light</option>
+                        <option value="theme-dark" data-translate="dark_theme">Dark</option>
+                    </select>
+                    <!-- Button to open the sidebar -->
+                    <button id="openSidebarButton" class="sidebar-toggle">Gadgets</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Sidebar Structure -->
+    <div id="sidebar" class="sidebar">
+        <div class="title-x">
+            <h3>Gadgets</h3>
+            <button id="closeSidebarButton" class="close-sidebar">&times;</button>
+        </div>
+        <div class="sidebar-content">
+            <a href="../pages/palette.html"><i class="fas fa-home"></i> Palette Generator</a>
+            <a href="../pages/popular.html"><i class="fas fa-fire"></i> Popular Palettes</a>
+            <a href="../pages/contrast.html"><i class="fas fa-universal-access"></i> Contrast Checker</a>
+            <a href="../pages/image.html"><i class="fas fa-image"></i> Image Extractor</a>
+        </div>
+    </div>
+
+    <!-- Navbar with Dropdowns for each main feature -->
+    <nav class="navbar">
+        <ul>
+
+            <!-- Popular Palettes Icon with Dropdown -->
+            <li class="nav-item">
+                <button id="generate-random-palette" class="generate-button btn"
+                        data-translate="generate_random_palette">Generate</button>
+            </li>
+
+            <!-- Color Picker Icon with Dropdown -->
+            <li class="nav-item">
+                <a href="#">
+                    <i class="fas fa-fill-drip"></i>
+                </a>
+                <div class="dropdown">
+                    <h3 data-translate="choose_color">Choose a Base Color</h3>
+                    <div class="color-inputs">
+                        <div class="color-picker">
+                            <div class="color-input-group">
+                                <input type="color" id="colorPicker" value="#7E7E7E">
+                                <input type="text" id="colorHex" value="#7E7E7E" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="live-preview-toggle-button" class="live-preview-button btn">
+                        Enable Live Preview
+                    </button>
+                </div>
+            </li>
+
+            <!-- Harmony Picker Icon with Dropdown -->
+            <li class="nav-item">
+                <a href="#">
+                    <i class="fas fa-swatchbook"></i>
+                </a>
+                <div class="dropdown">
+                    <h3 data-translate="choose_harmony">Choose a Color Harmony</h3>
+                    <select id="palette-dropdown" class="palette-selector">
+                        <option value="none" data-translate="none">Select a harmony</option>
+                        <option value="monochromatic" data-translate="monochromatic">Monochromatic</option>
+                        <option value="analogous" data-translate="analogous">Analogous</option>
+                        <option value="complementary" data-translate="complementary">Complementary</option>
+                        <option value="splitComplementary" data-translate="split_complementary">Split Complementary
+                        </option>
+                        <option value="triadic" data-translate="triadic">Triadic</option>
+                        <option value="tetradic" data-translate="tetradic">Tetradic</option>
+                        <option value="powerpointTheme" data-translate="tetradic">PowerPoint Accents Colors</option>
+                    </select>
+                    <p id="harmony-description" class="harmony-description">Select a harmony type to see its
+                        description.</p>
+                </div>
+            </li>
+
+            <!-- Color Blindness Simulator Icon with Dropdown -->
+            <li class="nav-item">
+                <a href="#">
+                    <i class="fas fa-glasses"></i>
+                </a>
+                <div class="dropdown">
+                    <h3 data-translate="color_blindness_simulation">Color Blindness Simulation</h3>
+                    <select id="color-blindness-selector" class="palette-selector">
+                        <option value="none" data-translate="none">None</option>
+                        <option value="protanopia" data-translate="protanopia">Protanopia</option>
+                        <option value="deuteranopia" data-translate="deuteranopia">Deuteranopia</option>
+                        <option value="tritanopia" data-translate="tritanopia">Tritanopia</option>
+                        <option value="achromatopsia" data-translate="achromatopsia">Achromatopsia</option>
+                    </select>
+                </div>
+            </li>
+
+            <!-- Export Icon with Dropdown -->
+            <li class="nav-item">
+                <a href="#">
+                    <i class="fas fa-download"></i>
+                </a>
+                <div class="dropdown">
+                    <h3 data-translate="export_as">Export as:</h3>
+                    <select id="export-format">
+                        <option value="" data-translate="select_format">Select format</option>
+                        <option value="png">PNG</option>
+                        <option value="jpeg">JPEG</option>
+                        <option value="css">CSS</option>
+                        <option value="json">JSON</option>
+                        <option value="txt">Text</option>
+                        <option value="svg">SVG</option>
+                    </select>
+                    <button id="export-button btn" class="btn" data-translate="export_palette">Export Palette</button>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+
+        <div class="content-area">
+            <!-- Palette Display with Live Preview Toggle -->
+            <section class="palette-display-section">
+                <div class="palette-display">
+                    <!-- Palette colors will be displayed here as swatches -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Include the JavaScript files -->
+    <script src="../scripts/site.js"></script>
+    <script src="../scripts/palette.js"></script>
+
+</body>
+
+</html>
